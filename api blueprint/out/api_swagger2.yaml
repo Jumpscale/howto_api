@@ -1,0 +1,1887 @@
+swagger: '2.0'
+info:
+  description: >-
+    ZeroTier Central's API is (mostly) RESTful and accepts GET and POST
+    requests. PUT is treated as a synonym of POST. All posted payloads must be
+    JSON (content type header is ignored). Field types are generally strict,
+    e.g. a field that takes an integer may ignore or return an error if set to a
+    string or a boolean. Writes to unrecognized or read-only fields are ignored.
+    Unless you are running a private instance of Central configured to accept
+    plain *http*, all requests must be *https*.
+
+
+    Token authentication is accomplished by sending the following header:
+    `Authorization: bearer <API token>` API tokens may be created and viewed in
+    your user configuration. Guard your API tokens very carefully.
+
+
+    This documentation is written in [API blueprint](https://apiblueprint.org)
+    format and is [available in raw MSON form here.](/static/central-api.md).
+
+    <br><br>
+  title: ZeroTier Central API
+  version: ''
+host: my.zerotier.com
+basePath: /
+schemes:
+  - https
+paths:
+  /api/auth/_logout:
+    post:
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          examples: {}
+          headers: {}
+      tags:
+        - General Queries
+      description: >-
+        Hitting this endpoint causes the user to be logged out. It has no effect
+        when using token authentication, so it's mostly used by the UI.
+      summary: Terminate Current Session
+  /api/network:
+    get:
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              - capabilitiesByName: {}
+                circuitTestEvery: 0
+                clock: 0
+                config:
+                  tags: []
+                  activeMemberCount: 0
+                  authTokens: []
+                  authorizedMemberCount: 0
+                  capabilities: []
+                  creationTime: 0
+                  id: ''
+                  lastModified: 0
+                  multicastLimit: 0
+                  name: ''
+                  nwid: ''
+                  objtype: ''
+                  private: false
+                  revision: 0
+                  routes: []
+                  rules: []
+                  totalMemberCount: 0
+                  v4AssignMode: {}
+                  v6AssignMode: {}
+                description: ''
+                id: ''
+                onlineMemberCount: 0
+                permissions:
+                  '{id}':
+                    a: false
+                    d: false
+                    m: false
+                    r: false
+                    t: ''
+                rulesSource: ''
+                tagsByName: {}
+                type: ''
+                ui: {}
+          headers: {}
+          schema:
+            items: {}
+            type: array
+      tags:
+        - Network
+      description: Get all networks for which you have at least read access.
+      summary: Get All Viewable Networks
+  '/api/network/{networkId}':
+    delete:
+      parameters:
+        - description: 16-digit ZeroTier network ID
+          in: path
+          name: networkId
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          examples: {}
+          headers: {}
+      tags:
+        - Network
+      description: >-
+        Delete a network and all its related information permanently. Use
+        extreme caution as this cannot be undone!
+      summary: Delete a Network
+    get:
+      produces:
+        - application/json
+      parameters:
+        - description: 16-digit ZeroTier network ID
+          in: path
+          name: networkId
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              capabilitiesByName: {}
+              circuitTestEvery: 0
+              clock: 0
+              config:
+                tags: []
+                activeMemberCount: 0
+                authTokens: []
+                authorizedMemberCount: 0
+                capabilities: []
+                creationTime: 0
+                id: ''
+                lastModified: 0
+                multicastLimit: 0
+                name: ''
+                nwid: ''
+                objtype: ''
+                private: false
+                revision: 0
+                routes: []
+                rules: []
+                totalMemberCount: 0
+                v4AssignMode: {}
+                v6AssignMode: {}
+              description: ''
+              id: ''
+              onlineMemberCount: 0
+              permissions:
+                '{id}':
+                  a: false
+                  d: false
+                  m: false
+                  r: false
+                  t: ''
+              rulesSource: ''
+              tagsByName: {}
+              type: ''
+              ui: {}
+          headers: {}
+          schema:
+            properties:
+              capabilitiesByName:
+                description: 'Capabilities defined in rule set by name [rw]'
+                properties: {}
+                type: object
+              circuitTestEvery:
+                description: 'Circuit test this network every N milliseconds [ro]'
+                type: number
+              clock:
+                description: 'Current system clock on server [ro]'
+                type: number
+              config:
+                description: 'Network configuration (for actual controller) [rw]'
+                properties:
+                  tags:
+                    description: 'Array of tags available on this network [rw]'
+                    items: {}
+                    type: array
+                  activeMemberCount:
+                    description: 'Number of active/online members [ro]'
+                    type: number
+                  authTokens:
+                    description: >-
+                      Array of authentication tokens for auto-authorizing new
+                      members [rw]
+                    items: {}
+                    type: array
+                  authorizedMemberCount:
+                    description: 'Number of authorized members [ro]'
+                    type: number
+                  capabilities:
+                    description: 'Array of capabilities available on this network [rw]'
+                    items: {}
+                    type: array
+                  creationTime:
+                    description: 'Time network was created on controller [ro]'
+                    type: number
+                  id:
+                    description: '16-digit ZeroTier network ID [ro]'
+                    type: string
+                  lastModified:
+                    description: 'Time config was last modified [ro]'
+                    type: number
+                  multicastLimit:
+                    description: 'Max recipients per multicast or broadcast [rw]'
+                    type: number
+                  name:
+                    description: 'Short name of network [rw]'
+                    type: string
+                  nwid:
+                    description: >-
+                      16-digit ZeroTier network ID (for backward compatibility)
+                      [ro]
+                    type: string
+                  objtype:
+                    description: 'Object type on controller ("network") [ro]'
+                    type: string
+                  private:
+                    description: 'If true, certificate access control is enabled [rw]'
+                    type: boolean
+                  revision:
+                    description: 'Network revision number [ro]'
+                    type: number
+                  routes:
+                    description: 'Array of IP routes published to members [rw]'
+                    items: {}
+                    type: array
+                  rules:
+                    description: 'Network base rules table [rw]'
+                    items: {}
+                    type: array
+                  totalMemberCount:
+                    description: 'Total number of members [ro]'
+                    type: number
+                  v4AssignMode:
+                    description: 'Boolean toggles for IPv4 assignment modes [rw]'
+                    properties: {}
+                    type: object
+                  v6AssignMode:
+                    description: 'Boolean toggles for IPv6 assignment modes [rw]'
+                    properties: {}
+                    type: object
+                type: object
+              description:
+                description: 'Long description of this network [rw]'
+                type: string
+              id:
+                description: '16-digit ZeroTier network ID [ro]'
+                type: string
+              onlineMemberCount:
+                description: 'Number of members online [ro]'
+                type: number
+              permissions:
+                description: 'Actors with permissions that apply to this object [ro]'
+                properties:
+                  '{id}':
+                    description: 'Permissions possessed by actor object, by object ID [ro]'
+                    properties:
+                      a:
+                        description: Authorize
+                        type: boolean
+                      d:
+                        description: Delete
+                        type: boolean
+                      m:
+                        description: Modify
+                        type: boolean
+                      r:
+                        description: Read
+                        type: boolean
+                      t:
+                        description: Type of actor object (currently User or Group)
+                        type: string
+                    type: object
+                type: object
+              rulesSource:
+                description: 'Source code of network rule set [rw]'
+                type: string
+              tagsByName:
+                description: 'Tags defined in rule set by name [rw]'
+                properties: {}
+                type: object
+              type:
+                description: 'Object type ("Network") [ro]'
+                type: string
+              ui:
+                description: 'Arbitrary data that is stored and used by the UI [rw]'
+                properties: {}
+                type: object
+            type: object
+      tags:
+        - Network
+      description: ''
+      summary: Retrieve a Network
+    post:
+      produces:
+        - application/json
+      parameters:
+        - description: 16-digit ZeroTier network ID
+          in: path
+          name: networkId
+          required: true
+          type: string
+        - in: body
+          name: body
+          schema:
+            $schema: 'http://json-schema.org/draft-04/schema#'
+            properties:
+              capabilitiesByName:
+                description: 'Capabilities defined in rule set by name [rw]'
+                properties: {}
+                type: object
+              circuitTestEvery:
+                description: 'Circuit test this network every N milliseconds [ro]'
+                type: number
+              clock:
+                description: 'Current system clock on server [ro]'
+                type: number
+              config:
+                description: 'Network configuration (for actual controller) [rw]'
+                properties:
+                  tags:
+                    description: 'Array of tags available on this network [rw]'
+                    type: array
+                  activeMemberCount:
+                    description: 'Number of active/online members [ro]'
+                    type: number
+                  authTokens:
+                    description: >-
+                      Array of authentication tokens for auto-authorizing new
+                      members [rw]
+                    type: array
+                  authorizedMemberCount:
+                    description: 'Number of authorized members [ro]'
+                    type: number
+                  capabilities:
+                    description: 'Array of capabilities available on this network [rw]'
+                    type: array
+                  creationTime:
+                    description: 'Time network was created on controller [ro]'
+                    type: number
+                  id:
+                    description: '16-digit ZeroTier network ID [ro]'
+                    type: string
+                  lastModified:
+                    description: 'Time config was last modified [ro]'
+                    type: number
+                  multicastLimit:
+                    description: 'Max recipients per multicast or broadcast [rw]'
+                    type: number
+                  name:
+                    description: 'Short name of network [rw]'
+                    type: string
+                  nwid:
+                    description: >-
+                      16-digit ZeroTier network ID (for backward compatibility)
+                      [ro]
+                    type: string
+                  objtype:
+                    description: 'Object type on controller ("network") [ro]'
+                    type: string
+                  private:
+                    description: 'If true, certificate access control is enabled [rw]'
+                    type: boolean
+                  revision:
+                    description: 'Network revision number [ro]'
+                    type: number
+                  routes:
+                    description: 'Array of IP routes published to members [rw]'
+                    type: array
+                  rules:
+                    description: 'Network base rules table [rw]'
+                    type: array
+                  totalMemberCount:
+                    description: 'Total number of members [ro]'
+                    type: number
+                  v4AssignMode:
+                    description: 'Boolean toggles for IPv4 assignment modes [rw]'
+                    properties: {}
+                    type: object
+                  v6AssignMode:
+                    description: 'Boolean toggles for IPv6 assignment modes [rw]'
+                    properties: {}
+                    type: object
+                type: object
+              description:
+                description: 'Long description of this network [rw]'
+                type: string
+              id:
+                description: '16-digit ZeroTier network ID [ro]'
+                type: string
+              onlineMemberCount:
+                description: 'Number of members online [ro]'
+                type: number
+              permissions:
+                description: 'Actors with permissions that apply to this object [ro]'
+                properties:
+                  '{id}':
+                    description: 'Permissions possessed by actor object, by object ID [ro]'
+                    properties:
+                      a:
+                        description: Authorize
+                        type: boolean
+                      d:
+                        description: Delete
+                        type: boolean
+                      m:
+                        description: Modify
+                        type: boolean
+                      r:
+                        description: Read
+                        type: boolean
+                      t:
+                        description: Type of actor object (currently User or Group)
+                        type: string
+                    type: object
+                type: object
+              rulesSource:
+                description: 'Source code of network rule set [rw]'
+                type: string
+              tagsByName:
+                description: 'Tags defined in rule set by name [rw]'
+                properties: {}
+                type: object
+              type:
+                description: 'Object type ("Network") [ro]'
+                type: string
+              ui:
+                description: 'Arbitrary data that is stored and used by the UI [rw]'
+                properties: {}
+                type: object
+            type: object
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              capabilitiesByName: {}
+              circuitTestEvery: 0
+              clock: 0
+              config:
+                tags: []
+                activeMemberCount: 0
+                authTokens: []
+                authorizedMemberCount: 0
+                capabilities: []
+                creationTime: 0
+                id: ''
+                lastModified: 0
+                multicastLimit: 0
+                name: ''
+                nwid: ''
+                objtype: ''
+                private: false
+                revision: 0
+                routes: []
+                rules: []
+                totalMemberCount: 0
+                v4AssignMode: {}
+                v6AssignMode: {}
+              description: ''
+              id: ''
+              onlineMemberCount: 0
+              permissions:
+                '{id}':
+                  a: false
+                  d: false
+                  m: false
+                  r: false
+                  t: ''
+              rulesSource: ''
+              tagsByName: {}
+              type: ''
+              ui: {}
+          headers: {}
+          schema:
+            properties:
+              capabilitiesByName:
+                description: 'Capabilities defined in rule set by name [rw]'
+                properties: {}
+                type: object
+              circuitTestEvery:
+                description: 'Circuit test this network every N milliseconds [ro]'
+                type: number
+              clock:
+                description: 'Current system clock on server [ro]'
+                type: number
+              config:
+                description: 'Network configuration (for actual controller) [rw]'
+                properties:
+                  tags:
+                    description: 'Array of tags available on this network [rw]'
+                    items: {}
+                    type: array
+                  activeMemberCount:
+                    description: 'Number of active/online members [ro]'
+                    type: number
+                  authTokens:
+                    description: >-
+                      Array of authentication tokens for auto-authorizing new
+                      members [rw]
+                    items: {}
+                    type: array
+                  authorizedMemberCount:
+                    description: 'Number of authorized members [ro]'
+                    type: number
+                  capabilities:
+                    description: 'Array of capabilities available on this network [rw]'
+                    items: {}
+                    type: array
+                  creationTime:
+                    description: 'Time network was created on controller [ro]'
+                    type: number
+                  id:
+                    description: '16-digit ZeroTier network ID [ro]'
+                    type: string
+                  lastModified:
+                    description: 'Time config was last modified [ro]'
+                    type: number
+                  multicastLimit:
+                    description: 'Max recipients per multicast or broadcast [rw]'
+                    type: number
+                  name:
+                    description: 'Short name of network [rw]'
+                    type: string
+                  nwid:
+                    description: >-
+                      16-digit ZeroTier network ID (for backward compatibility)
+                      [ro]
+                    type: string
+                  objtype:
+                    description: 'Object type on controller ("network") [ro]'
+                    type: string
+                  private:
+                    description: 'If true, certificate access control is enabled [rw]'
+                    type: boolean
+                  revision:
+                    description: 'Network revision number [ro]'
+                    type: number
+                  routes:
+                    description: 'Array of IP routes published to members [rw]'
+                    items: {}
+                    type: array
+                  rules:
+                    description: 'Network base rules table [rw]'
+                    items: {}
+                    type: array
+                  totalMemberCount:
+                    description: 'Total number of members [ro]'
+                    type: number
+                  v4AssignMode:
+                    description: 'Boolean toggles for IPv4 assignment modes [rw]'
+                    properties: {}
+                    type: object
+                  v6AssignMode:
+                    description: 'Boolean toggles for IPv6 assignment modes [rw]'
+                    properties: {}
+                    type: object
+                type: object
+              description:
+                description: 'Long description of this network [rw]'
+                type: string
+              id:
+                description: '16-digit ZeroTier network ID [ro]'
+                type: string
+              onlineMemberCount:
+                description: 'Number of members online [ro]'
+                type: number
+              permissions:
+                description: 'Actors with permissions that apply to this object [ro]'
+                properties:
+                  '{id}':
+                    description: 'Permissions possessed by actor object, by object ID [ro]'
+                    properties:
+                      a:
+                        description: Authorize
+                        type: boolean
+                      d:
+                        description: Delete
+                        type: boolean
+                      m:
+                        description: Modify
+                        type: boolean
+                      r:
+                        description: Read
+                        type: boolean
+                      t:
+                        description: Type of actor object (currently User or Group)
+                        type: string
+                    type: object
+                type: object
+              rulesSource:
+                description: 'Source code of network rule set [rw]'
+                type: string
+              tagsByName:
+                description: 'Tags defined in rule set by name [rw]'
+                properties: {}
+                type: object
+              type:
+                description: 'Object type ("Network") [ro]'
+                type: string
+              ui:
+                description: 'Arbitrary data that is stored and used by the UI [rw]'
+                properties: {}
+                type: object
+            type: object
+      tags:
+        - Network
+      description: >-
+        Only fields marked as [rw] can be directly modified. If other fields are
+        present in the posted request they are ignored.
+
+
+        New networks can be created by POSTing to `/api/network` with no
+        networkId parameter. The server will create a random unused network ID
+        and return the new network record.
+      summary: Update or create a Network
+  '/api/network/{networkId}/member/{nodeId}':
+    get:
+      produces:
+        - application/json
+      parameters:
+        - description: 16-digit ZeroTier network ID
+          in: path
+          name: networkId
+          required: true
+          type: string
+        - description: 10-digit ZeroTier node ID (a.k.a. ZeroTier address)
+          in: path
+          name: nodeId
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              clientVersion: ''
+              clock: 0
+              config:
+                tags: []
+                address: ''
+                authHistory: []
+                authorized: false
+                capabilities: []
+                creationTime: 0
+                id: ''
+                identity: ''
+                ipAssignments: []
+                lastAuthorizedTime: 0
+                lastDeauthorizedTime: 0
+                noAutoAssignIps: false
+                nwid: ''
+                objtype: ''
+                physicalAddr: ''
+                revision: 0
+              controllerId: ''
+              description: ''
+              hidden: false
+              id: ''
+              lastOffline: 0
+              lastOnline: 0
+              name: ''
+              networkId: ''
+              nodeId: ''
+              offlineNotifyDelay: 0
+              online: false
+              physicalAddress: ''
+              physicalLocation: []
+              protocolVersion: 0
+              supportsCircuitTesting: false
+              supportsRulesEngine: false
+              type: ''
+          headers: {}
+          schema:
+            properties:
+              clientVersion:
+                description: 'Most recent client software version [ro]'
+                type: string
+              clock:
+                description: 'System clock on server [ro]'
+                type: number
+              config:
+                description: 'Member configuration (for actual controller) [rw]'
+                properties:
+                  tags:
+                    description: 'Array of tuples of tag ID, tag value [rw]'
+                    items: {}
+                    type: array
+                  address:
+                    description: '10-digit ZeroTier node ID [ro]'
+                    type: string
+                  authHistory:
+                    description: 'History of most recent authentications [ro]'
+                    items: {}
+                    type: array
+                  authorized:
+                    description: 'True if authorized (only matters on private networks) [rw]'
+                    type: boolean
+                  capabilities:
+                    description: 'Array of IDs of capabilities assigned to this member [rw]'
+                    items: {}
+                    type: array
+                  creationTime:
+                    description: 'Time member record was first created [ro]'
+                    type: number
+                  id:
+                    description: '10-digit ZeroTier node ID [ro]'
+                    type: string
+                  identity:
+                    description: >-
+                      ZeroTier public identity of member (address and public
+                      key) [ro]
+                    type: string
+                  ipAssignments:
+                    description: 'Array of IP assignments published to member [rw]'
+                    items: {}
+                    type: array
+                  lastAuthorizedTime:
+                    description: 'Time member was last authorized on network [ro]'
+                    type: number
+                  lastDeauthorizedTime:
+                    description: 'Time member was last de-authorized on network [ro]'
+                    type: number
+                  noAutoAssignIps:
+                    description: >-
+                      If true do not auto-assign IPv4 or IPv6 addresses,
+                      overriding network settings [rw]
+                    type: boolean
+                  nwid:
+                    description: '16-digit network ID [ro]'
+                    type: string
+                  objtype:
+                    description: 'Object type on controller ("member") [ro]'
+                    type: string
+                  physicalAddr:
+                    description: 'Last known physical address of member [ro]'
+                    type: string
+                  revision:
+                    description: 'Member record revision counter [ro]'
+                    type: number
+                type: object
+              controllerId:
+                description: >-
+                  10-digit ZeroTier node ID of controller (same as first 10
+                  digits of network ID) [ro]
+                type: string
+              description:
+                description: 'Long form description [rw]'
+                type: string
+              hidden:
+                description: 'Hidden in UI? [rw]'
+                type: boolean
+              id:
+                description: >-
+                  Member record ID, which is formed from the network and node
+                  IDs [ro]
+                type: string
+              lastOffline:
+                description: 'Time member was last determined to be offline [ro]'
+                type: number
+              lastOnline:
+                description: 'Time member was last determined to be online [ro]'
+                type: number
+              name:
+                description: 'Short name describing member [rw]'
+                type: string
+              networkId:
+                description: '16-digit ZeroTier network ID [ro]'
+                type: string
+              nodeId:
+                description: '10-digit ZeroTier node ID / device address [ro]'
+                type: string
+              offlineNotifyDelay:
+                description: 'Notify of offline after this many milliseconds [rw]'
+                type: number
+              online:
+                description: 'Member is online? (has requested an update recently) [ro]'
+                type: boolean
+              physicalAddress:
+                description: 'Latest physical address of member [ro]'
+                type: string
+              physicalLocation:
+                description: >-
+                  Lat/lon of estimated (GeoIP-determined) location of
+                  physicalAddress (if available) [ro]
+              protocolVersion:
+                description: 'Most recent client-reported ZeroTier protocol version [ro]'
+                type: number
+              supportsCircuitTesting:
+                description: 'True if member supports circuit testing [ro]'
+                type: boolean
+              supportsRulesEngine:
+                description: 'True if member supports the new (post-1.2) rules engine [ro]'
+                type: boolean
+              type:
+                description: 'Object type ("Member") [ro]'
+                type: string
+            type: object
+      tags:
+        - Member
+      description: ''
+      summary: Retrieve a Member
+    post:
+      produces:
+        - application/json
+      parameters:
+        - description: 16-digit ZeroTier network ID
+          in: path
+          name: networkId
+          required: true
+          type: string
+        - description: 10-digit ZeroTier node ID (a.k.a. ZeroTier address)
+          in: path
+          name: nodeId
+          required: true
+          type: string
+        - in: body
+          name: body
+          schema:
+            $schema: 'http://json-schema.org/draft-04/schema#'
+            properties:
+              clientVersion:
+                description: 'Most recent client software version [ro]'
+                type: string
+              clock:
+                description: 'System clock on server [ro]'
+                type: number
+              config:
+                description: 'Member configuration (for actual controller) [rw]'
+                properties:
+                  tags:
+                    description: 'Array of tuples of tag ID, tag value [rw]'
+                    type: array
+                  address:
+                    description: '10-digit ZeroTier node ID [ro]'
+                    type: string
+                  authHistory:
+                    description: 'History of most recent authentications [ro]'
+                    type: array
+                  authorized:
+                    description: 'True if authorized (only matters on private networks) [rw]'
+                    type: boolean
+                  capabilities:
+                    description: 'Array of IDs of capabilities assigned to this member [rw]'
+                    type: array
+                  creationTime:
+                    description: 'Time member record was first created [ro]'
+                    type: number
+                  id:
+                    description: '10-digit ZeroTier node ID [ro]'
+                    type: string
+                  identity:
+                    description: >-
+                      ZeroTier public identity of member (address and public
+                      key) [ro]
+                    type: string
+                  ipAssignments:
+                    description: 'Array of IP assignments published to member [rw]'
+                    type: array
+                  lastAuthorizedTime:
+                    description: 'Time member was last authorized on network [ro]'
+                    type: number
+                  lastDeauthorizedTime:
+                    description: 'Time member was last de-authorized on network [ro]'
+                    type: number
+                  noAutoAssignIps:
+                    description: >-
+                      If true do not auto-assign IPv4 or IPv6 addresses,
+                      overriding network settings [rw]
+                    type: boolean
+                  nwid:
+                    description: '16-digit network ID [ro]'
+                    type: string
+                  objtype:
+                    description: 'Object type on controller ("member") [ro]'
+                    type: string
+                  physicalAddr:
+                    description: 'Last known physical address of member [ro]'
+                    type: string
+                  revision:
+                    description: 'Member record revision counter [ro]'
+                    type: number
+                type: object
+              controllerId:
+                description: >-
+                  10-digit ZeroTier node ID of controller (same as first 10
+                  digits of network ID) [ro]
+                type: string
+              description:
+                description: 'Long form description [rw]'
+                type: string
+              hidden:
+                description: 'Hidden in UI? [rw]'
+                type: boolean
+              id:
+                description: >-
+                  Member record ID, which is formed from the network and node
+                  IDs [ro]
+                type: string
+              lastOffline:
+                description: 'Time member was last determined to be offline [ro]'
+                type: number
+              lastOnline:
+                description: 'Time member was last determined to be online [ro]'
+                type: number
+              name:
+                description: 'Short name describing member [rw]'
+                type: string
+              networkId:
+                description: '16-digit ZeroTier network ID [ro]'
+                type: string
+              nodeId:
+                description: '10-digit ZeroTier node ID / device address [ro]'
+                type: string
+              offlineNotifyDelay:
+                description: 'Notify of offline after this many milliseconds [rw]'
+                type: number
+              online:
+                description: 'Member is online? (has requested an update recently) [ro]'
+                type: boolean
+              physicalAddress:
+                description: 'Latest physical address of member [ro]'
+                type: string
+              physicalLocation:
+                description: >-
+                  Lat/lon of estimated (GeoIP-determined) location of
+                  physicalAddress (if available) [ro]
+              protocolVersion:
+                description: 'Most recent client-reported ZeroTier protocol version [ro]'
+                type: number
+              supportsCircuitTesting:
+                description: 'True if member supports circuit testing [ro]'
+                type: boolean
+              supportsRulesEngine:
+                description: 'True if member supports the new (post-1.2) rules engine [ro]'
+                type: boolean
+              type:
+                description: 'Object type ("Member") [ro]'
+                type: string
+            type: object
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              clientVersion: ''
+              clock: 0
+              config:
+                tags: []
+                address: ''
+                authHistory: []
+                authorized: false
+                capabilities: []
+                creationTime: 0
+                id: ''
+                identity: ''
+                ipAssignments: []
+                lastAuthorizedTime: 0
+                lastDeauthorizedTime: 0
+                noAutoAssignIps: false
+                nwid: ''
+                objtype: ''
+                physicalAddr: ''
+                revision: 0
+              controllerId: ''
+              description: ''
+              hidden: false
+              id: ''
+              lastOffline: 0
+              lastOnline: 0
+              name: ''
+              networkId: ''
+              nodeId: ''
+              offlineNotifyDelay: 0
+              online: false
+              physicalAddress: ''
+              physicalLocation: []
+              protocolVersion: 0
+              supportsCircuitTesting: false
+              supportsRulesEngine: false
+              type: ''
+          headers: {}
+          schema:
+            properties:
+              clientVersion:
+                description: 'Most recent client software version [ro]'
+                type: string
+              clock:
+                description: 'System clock on server [ro]'
+                type: number
+              config:
+                description: 'Member configuration (for actual controller) [rw]'
+                properties:
+                  tags:
+                    description: 'Array of tuples of tag ID, tag value [rw]'
+                    items: {}
+                    type: array
+                  address:
+                    description: '10-digit ZeroTier node ID [ro]'
+                    type: string
+                  authHistory:
+                    description: 'History of most recent authentications [ro]'
+                    items: {}
+                    type: array
+                  authorized:
+                    description: 'True if authorized (only matters on private networks) [rw]'
+                    type: boolean
+                  capabilities:
+                    description: 'Array of IDs of capabilities assigned to this member [rw]'
+                    items: {}
+                    type: array
+                  creationTime:
+                    description: 'Time member record was first created [ro]'
+                    type: number
+                  id:
+                    description: '10-digit ZeroTier node ID [ro]'
+                    type: string
+                  identity:
+                    description: >-
+                      ZeroTier public identity of member (address and public
+                      key) [ro]
+                    type: string
+                  ipAssignments:
+                    description: 'Array of IP assignments published to member [rw]'
+                    items: {}
+                    type: array
+                  lastAuthorizedTime:
+                    description: 'Time member was last authorized on network [ro]'
+                    type: number
+                  lastDeauthorizedTime:
+                    description: 'Time member was last de-authorized on network [ro]'
+                    type: number
+                  noAutoAssignIps:
+                    description: >-
+                      If true do not auto-assign IPv4 or IPv6 addresses,
+                      overriding network settings [rw]
+                    type: boolean
+                  nwid:
+                    description: '16-digit network ID [ro]'
+                    type: string
+                  objtype:
+                    description: 'Object type on controller ("member") [ro]'
+                    type: string
+                  physicalAddr:
+                    description: 'Last known physical address of member [ro]'
+                    type: string
+                  revision:
+                    description: 'Member record revision counter [ro]'
+                    type: number
+                type: object
+              controllerId:
+                description: >-
+                  10-digit ZeroTier node ID of controller (same as first 10
+                  digits of network ID) [ro]
+                type: string
+              description:
+                description: 'Long form description [rw]'
+                type: string
+              hidden:
+                description: 'Hidden in UI? [rw]'
+                type: boolean
+              id:
+                description: >-
+                  Member record ID, which is formed from the network and node
+                  IDs [ro]
+                type: string
+              lastOffline:
+                description: 'Time member was last determined to be offline [ro]'
+                type: number
+              lastOnline:
+                description: 'Time member was last determined to be online [ro]'
+                type: number
+              name:
+                description: 'Short name describing member [rw]'
+                type: string
+              networkId:
+                description: '16-digit ZeroTier network ID [ro]'
+                type: string
+              nodeId:
+                description: '10-digit ZeroTier node ID / device address [ro]'
+                type: string
+              offlineNotifyDelay:
+                description: 'Notify of offline after this many milliseconds [rw]'
+                type: number
+              online:
+                description: 'Member is online? (has requested an update recently) [ro]'
+                type: boolean
+              physicalAddress:
+                description: 'Latest physical address of member [ro]'
+                type: string
+              physicalLocation:
+                description: >-
+                  Lat/lon of estimated (GeoIP-determined) location of
+                  physicalAddress (if available) [ro]
+              protocolVersion:
+                description: 'Most recent client-reported ZeroTier protocol version [ro]'
+                type: number
+              supportsCircuitTesting:
+                description: 'True if member supports circuit testing [ro]'
+                type: boolean
+              supportsRulesEngine:
+                description: 'True if member supports the new (post-1.2) rules engine [ro]'
+                type: boolean
+              type:
+                description: 'Object type ("Member") [ro]'
+                type: string
+            type: object
+      tags:
+        - Member
+      description: New members can be added to a network by POSTing them.
+      summary: Update or add a Member
+  /api/randomToken:
+    get:
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              clock: 0
+              raw: ''
+              token: ''
+          headers: {}
+          schema:
+            properties:
+              clock:
+                description: Current server-side system clock (ms since epoch)
+                type: number
+              raw:
+                description: Raw random bytes in hex format
+                type: string
+              token:
+                description: Random string suitable for use as an API authentication token
+                type: string
+            type: object
+      tags:
+        - General Queries
+      description: >-
+        This generates a random token suitable for use as an API token
+        server-side using a secure random source. It does not actually modify
+        the user record, just returns the token for use by API callers or the
+        UI.
+      summary: Generate a Random Token
+  /api/self:
+    get:
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              auth: {}
+              clock: 0
+              displayName: ''
+              email: ''
+              globalPermissions:
+                a: false
+                d boolean): ''
+                m: false
+                r: false
+              id: ''
+              permissions:
+                '{id}':
+                  a: false
+                  d: false
+                  m: false
+                  r: false
+                  t: ''
+              smsNumber: ''
+              subscriptions: {}
+              tokens: []
+              type: ''
+              ui: {}
+          headers: {}
+          schema:
+            properties:
+              auth:
+                description: >-
+                  Object containing one or more authentication types and login
+                  names or IDs [ro]
+                properties: {}
+                type: object
+              clock:
+                description: 'Current system clock on server [ro]'
+                type: number
+              displayName:
+                description: 'User display name [rw]'
+                type: string
+              email:
+                description: 'User e-mail [ro]'
+                type: string
+              globalPermissions:
+                description: >-
+                  Global permissions for this user against all objects on system
+                  (for admins) [ro]
+                properties:
+                  a:
+                    description: Authorize
+                    type: boolean
+                  d boolean):
+                    description: Delete
+                    type: string
+                  m:
+                    description: Modify
+                    type: boolean
+                  r:
+                    description: Read
+                    type: boolean
+                type: object
+              id:
+                description: 'User ID (GUID) [ro]'
+                type: string
+              permissions:
+                description: 'Actors with permissions that apply to this object [ro]'
+                properties:
+                  '{id}':
+                    description: 'Permissions possessed by actor object, by object ID [ro]'
+                    properties:
+                      a:
+                        description: Authorize
+                        type: boolean
+                      d:
+                        description: Delete
+                        type: boolean
+                      m:
+                        description: Modify
+                        type: boolean
+                      r:
+                        description: Read
+                        type: boolean
+                      t:
+                        description: Type of actor object (currently User or Group)
+                        type: string
+                    type: object
+                type: object
+              smsNumber:
+                description: 'SMS telephone number for sending SMS notifications [rw]'
+                type: string
+              subscriptions:
+                description: 'Subscriptions by plan ID [ro]'
+                properties: {}
+                type: object
+              tokens:
+                description: 'Array of API authentication tokens [rw]'
+                items: {}
+                type: array
+              type:
+                description: 'Object type [ro]'
+                type: string
+              ui:
+                description: 'Arbitrary data that is stored and used by the UI [rw]'
+                properties: {}
+                type: object
+            type: object
+      tags:
+        - General Queries
+      description: Get the currently authenticated user's user record.
+      summary: Get Currently Authenticated User
+  /api/status:
+    get:
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              apiVersion: 0
+              clock: 0
+              clusterNode: ''
+              loginMethods: {}
+              online: false
+              paidPlans: {}
+              recaptchaSiteKey: ''
+              return_to: ''
+              smsEnabled: false
+              something: ''
+              stripePublishableKey: ''
+              uptime: 0
+              user: {}
+              version: ''
+          headers: {}
+          schema:
+            properties:
+              apiVersion:
+                description: ZeroTier Central API version
+                type: number
+              clock:
+                description: Current server-side system clock (ms since epoch)
+                type: number
+              clusterNode:
+                description: Name of current cluster node servicing this request
+                type: string
+              loginMethods:
+                description: Object containing login methods and whether they are available
+                properties: {}
+                type: object
+              online:
+                description: Always true
+                type: boolean
+              paidPlans:
+                description: Available paid plans (if configured)
+                properties: {}
+                type: object
+              recaptchaSiteKey:
+                description: Recaptcha site key or null if not configured
+                type: string
+              return_to:
+                description: >-
+                  Bounce destination if using Central as third party auth source
+                  (used for ZeroTier support login)
+                type: string
+              smsEnabled:
+                description: True if SMS messaging is available
+                type: boolean
+              something:
+                description: ss
+                type: string
+              stripePublishableKey:
+                description: >-
+                  Publishable key for Stripe payment processor or null if not
+                  configured
+                type: string
+              uptime:
+                description: This host's uptime in milliseconds
+                type: number
+              user:
+                description: 'Current user if authenticated, otherwise null'
+                properties: {}
+                type: object
+              version:
+                description: ZeroTier Central version
+                type: string
+            type: object
+      tags:
+        - General Queries
+      description: >-
+        Obtain information about this server and/or useful to the Central web
+        UI.
+      summary: Get Status and Configuration Information
+  /api/user:
+    get:
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              - auth: {}
+                clock: 0
+                displayName: ''
+                email: ''
+                globalPermissions:
+                  a: false
+                  d boolean): ''
+                  m: false
+                  r: false
+                id: ''
+                permissions:
+                  '{id}':
+                    a: false
+                    d: false
+                    m: false
+                    r: false
+                    t: ''
+                smsNumber: ''
+                subscriptions: {}
+                tokens: []
+                type: ''
+                ui: {}
+          headers: {}
+          schema:
+            items: {}
+            type: array
+      tags:
+        - User
+      description: Get all users for which you have at least read access.
+      summary: Get All Viewable Users
+  '/api/user/{userId}':
+    get:
+      produces:
+        - application/json
+      parameters:
+        - description: >-
+            0000-0000-0000-000000000000 (required,string) - Internal user ID
+            (GUID)
+          in: path
+          name: userId
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              auth: {}
+              clock: 0
+              displayName: ''
+              email: ''
+              globalPermissions:
+                a: false
+                d boolean): ''
+                m: false
+                r: false
+              id: ''
+              permissions:
+                '{id}':
+                  a: false
+                  d: false
+                  m: false
+                  r: false
+                  t: ''
+              smsNumber: ''
+              subscriptions: {}
+              tokens: []
+              type: ''
+              ui: {}
+          headers: {}
+          schema:
+            properties:
+              auth:
+                description: >-
+                  Object containing one or more authentication types and login
+                  names or IDs [ro]
+                properties: {}
+                type: object
+              clock:
+                description: 'Current system clock on server [ro]'
+                type: number
+              displayName:
+                description: 'User display name [rw]'
+                type: string
+              email:
+                description: 'User e-mail [ro]'
+                type: string
+              globalPermissions:
+                description: >-
+                  Global permissions for this user against all objects on system
+                  (for admins) [ro]
+                properties:
+                  a:
+                    description: Authorize
+                    type: boolean
+                  d boolean):
+                    description: Delete
+                    type: string
+                  m:
+                    description: Modify
+                    type: boolean
+                  r:
+                    description: Read
+                    type: boolean
+                type: object
+              id:
+                description: 'User ID (GUID) [ro]'
+                type: string
+              permissions:
+                description: 'Actors with permissions that apply to this object [ro]'
+                properties:
+                  '{id}':
+                    description: 'Permissions possessed by actor object, by object ID [ro]'
+                    properties:
+                      a:
+                        description: Authorize
+                        type: boolean
+                      d:
+                        description: Delete
+                        type: boolean
+                      m:
+                        description: Modify
+                        type: boolean
+                      r:
+                        description: Read
+                        type: boolean
+                      t:
+                        description: Type of actor object (currently User or Group)
+                        type: string
+                    type: object
+                type: object
+              smsNumber:
+                description: 'SMS telephone number for sending SMS notifications [rw]'
+                type: string
+              subscriptions:
+                description: 'Subscriptions by plan ID [ro]'
+                properties: {}
+                type: object
+              tokens:
+                description: 'Array of API authentication tokens [rw]'
+                items: {}
+                type: array
+              type:
+                description: 'Object type [ro]'
+                type: string
+              ui:
+                description: 'Arbitrary data that is stored and used by the UI [rw]'
+                properties: {}
+                type: object
+            type: object
+      tags:
+        - User
+      description: ''
+      summary: Retrieve a User
+    post:
+      produces:
+        - application/json
+      parameters:
+        - description: >-
+            0000-0000-0000-000000000000 (required,string) - Internal user ID
+            (GUID)
+          in: path
+          name: userId
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json:
+              auth: {}
+              clock: 0
+              displayName: ''
+              email: ''
+              globalPermissions:
+                a: false
+                d boolean): ''
+                m: false
+                r: false
+              id: ''
+              permissions:
+                '{id}':
+                  a: false
+                  d: false
+                  m: false
+                  r: false
+                  t: ''
+              smsNumber: ''
+              subscriptions: {}
+              tokens: []
+              type: ''
+              ui: {}
+          headers: {}
+          schema:
+            properties:
+              auth:
+                description: >-
+                  Object containing one or more authentication types and login
+                  names or IDs [ro]
+                properties: {}
+                type: object
+              clock:
+                description: 'Current system clock on server [ro]'
+                type: number
+              displayName:
+                description: 'User display name [rw]'
+                type: string
+              email:
+                description: 'User e-mail [ro]'
+                type: string
+              globalPermissions:
+                description: >-
+                  Global permissions for this user against all objects on system
+                  (for admins) [ro]
+                properties:
+                  a:
+                    description: Authorize
+                    type: boolean
+                  d boolean):
+                    description: Delete
+                    type: string
+                  m:
+                    description: Modify
+                    type: boolean
+                  r:
+                    description: Read
+                    type: boolean
+                type: object
+              id:
+                description: 'User ID (GUID) [ro]'
+                type: string
+              permissions:
+                description: 'Actors with permissions that apply to this object [ro]'
+                properties:
+                  '{id}':
+                    description: 'Permissions possessed by actor object, by object ID [ro]'
+                    properties:
+                      a:
+                        description: Authorize
+                        type: boolean
+                      d:
+                        description: Delete
+                        type: boolean
+                      m:
+                        description: Modify
+                        type: boolean
+                      r:
+                        description: Read
+                        type: boolean
+                      t:
+                        description: Type of actor object (currently User or Group)
+                        type: string
+                    type: object
+                type: object
+              smsNumber:
+                description: 'SMS telephone number for sending SMS notifications [rw]'
+                type: string
+              subscriptions:
+                description: 'Subscriptions by plan ID [ro]'
+                properties: {}
+                type: object
+              tokens:
+                description: 'Array of API authentication tokens [rw]'
+                items: {}
+                type: array
+              type:
+                description: 'Object type [ro]'
+                type: string
+              ui:
+                description: 'Arbitrary data that is stored and used by the UI [rw]'
+                properties: {}
+                type: object
+            type: object
+      tags:
+        - User
+      description: >-
+        Only fields marked as [rw] can be directly modified. If other fields are
+        present in the posted request they are ignored.
+      summary: Update a User
+definitions:
+  ControllerMemberConfig:
+    properties:
+      tags:
+        items: {}
+        type: array
+      address:
+        type: string
+      authHistory:
+        items: {}
+        type: array
+      authorized:
+        type: boolean
+      capabilities:
+        items: {}
+        type: array
+      creationTime:
+        type: number
+      id:
+        type: string
+      identity:
+        type: string
+      ipAssignments:
+        items: {}
+        type: array
+      lastAuthorizedTime:
+        type: number
+      lastDeauthorizedTime:
+        type: number
+      noAutoAssignIps:
+        type: boolean
+      nwid:
+        type: string
+      objtype:
+        type: string
+      physicalAddr:
+        type: string
+      revision:
+        type: number
+    required: []
+    type: object
+  ControllerNetworkConfig:
+    properties:
+      tags:
+        items: {}
+        type: array
+      activeMemberCount:
+        type: number
+      authTokens:
+        items: {}
+        type: array
+      authorizedMemberCount:
+        type: number
+      capabilities:
+        items: {}
+        type: array
+      creationTime:
+        type: number
+      id:
+        type: string
+      lastModified:
+        type: number
+      multicastLimit:
+        type: number
+      name:
+        type: string
+      nwid:
+        type: string
+      objtype:
+        type: string
+      private:
+        type: boolean
+      revision:
+        type: number
+      routes:
+        items: {}
+        type: array
+      rules:
+        items: {}
+        type: array
+      totalMemberCount:
+        type: number
+      v4AssignMode:
+        type: object
+      v6AssignMode:
+        type: object
+    required: []
+    type: object
+  Member:
+    properties:
+      clientVersion:
+        type: string
+      clock:
+        type: number
+      config:
+        type: ControllerMemberConfig
+      controllerId:
+        type: string
+      description:
+        type: string
+      hidden:
+        type: boolean
+      id:
+        type: string
+      lastOffline:
+        type: number
+      lastOnline:
+        type: number
+      name:
+        type: string
+      networkId:
+        type: string
+      nodeId:
+        type: string
+      offlineNotifyDelay:
+        type: number
+      online:
+        type: boolean
+      physicalAddress:
+        type: string
+      physicalLocation:
+        items: {}
+        type: array
+      protocolVersion:
+        type: number
+      supportsCircuitTesting:
+        type: boolean
+      supportsRulesEngine:
+        type: boolean
+      type:
+        type: string
+    required: []
+    type: object
+  Network:
+    properties:
+      capabilitiesByName:
+        type: object
+      circuitTestEvery:
+        type: number
+      clock:
+        type: number
+      config:
+        type: ControllerNetworkConfig
+      description:
+        type: string
+      id:
+        type: string
+      onlineMemberCount:
+        type: number
+      permissions:
+        type: object
+      rulesSource:
+        type: string
+      tagsByName:
+        type: object
+      type:
+        type: string
+      ui:
+        type: object
+    required: []
+    type: object
+  Networks:
+    items:
+      $ref: '#/definitions/Network'
+    type: array
+  User:
+    properties:
+      auth:
+        type: object
+      clock:
+        type: number
+      displayName:
+        type: string
+      email:
+        type: string
+      globalPermissions:
+        type: object
+      id:
+        type: string
+      permissions:
+        type: object
+      smsNumber:
+        type: string
+      subscriptions:
+        type: object
+      tokens:
+        items: {}
+        type: array
+      type:
+        type: string
+      ui:
+        type: object
+    required: []
+    type: object
+  Users:
+    items:
+      $ref: '#/definitions/User'
+    type: array
+  logout: {}
+  randomToken:
+    properties:
+      clock:
+        type: number
+      raw:
+        type: string
+      token:
+        type: string
+    required: []
+    type: object
+  self: {}
+  status:
+    properties:
+      apiVersion:
+        type: number
+      clock:
+        type: number
+      clusterNode:
+        type: string
+      loginMethods:
+        type: object
+      online:
+        type: boolean
+      paidPlans:
+        type: object
+      recaptchaSiteKey:
+        type: string
+      return_to:
+        type: string
+      smsEnabled:
+        type: boolean
+      something:
+        type: string
+      stripePublishableKey:
+        type: string
+      uptime:
+        type: number
+      user:
+        type: object
+      version:
+        type: string
+    required: []
+    type: object
+

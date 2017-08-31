@@ -1,6 +1,9 @@
-# howto_howto
 
 # blueprint
+
+- [specs](https://github.com/apiaryio/api-blueprint/blob/master/API%20Blueprint%20Specification.md)
+- [tutorial](https://github.com/apiaryio/api-blueprint/blob/master/Advanced%20Tutorial.md)
+
 
 ## generate html 
 
@@ -25,6 +28,8 @@ will start webserver which reloads on changes on the spec file
 
 ### aglio
 
+https://github.com/danielgtaylor/aglio
+
 make sure node has been installed
 ```
 npm install -g aglio
@@ -34,3 +39,21 @@ start server which reloads
 ```
 aglio -i input.apib -s
 ```
+
+## transform 
+
+### online: transformer
+
+https://apimatic.io/transformer
+
+### local
+
+install
+```
+npm install -g api-spec-converter
+```
+
+- also online: https://lucybot-inc.github.io/api-spec-converter/
+
+- REMARK: could not get it to work for raml
+
