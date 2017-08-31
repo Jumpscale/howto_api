@@ -1,0 +1,900 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "ZeroTier Central API",
+    "description": "TODO: Add a description",
+    "license": {
+      "name": "MIT",
+      "url": "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+    }
+  },
+  "host": "my.zerotier.com",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/status": {
+      "get": {
+        "description": "Obtain information about this server and/or useful to the Central web UI.",
+        "summary": "Get Status and Configuration Information",
+        "tags": [
+          "api"
+        ],
+        "operationId": "Get Status and Configuration Information",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            },
+            "examples": {}
+          }
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/api/status"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get Status and Configuration Information1",
+            "x-testDescription": "Obtain information about this server and/or useful to the Central web UI."
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/self": {
+      "get": {
+        "description": "Get the currently authenticated user's user record.",
+        "summary": "Get Currently Authenticated User",
+        "tags": [
+          "api"
+        ],
+        "operationId": "Get Currently Authenticated User",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            },
+            "examples": {}
+          }
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/api/self"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get Currently Authenticated User1",
+            "x-testDescription": "Get the currently authenticated user's user record."
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/randomToken": {
+      "get": {
+        "description": "This generates a random token suitable for use as an API token server-side using a secure random source. It does not actually modify the user record, just returns the token for use by API callers or the UI.",
+        "summary": "Generate a Random Token",
+        "tags": [
+          "api"
+        ],
+        "operationId": "Generate a Random Token",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RandomToken"
+            },
+            "examples": {
+              "application/json": {
+                "token": "",
+                "clock": 0.0,
+                "raw": ""
+              }
+            }
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/auth/_logout": {
+      "post": {
+        "description": "Hitting this endpoint causes the user to be logged out. It has no effect when using token authentication, so it's mostly used by the UI.",
+        "summary": "Terminate Current Session",
+        "tags": [
+          "api"
+        ],
+        "operationId": "Terminate Current Session",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/user/{userId}": {
+      "get": {
+        "description": "",
+        "summary": "Retrieve a User",
+        "tags": [
+          "api"
+        ],
+        "operationId": "Retrieve a User",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "0000-0000-0000-000000000000 (required,string) - Internal user ID (GUID)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "examples": {}
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "post": {
+        "description": "Only fields marked as [rw] can be directly modified. If other fields are present in the posted request they are ignored.",
+        "summary": "Update a User",
+        "tags": [
+          "api"
+        ],
+        "operationId": "Update a User",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "0000-0000-0000-000000000000 (required,string) - Internal user ID (GUID)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "examples": {}
+          }
+        },
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/user": {
+      "get": {
+        "description": "Get all users for which you have at least read access.",
+        "summary": "Get All Viewable Users",
+        "tags": [
+          "api"
+        ],
+        "operationId": "Get All Viewable Users",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            },
+            "examples": {}
+          }
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/api/user"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get All Viewable Users1",
+            "x-testDescription": "Get all users for which you have at least read access."
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/api/network": {
+      "get": {
+        "description": "Get all networks for which you have at least read access.",
+        "summary": "Get All Viewable Networks",
+        "tags": [
+          "api"
+        ],
+        "operationId": "Get All Viewable Networks",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Network"
+              }
+            },
+            "examples": {}
+          }
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/api/network"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get All Viewable Networks1",
+            "x-testDescription": "Get all networks for which you have at least read access."
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ControllerNetworkConfig": {
+      "title": "ControllerNetworkConfig",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "16-digit ZeroTier network ID [ro]",
+          "type": "string"
+        },
+        "nwid": {
+          "description": "16-digit ZeroTier network ID (for backward compatibility) [ro]",
+          "type": "string"
+        },
+        "name": {
+          "description": "Short name of network [rw]",
+          "type": "string"
+        },
+        "objtype": {
+          "description": "Object type on controller (\"network\") [ro]",
+          "type": "string"
+        },
+        "private": {
+          "description": "If true, certificate access control is enabled [rw]",
+          "type": "boolean"
+        },
+        "creationTime": {
+          "description": "Time network was created on controller [ro]",
+          "type": "number",
+          "format": "double"
+        },
+        "revision": {
+          "description": "Network revision number [ro]",
+          "type": "number",
+          "format": "double"
+        },
+        "lastModified": {
+          "description": "Time config was last modified [ro]",
+          "type": "number",
+          "format": "double"
+        },
+        "multicastLimit": {
+          "description": "Max recipients per multicast or broadcast [rw]",
+          "type": "number",
+          "format": "double"
+        },
+        "routes": {
+          "description": "Array of IP routes published to members [rw]",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "rules": {
+          "description": "Network base rules table [rw]",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "tags": {
+          "description": "Array of tags available on this network [rw]",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "capabilities": {
+          "description": "Array of capabilities available on this network [rw]",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "totalMemberCount": {
+          "description": "Total number of members [ro]",
+          "type": "number",
+          "format": "double"
+        },
+        "activeMemberCount": {
+          "description": "Number of active/online members [ro]",
+          "type": "number",
+          "format": "double"
+        },
+        "authTokens": {
+          "description": "Array of authentication tokens for auto-authorizing new members [rw]",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "authorizedMemberCount": {
+          "description": "Number of authorized members [ro]",
+          "type": "number",
+          "format": "double"
+        },
+        "v4AssignMode": {
+          "description": "Boolean toggles for IPv4 assignment modes [rw]",
+          "type": "object"
+        },
+        "v6AssignMode": {
+          "description": "Boolean toggles for IPv6 assignment modes [rw]",
+          "type": "object"
+        }
+      }
+    },
+    "ControllerMemberConfig": {
+      "title": "ControllerMemberConfig",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "10-digit ZeroTier node ID [ro]",
+          "type": "string"
+        },
+        "address": {
+          "description": "10-digit ZeroTier node ID [ro]",
+          "type": "string"
+        },
+        "nwid": {
+          "description": "16-digit network ID [ro]",
+          "type": "string"
+        },
+        "objtype": {
+          "description": "Object type on controller (\"member\") [ro]",
+          "type": "string"
+        },
+        "authorized": {
+          "description": "True if authorized (only matters on private networks) [rw]",
+          "type": "boolean"
+        },
+        "authHistory": {
+          "description": "History of most recent authentications [ro]",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "capabilities": {
+          "description": "Array of IDs of capabilities assigned to this member [rw]",
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "tags": {
+          "description": "Array of tuples of tag ID, tag value [rw]",
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "creationTime": {
+          "description": "Time member record was first created [ro]",
+          "type": "number",
+          "format": "double"
+        },
+        "identity": {
+          "description": "ZeroTier public identity of member (address and public key) [ro]",
+          "type": "string"
+        },
+        "ipAssignments": {
+          "description": "Array of IP assignments published to member [rw]",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lastAuthorizedTime": {
+          "description": "Time member was last authorized on network [ro]",
+          "type": "number",
+          "format": "double"
+        },
+        "lastDeauthorizedTime": {
+          "description": "Time member was last de-authorized on network [ro]",
+          "type": "number",
+          "format": "double"
+        },
+        "noAutoAssignIps": {
+          "description": "If true do not auto-assign IPv4 or IPv6 addresses, overriding network settings [rw]",
+          "type": "boolean"
+        },
+        "physicalAddr": {
+          "description": "Last known physical address of member [ro]",
+          "type": "string"
+        },
+        "revision": {
+          "description": "Member record revision counter [ro]",
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "Status": {
+      "title": "Status",
+      "type": "object",
+      "properties": {
+        "online": {
+          "description": "Always true",
+          "type": "boolean"
+        },
+        "clock": {
+          "description": "Current server-side system clock (ms since epoch)",
+          "type": "number",
+          "format": "double"
+        },
+        "version": {
+          "description": "ZeroTier Central version",
+          "type": "string"
+        },
+        "apiVersion": {
+          "description": "ZeroTier Central API version",
+          "type": "number",
+          "format": "double"
+        },
+        "uptime": {
+          "description": "This host's uptime in milliseconds",
+          "type": "number",
+          "format": "double"
+        },
+        "user": {
+          "description": "Current user if authenticated, otherwise null",
+          "type": "object"
+        },
+        "stripePublishableKey": {
+          "description": "Publishable key for Stripe payment processor or null if not configured",
+          "type": "string"
+        },
+        "paidPlans": {
+          "description": "Available paid plans (if configured)",
+          "type": "object"
+        },
+        "smsEnabled": {
+          "description": "True if SMS messaging is available",
+          "type": "boolean"
+        },
+        "clusterNode": {
+          "description": "Name of current cluster node servicing this request",
+          "type": "string"
+        },
+        "loginMethods": {
+          "description": "Object containing login methods and whether they are available",
+          "type": "object"
+        },
+        "recaptchaSiteKey": {
+          "description": "Recaptcha site key or null if not configured",
+          "type": "string"
+        },
+        "return_to": {
+          "description": "Bounce destination if using Central as third party auth source (used for ZeroTier support login)",
+          "type": "string"
+        }
+      }
+    },
+    "RandomToken": {
+      "title": "RandomToken",
+      "example": {
+        "token": "",
+        "clock": 0.0,
+        "raw": ""
+      },
+      "type": "object",
+      "properties": {
+        "token": {
+          "description": "Random string suitable for use as an API authentication token",
+          "type": "string"
+        },
+        "clock": {
+          "description": "Current server-side system clock (ms since epoch)",
+          "type": "number",
+          "format": "double"
+        },
+        "raw": {
+          "description": "Raw random bytes in hex format",
+          "type": "string"
+        }
+      }
+    },
+    "User": {
+      "title": "User",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "User ID (GUID) [ro]",
+          "type": "string"
+        },
+        "type": {
+          "description": "Object type [ro]",
+          "type": "string"
+        },
+        "clock": {
+          "description": "Current system clock on server [ro]",
+          "type": "number",
+          "format": "double"
+        },
+        "globalPermissions": {
+          "$ref": "#/definitions/GlobalPermissions"
+        },
+        "ui": {
+          "description": "Arbitrary data that is stored and used by the UI [rw]",
+          "type": "object"
+        },
+        "displayName": {
+          "description": "User display name [rw]",
+          "type": "string"
+        },
+        "email": {
+          "description": "User e-mail [ro]",
+          "type": "string"
+        },
+        "auth": {
+          "description": "Object containing one or more authentication types and login names or IDs [ro]",
+          "type": "object"
+        },
+        "smsNumber": {
+          "description": "SMS telephone number for sending SMS notifications [rw]",
+          "type": "string"
+        },
+        "tokens": {
+          "description": "Array of API authentication tokens [rw]",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "permissions": {
+          "$ref": "#/definitions/Permissions"
+        },
+        "subscriptions": {
+          "description": "Subscriptions by plan ID [ro]",
+          "type": "object"
+        }
+      }
+    },
+    "GlobalPermissions": {
+      "title": "GlobalPermissions",
+      "type": "object",
+      "properties": {
+        "r": {
+          "description": "Read",
+          "type": "boolean"
+        },
+        "m": {
+          "description": "Modify",
+          "type": "boolean"
+        },
+        "d": {
+          "description": "Delete",
+          "type": "string"
+        },
+        "a": {
+          "description": "Authorize",
+          "type": "boolean"
+        }
+      }
+    },
+    "Permissions": {
+      "title": "Permissions",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/Id"
+        }
+      }
+    },
+    "Id": {
+      "title": "id",
+      "type": "object",
+      "properties": {
+        "t": {
+          "description": "Type of actor object (currently User or Group)",
+          "type": "string"
+        },
+        "r": {
+          "description": "Read",
+          "type": "boolean"
+        },
+        "m": {
+          "description": "Modify",
+          "type": "boolean"
+        },
+        "d": {
+          "description": "Delete",
+          "type": "boolean"
+        },
+        "a": {
+          "description": "Authorize",
+          "type": "boolean"
+        }
+      }
+    },
+    "Network": {
+      "title": "Network",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "16-digit ZeroTier network ID [ro]",
+          "type": "string"
+        },
+        "type": {
+          "description": "Object type (\"Network\") [ro]",
+          "type": "string"
+        },
+        "clock": {
+          "description": "Current system clock on server [ro]",
+          "type": "number",
+          "format": "double"
+        },
+        "ui": {
+          "description": "Arbitrary data that is stored and used by the UI [rw]",
+          "type": "object"
+        },
+        "rulesSource": {
+          "description": "Source code of network rule set [rw]",
+          "type": "string"
+        },
+        "description": {
+          "description": "Long description of this network [rw]",
+          "type": "string"
+        },
+        "permissions": {
+          "$ref": "#/definitions/Permissions"
+        },
+        "onlineMemberCount": {
+          "description": "Number of members online [ro]",
+          "type": "number",
+          "format": "double"
+        },
+        "capabilitiesByName": {
+          "description": "Capabilities defined in rule set by name [rw]",
+          "type": "object"
+        },
+        "tagsByName": {
+          "description": "Tags defined in rule set by name [rw]",
+          "type": "object"
+        },
+        "circuitTestEvery": {
+          "description": "Circuit test this network every N milliseconds [ro]",
+          "type": "number",
+          "format": "double"
+        },
+        "config": {
+          "$ref": "#/definitions/ControllerNetworkConfig"
+        }
+      }
+    },
+    "Member": {
+      "title": "Member",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Member record ID, which is formed from the network and node IDs [ro]",
+          "type": "string"
+        },
+        "type": {
+          "description": "Object type (\"Member\") [ro]",
+          "type": "string"
+        },
+        "clock": {
+          "description": "System clock on server [ro]",
+          "type": "number",
+          "format": "double"
+        },
+        "networkId": {
+          "description": "16-digit ZeroTier network ID [ro]",
+          "type": "string"
+        },
+        "nodeId": {
+          "description": "10-digit ZeroTier node ID / device address [ro]",
+          "type": "string"
+        },
+        "controllerId": {
+          "description": "10-digit ZeroTier node ID of controller (same as first 10 digits of network ID) [ro]",
+          "type": "string"
+        },
+        "hidden": {
+          "description": "Hidden in UI? [rw]",
+          "type": "boolean"
+        },
+        "name": {
+          "description": "Short name describing member [rw]",
+          "type": "string"
+        },
+        "description": {
+          "description": "Long form description [rw]",
+          "type": "string"
+        },
+        "online": {
+          "description": "Member is online? (has requested an update recently) [ro]",
+          "type": "boolean"
+        },
+        "lastOnline": {
+          "description": "Time member was last determined to be online [ro]",
+          "type": "number",
+          "format": "double"
+        },
+        "lastOffline": {
+          "description": "Time member was last determined to be offline [ro]",
+          "type": "number",
+          "format": "double"
+        },
+        "physicalAddress": {
+          "description": "Latest physical address of member [ro]",
+          "type": "string"
+        },
+        "physicalLocation": {
+          "description": "Lat/lon of estimated (GeoIP-determined) location of physicalAddress (if available) [ro]",
+          "type": "object"
+        },
+        "clientVersion": {
+          "description": "Most recent client software version [ro]",
+          "type": "string"
+        },
+        "protocolVersion": {
+          "description": "Most recent client-reported ZeroTier protocol version [ro]",
+          "type": "number",
+          "format": "double"
+        },
+        "supportsCircuitTesting": {
+          "description": "True if member supports circuit testing [ro]",
+          "type": "boolean"
+        },
+        "supportsRulesEngine": {
+          "description": "True if member supports the new (post-1.2) rules engine [ro]",
+          "type": "boolean"
+        },
+        "offlineNotifyDelay": {
+          "description": "Notify of offline after this many milliseconds [rw]",
+          "type": "number",
+          "format": "double"
+        },
+        "config": {
+          "$ref": "#/definitions/ControllerMemberConfig"
+        }
+      }
+    }
+  }
+}
