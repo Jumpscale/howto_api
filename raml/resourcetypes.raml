@@ -70,9 +70,9 @@ std_id_get_post_del:
     body: {}
     responses:
       '200':
-        body:
-          application/json:
-             type: <<resourcePathName | !singularize | !uppercamelcase>>DeleteStatus
+        # body:
+          # application/json:
+          #    type: <<resourcePathName | !singularize | !uppercamelcase>>DeleteStatus
         description: <<resourcePathName | !singularize | !uppercamelcase>> deleted
 
 std_root_list:
