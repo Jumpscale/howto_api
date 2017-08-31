@@ -222,21 +222,21 @@ types:
         type: number
         format: double
   Status:
-    example:
-      value:
-        online: False
-        clock: 0
-        version: ''
-        apiVersion: 0
-        uptime: 0
-        user: {}
-        stripePublishableKey: ''
-        paidPlans: {}
-        smsEnabled: False
-        clusterNode: ''
-        loginMethods: {}
-        recaptchaSiteKey: ''
-        return_to: ''
+    # example:
+    #   value:
+    #     online: False
+    #     clock: 0
+    #     version: ''
+    #     apiVersion: 0
+    #     uptime: 0
+    #     user: {}
+    #     stripePublishableKey: ''
+    #     paidPlans: {}
+    #     smsEnabled: False
+    #     clusterNode: ''
+    #     loginMethods: {}
+    #     recaptchaSiteKey: ''
+    #     return_to: ''
     displayName: status
     type: object
     properties:
@@ -309,11 +309,11 @@ types:
         description: Bounce destination if using Central as third party auth source (used for ZeroTier support login)
         type: string
   RandomToken:
-    example:
-      value:
-        token: ''
-        clock: 0
-        raw: ''
+    # example:
+    #   value:
+    #     token: ''
+    #     clock: 0
+    #     raw: ''
     displayName: randomToken
     type: object
     properties:
@@ -334,30 +334,30 @@ types:
         description: Raw random bytes in hex format
         type: string
   User:
-    example:
-      value:
-        id: ''
-        type: ''
-        clock: 0
-        globalPermissions:
-          r: False
-          m: False
-          d boolean): ''
-          a: False
-        ui: {}
-        displayName: ''
-        email: ''
-        auth: {}
-        smsNumber: ''
-        tokens: []
-        permissions:
-          '{id}':
-            t: ''
-            r: False
-            m: False
-            d: False
-            a: False
-        subscriptions: {}
+    # example:
+    #   value:
+    #     id: ''
+    #     type: ''
+    #     clock: 0
+    #     globalPermissions:
+    #       r: False
+    #       m: False
+    #       d boolean): ''
+    #       a: False
+    #     ui: {}
+    #     displayName: ''
+    #     email: ''
+    #     auth: {}
+    #     smsNumber: ''
+    #     tokens: []
+    #     permissions:
+    #       'id':
+    #         t: ''
+    #         r: False
+    #         m: False
+    #         d: False
+    #         a: False
+    #     subscriptions: {}
     displayName: User
     type: object
     properties:
@@ -452,13 +452,13 @@ types:
     displayName: permissions
     type: object
     properties:
-      '{id}':
+      'id':
         required: false
-        displayName: '{id}'
+        displayName: 'id'
         description: Permissions possessed by actor object, by object ID [ro]
-        type: '{id}'
-  '{id}':
-    displayName: '{id}'
+        type: 'id'
+  'id':
+    displayName: 'id'
     type: object
     properties:
       t:
@@ -487,45 +487,45 @@ types:
         description: Authorize
         type: boolean
   Network:
-    example:
-      value:
-        id: ''
-        type: ''
-        clock: 0
-        ui: {}
-        rulesSource: ''
-        description: ''
-        permissions:
-          '{id}':
-            t: ''
-            r: False
-            m: False
-            d: False
-            a: False
-        onlineMemberCount: 0
-        capabilitiesByName: {}
-        tagsByName: {}
-        circuitTestEvery: 0
-        config:
-          id: ''
-          nwid: ''
-          name: ''
-          objtype: ''
-          private: False
-          creationTime: 0
-          revision: 0
-          lastModified: 0
-          multicastLimit: 0
-          routes: []
-          rules: []
-          tags: []
-          capabilities: []
-          totalMemberCount: 0
-          activeMemberCount: 0
-          authTokens: []
-          authorizedMemberCount: 0
-          v4AssignMode: {}
-          v6AssignMode: {}
+    # example:
+    #   value:
+    #     id: ''
+    #     type: ''
+    #     clock: 0
+    #     ui: {}
+    #     rulesSource: ''
+    #     description: ''
+    #     permissions:
+    #       'id':
+    #         t: ''
+    #         r: False
+    #         m: False
+    #         d: False
+    #         a: False
+    #     onlineMemberCount: 0
+    #     capabilitiesByName: {}
+    #     tagsByName: {}
+    #     circuitTestEvery: 0
+    #     config:
+    #       id: ''
+    #       nwid: ''
+    #       name: ''
+    #       objtype: ''
+    #       private: False
+    #       creationTime: 0
+    #       revision: 0
+    #       lastModified: 0
+    #       multicastLimit: 0
+    #       routes: []
+    #       rules: []
+    #       tags: []
+    #       capabilities: []
+    #       totalMemberCount: 0
+    #       activeMemberCount: 0
+    #       authTokens: []
+    #       authorizedMemberCount: 0
+    #       v4AssignMode: {}
+    #       v6AssignMode: {}
     displayName: Network
     type: object
     properties:
@@ -709,21 +709,21 @@ types:
           description: Success
           body:
             application/json:
-              example:
-                value:
-                  online: False
-                  clock: 0
-                  version: ''
-                  apiVersion: 0
-                  uptime: 0
-                  user: {}
-                  stripePublishableKey: ''
-                  paidPlans: {}
-                  smsEnabled: False
-                  clusterNode: ''
-                  loginMethods: {}
-                  recaptchaSiteKey: ''
-                  return_to: ''
+              # example:
+              #   value:
+              #     online: False
+              #     clock: 0
+              #     version: ''
+              #     apiVersion: 0
+              #     uptime: 0
+              #     user: {}
+              #     stripePublishableKey: ''
+              #     paidPlans: {}
+              #     smsEnabled: False
+              #     clusterNode: ''
+              #     loginMethods: {}
+              #     recaptchaSiteKey: ''
+              #     return_to: ''
               displayName: response
               type: Status
   /self:
@@ -735,30 +735,30 @@ types:
           description: Success
           body:
             text/plain:
-              example:
-                value:
-                  id: ''
-                  type: ''
-                  clock: 0
-                  globalPermissions:
-                    r: False
-                    m: False
-                    d boolean): ''
-                    a: False
-                  ui: {}
-                  displayName: ''
-                  email: ''
-                  auth: {}
-                  smsNumber: ''
-                  tokens: []
-                  permissions:
-                    '{id}':
-                      t: ''
-                      r: False
-                      m: False
-                      d: False
-                      a: False
-                  subscriptions: {}
+              # example:
+              #   value:
+              #     id: ''
+              #     type: ''
+              #     clock: 0
+              #     globalPermissions:
+              #       r: False
+              #       m: False
+              #       d boolean): ''
+              #       a: False
+              #     ui: {}
+              #     displayName: ''
+              #     email: ''
+              #     auth: {}
+              #     smsNumber: ''
+              #     tokens: []
+              #     permissions:
+              #       'id':
+              #         t: ''
+              #         r: False
+              #         m: False
+              #         d: False
+              #         a: False
+              #     subscriptions: {}
               displayName: response
               type: string
   /randomToken:
@@ -790,30 +790,30 @@ types:
           description: Success
           body:
             application/json:
-              example:
-                value:
-                - id: ''
-                  type: ''
-                  clock: 0
-                  globalPermissions:
-                    r: False
-                    m: False
-                    d boolean): ''
-                    a: False
-                  ui: {}
-                  displayName: ''
-                  email: ''
-                  auth: {}
-                  smsNumber: ''
-                  tokens: []
-                  permissions:
-                    '{id}':
-                      t: ''
-                      r: False
-                      m: False
-                      d: False
-                      a: False
-                  subscriptions: {}
+              # example:
+              #   value:
+              #   - id: ''
+              #     type: ''
+              #     clock: 0
+              #     globalPermissions:
+              #       r: False
+              #       m: False
+              #       d boolean): ''
+              #       a: False
+              #     ui: {}
+              #     displayName: ''
+              #     email: ''
+              #     auth: {}
+              #     smsNumber: ''
+              #     tokens: []
+              #     permissions:
+              #       'id':
+              #         t: ''
+              #         r: False
+              #         m: False
+              #         d: False
+              #         a: False
+              #     subscriptions: {}
               displayName: response
               type: array
               items:
@@ -822,8 +822,8 @@ types:
       uriParameters:
         userId:
           required: true
-          example:
-            value: 00000000
+          # example:
+          #   value: 00000000
           displayName: userId
           description: 0000-0000-0000-000000000000 (required,string) - Internal user ID (GUID)
           type: string
@@ -835,30 +835,30 @@ types:
             description: Success
             body:
               application/json:
-                example:
-                  value:
-                    id: ''
-                    type: ''
-                    clock: 0
-                    globalPermissions:
-                      r: False
-                      m: False
-                      d boolean): ''
-                      a: False
-                    ui: {}
-                    displayName: ''
-                    email: ''
-                    auth: {}
-                    smsNumber: ''
-                    tokens: []
-                    permissions:
-                      '{id}':
-                        t: ''
-                        r: False
-                        m: False
-                        d: False
-                        a: False
-                    subscriptions: {}
+                # example:
+                #   value:
+                #     id: ''
+                #     type: ''
+                #     clock: 0
+                #     globalPermissions:
+                #       r: False
+                #       m: False
+                #       d boolean): ''
+                #       a: False
+                #     ui: {}
+                #     displayName: ''
+                #     email: ''
+                #     auth: {}
+                #     smsNumber: ''
+                #     tokens: []
+                #     permissions:
+                #       'id':
+                #         t: ''
+                #         r: False
+                #         m: False
+                #         d: False
+                #         a: False
+                #     subscriptions: {}
                 displayName: response
                 type: User
       post:
@@ -869,30 +869,30 @@ types:
             description: Success
             body:
               application/json:
-                example:
-                  value:
-                    id: ''
-                    type: ''
-                    clock: 0
-                    globalPermissions:
-                      r: False
-                      m: False
-                      d boolean): ''
-                      a: False
-                    ui: {}
-                    displayName: ''
-                    email: ''
-                    auth: {}
-                    smsNumber: ''
-                    tokens: []
-                    permissions:
-                      '{id}':
-                        t: ''
-                        r: False
-                        m: False
-                        d: False
-                        a: False
-                    subscriptions: {}
+                # example:
+                #   value:
+                #     id: ''
+                #     type: ''
+                #     clock: 0
+                #     globalPermissions:
+                #       r: False
+                #       m: False
+                #       d boolean): ''
+                #       a: False
+                #     ui: {}
+                #     displayName: ''
+                #     email: ''
+                #     auth: {}
+                #     smsNumber: ''
+                #     tokens: []
+                #     permissions:
+                #       'id':
+                #         t: ''
+                #         r: False
+                #         m: False
+                #         d: False
+                #         a: False
+                #     subscriptions: {}
                 displayName: response
                 type: User
   /network:
@@ -904,45 +904,45 @@ types:
           description: Success
           body:
             application/json:
-              example:
-                value:
-                - id: ''
-                  type: ''
-                  clock: 0
-                  ui: {}
-                  rulesSource: ''
-                  description: ''
-                  permissions:
-                    '{id}':
-                      t: ''
-                      r: False
-                      m: False
-                      d: False
-                      a: False
-                  onlineMemberCount: 0
-                  capabilitiesByName: {}
-                  tagsByName: {}
-                  circuitTestEvery: 0
-                  config:
-                    id: ''
-                    nwid: ''
-                    name: ''
-                    objtype: ''
-                    private: False
-                    creationTime: 0
-                    revision: 0
-                    lastModified: 0
-                    multicastLimit: 0
-                    routes: []
-                    rules: []
-                    tags: []
-                    capabilities: []
-                    totalMemberCount: 0
-                    activeMemberCount: 0
-                    authTokens: []
-                    authorizedMemberCount: 0
-                    v4AssignMode: {}
-                    v6AssignMode: {}
+              # example:
+              #   value:
+              #   - id: ''
+              #     type: ''
+              #     clock: 0
+              #     ui: {}
+              #     rulesSource: ''
+              #     description: ''
+              #     permissions:
+              #       'id':
+              #         t: ''
+              #         r: False
+              #         m: False
+              #         d: False
+              #         a: False
+              #     onlineMemberCount: 0
+              #     capabilitiesByName: {}
+              #     tagsByName: {}
+              #     circuitTestEvery: 0
+              #     config:
+              #       id: ''
+              #       nwid: ''
+              #       name: ''
+              #       objtype: ''
+              #       private: False
+              #       creationTime: 0
+              #       revision: 0
+              #       lastModified: 0
+              #       multicastLimit: 0
+              #       routes: []
+              #       rules: []
+              #       tags: []
+              #       capabilities: []
+              #       totalMemberCount: 0
+              #       activeMemberCount: 0
+              #       authTokens: []
+              #       authorizedMemberCount: 0
+              #       v4AssignMode: {}
+              #       v6AssignMode: {}
               displayName: response
               type: array
               items:
