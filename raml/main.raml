@@ -5,11 +5,11 @@ baseUri: 'https://my.zerotier.com/api'
 mediaType: application/json
 protocols:
   - HTTPS
-    
+
 types: !include types.raml
 resourceTypes:  !include resourcetypes.raml
 traits: !include traits.raml
-        
+
 /network:
   type: {std_root_list}
   '/{id}':
@@ -19,15 +19,15 @@ traits: !include traits.raml
     uriParameters:
       networkid:
         description: 16-digit ZeroTier network ID
-        type: string    
+        type: string
     type: {std_root_list}
     '/{id}':
       type: {std_id_get_post: {descr: id=10-digit ZeroTier node ID (a.k.a. ZeroTier address)} }
 
 /status:
   type: {std_root_get}
-  
+
 /self:
   displayName: getSelf
   get:
-    is: [stdresponsetype: {ttype: User}]   
+    is: [stdresponsetype: {ttype: User}]
