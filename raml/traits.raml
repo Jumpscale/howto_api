@@ -1,17 +1,18 @@
+#%RAML 1.0 traits
 
 stdresponse:
   responses:
     '200':
       body:
         application/json:
-          type: <<resourcePathName | !singularize | !uppercamelcase>> 
+          type: <<resourcePathName | !singularize | !uppercamelcase>>
 
 stdresponsetype:
   responses:
     '200':
       body:
         application/json:
-          type: <<ttype>> 
+          type: <<ttype>>
 
 authfailure:
   responses:
