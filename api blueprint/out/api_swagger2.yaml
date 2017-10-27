@@ -1289,7 +1289,6 @@ paths:
               recaptchaSiteKey: ''
               return_to: ''
               smsEnabled: false
-              something: ''
               stripePublishableKey: ''
               uptime: 0
               user: {}
@@ -1328,9 +1327,6 @@ paths:
               smsEnabled:
                 description: True if SMS messaging is available
                 type: boolean
-              something:
-                description: ss
-                type: string
               stripePublishableKey:
                 description: >-
                   Publishable key for Stripe payment processor or null if not
@@ -1872,8 +1868,6 @@ definitions:
         type: string
       smsEnabled:
         type: boolean
-      something:
-        type: string
       stripePublishableKey:
         type: string
       uptime:

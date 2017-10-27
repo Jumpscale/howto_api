@@ -1,0 +1,3711 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ZeroTier Central API</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism-okaidia.min.css" />
+    <style>
+      blockquote {
+        border-left: solid 4px #eee;
+        padding-left: 8px;
+        font-style: italic;
+        margin-left: 0;
+        padding: 8px;
+      }
+
+      .ui.micro.label {
+        font-size: .25rem;
+      }
+
+      .ui.transaction.accordion .title {
+        text-align: center;
+      }
+
+      .ui.transaction.accordion .content {
+        border-top: solid 1px #ddd !important;
+        border-bottom: solid 1px #ddd !important;
+        background-color: rgba(0,0,0,.03);
+        padding: 0.5em 1em !important;
+      }
+
+      .ui.transaction.accordion .content.active {
+        margin-top: 0.5em;
+      }
+
+      .ui.basic.label {
+        text-align: left;
+        overflow: auto;
+      }
+
+      .resource .ui.sub.header {
+        text-transform: none;
+      }
+
+      @media only screen and (min-width: 768px) {
+        .sidewrap {
+          margin-right: 2rem;
+        }
+
+        .sidenav {
+          left: 0;
+          top: 0;
+          width: inherit;
+          position: fixed !important;
+          height: 100% !important;
+          overflow-y: auto !important;
+          padding-left: 0.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ui padded grid">
+      <div class="sidewrap four wide computer five wide tablet sixteen wide mobile column">
+        <div class="sidenav">
+          
+<div class="ui horizontal divider">
+  <a href="#introduction">Introduction</a>
+</div>
+<div class="ui fluid secondary vertical menu">
+  <a class="item" href="#introduction">ZeroTier Central API</a>
+</div>
+
+
+<div class="ui horizontal divider">
+  <a href="#general-queries">General Queries</a>
+</div>
+
+<div class="ui accordion fluid">
+  
+    
+    <div class="title active">
+      <i class="dropdown icon"></i>
+      
+        <strong>status</strong>
+      
+    </div>
+    <div class="content active">
+      <div class="ui fluid secondary vertical menu">
+      
+        <a class="item green" href="#general-queries-status-get-status-and-configuration-information">
+          <i class="ui green empty circular label"></i>
+          
+            <span>Get Status and Configuration Information</span>
+          
+        </a>
+      
+      </div>
+    </div>
+    
+  
+    
+    <div class="title ">
+      <i class="dropdown icon"></i>
+      
+        <strong>self</strong>
+      
+    </div>
+    <div class="content ">
+      <div class="ui fluid secondary vertical menu">
+      
+        <a class="item green" href="#general-queries-self-get-currently-authenticated-user">
+          <i class="ui green empty circular label"></i>
+          
+            <span>Get Currently Authenticated User</span>
+          
+        </a>
+      
+      </div>
+    </div>
+    
+  
+    
+    <div class="title ">
+      <i class="dropdown icon"></i>
+      
+        <strong>randomToken</strong>
+      
+    </div>
+    <div class="content ">
+      <div class="ui fluid secondary vertical menu">
+      
+        <a class="item green" href="#general-queries-randomtoken-generate-a-random-token">
+          <i class="ui green empty circular label"></i>
+          
+            <span>Generate a Random Token</span>
+          
+        </a>
+      
+      </div>
+    </div>
+    
+  
+    
+    <div class="title ">
+      <i class="dropdown icon"></i>
+      
+        <strong>logout</strong>
+      
+    </div>
+    <div class="content ">
+      <div class="ui fluid secondary vertical menu">
+      
+        <a class="item blue" href="#general-queries-logout-terminate-current-session">
+          <i class="ui blue empty circular label"></i>
+          
+            <span>Terminate Current Session</span>
+          
+        </a>
+      
+      </div>
+    </div>
+    
+  
+</div>
+
+
+<div class="ui horizontal divider">
+  <a href="#user">User</a>
+</div>
+
+<div class="ui accordion fluid">
+  
+    
+    <div class="title active">
+      <i class="dropdown icon"></i>
+      
+        <strong>User</strong>
+      
+    </div>
+    <div class="content active">
+      <div class="ui fluid secondary vertical menu">
+      
+        <a class="item green" href="#user-user-retrieve-a-user">
+          <i class="ui green empty circular label"></i>
+          
+            <span>Retrieve a User</span>
+          
+        </a>
+      
+        <a class="item blue" href="#user-user-update-a-user">
+          <i class="ui blue empty circular label"></i>
+          
+            <span>Update a User</span>
+          
+        </a>
+      
+      </div>
+    </div>
+    
+  
+    
+    <div class="title ">
+      <i class="dropdown icon"></i>
+      
+        <strong>Users</strong>
+      
+    </div>
+    <div class="content ">
+      <div class="ui fluid secondary vertical menu">
+      
+        <a class="item green" href="#user-users-get-all-viewable-users">
+          <i class="ui green empty circular label"></i>
+          
+            <span>Get All Viewable Users</span>
+          
+        </a>
+      
+      </div>
+    </div>
+    
+  
+</div>
+
+
+<div class="ui horizontal divider">
+  <a href="#network">Network</a>
+</div>
+
+<div class="ui accordion fluid">
+  
+    
+    <div class="title active">
+      <i class="dropdown icon"></i>
+      
+        <strong>Network</strong>
+      
+    </div>
+    <div class="content active">
+      <div class="ui fluid secondary vertical menu">
+      
+        <a class="item green" href="#network-network-retrieve-a-network">
+          <i class="ui green empty circular label"></i>
+          
+            <span>Retrieve a Network</span>
+          
+        </a>
+      
+        <a class="item blue" href="#network-network-update-or-create-a-network">
+          <i class="ui blue empty circular label"></i>
+          
+            <span>Update or create a Network</span>
+          
+        </a>
+      
+        <a class="item red" href="#network-network-delete-a-network">
+          <i class="ui red empty circular label"></i>
+          
+            <span>Delete a Network</span>
+          
+        </a>
+      
+      </div>
+    </div>
+    
+  
+    
+    <div class="title ">
+      <i class="dropdown icon"></i>
+      
+        <strong>Networks</strong>
+      
+    </div>
+    <div class="content ">
+      <div class="ui fluid secondary vertical menu">
+      
+        <a class="item green" href="#network-networks-get-all-viewable-networks">
+          <i class="ui green empty circular label"></i>
+          
+            <span>Get All Viewable Networks</span>
+          
+        </a>
+      
+      </div>
+    </div>
+    
+  
+</div>
+
+
+<div class="ui horizontal divider">
+  <a href="#member">Member</a>
+</div>
+
+<div class="ui accordion fluid">
+  
+    
+    <div class="title active">
+      <i class="dropdown icon"></i>
+      
+        <strong>Member</strong>
+      
+    </div>
+    <div class="content active">
+      <div class="ui fluid secondary vertical menu">
+      
+        <a class="item green" href="#member-member-retrieve-a-member">
+          <i class="ui green empty circular label"></i>
+          
+            <span>Retrieve a Member</span>
+          
+        </a>
+      
+        <a class="item blue" href="#member-member-update-or-add-a-member">
+          <i class="ui blue empty circular label"></i>
+          
+            <span>Update or add a Member</span>
+          
+        </a>
+      
+      </div>
+    </div>
+    
+  
+</div>
+
+
+        </div>
+      </div>
+      <div class="eleven wide computer ten wide tablet sixteen wide mobile column">
+        
+<div class="ui hidden divider header"></div>
+<h1 class="ui huge header" id="introduction">ZeroTier Central API</h1>
+<hr class="ui divider">
+<div class="description">
+  <p>ZeroTier Central&rsquo;s API is (mostly) RESTful and accepts GET and POST requests. PUT is treated as a synonym of POST. All posted payloads must be JSON (content type header is ignored). Field types are generally strict, e.g. a field that takes an integer may ignore or return an error if set to a string or a boolean. Writes to unrecognized or read-only fields are ignored. Unless you are running a private instance of Central configured to accept plain <em>http</em>, all requests must be <em>https</em>.</p>
+
+<p>Token authentication is accomplished by sending the following header: <code>Authorization: bearer &lt;API token&gt;</code> API tokens may be created and viewed in your user configuration. Guard your API tokens very carefully.</p>
+
+<p>This documentation is written in <a href="https://apiblueprint.org">API blueprint</a> format and is <a href="/static/central-api.md">available in raw MSON form here.</a>.
+<br><br></p>
+
+</div>
+
+        <div class="ui hidden divider"></div>
+        
+
+  <div class="ui horizontal divider" id="general-queries">
+    General Queries
+  </div>
+  <div class="ui header center aligned">
+    <div class="ui sub header">
+      
+    </div>
+  </div>
+  
+    
+      <div class="ui stacked segments">
+        <div class="ui basic segment resource">
+          <div class="ui purple huge ribbon label">
+            status
+          </div>
+          <div class="ui header">
+            <div class="ui sub header">
+              
+            </div>
+          </div>
+        </div>
+
+        
+          
+<div class="ui grey horizontal small divider header">
+  <i class="ui grey micro circular label"></i>
+  <i class="ui pink micro circular label"></i>
+  <i class="ui grey micro circular label"></i>
+</div>
+
+          <div class="ui basic segment">
+            <h3 class="ui block center aligned header" id="general-queries-status-get-status-and-configuration-information">
+              Get Status and Configuration Information
+            </h3>
+            <div class="description"><p>Obtain information about this server and/or useful to the Central web UI.</p>
+</div>
+
+            
+              <h4 class="ui horizontal divider">
+                REQUEST
+              </h4>
+              <div class="description"></div>
+              <div class="fluid ui large labeled button">
+                <div class="ui green large button">
+                  <h3>GET</h3>
+                </div>
+                <a class="ui basic fluid green label">
+                  <code>https://my.zerotier.com/api/status</code>
+                </a>
+              </div>
+              
+              
+              
+
+              <h4 class="ui horizontal divider">RESPONSE</h4>
+              <div class="description"></div>
+              
+<table class="ui celled definition table">
+  <thead>
+    <tr>
+      <th colspan="2">Headers</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr>
+      <td class="four wide">Content-Type</td>
+      <td><code>application/json</code></td>
+    </tr>
+  
+  </tbody>
+</table>
+
+              <div class="ui stacked blue segment">
+                <div class="ui fluid transaction accordion">
+                  <div class="title center aligned">
+                    <a class="ui blue circular label">
+                      200
+                    </a>
+                    <code>application/json</code>
+                  </div>
+                  <div class="content tabbed">
+                    <div class="ui top attached tabular menu">
+                      <a data-tab="body" class="active item">BODY</a>
+                      <a data-tab="schema" class="item">SCHEMA</a>
+                    </div>
+                    <div class="ui bottom attached active tab segment" data-tab="body">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;online&#34;: false,
+  &#34;clock&#34;: 0,
+  &#34;version&#34;: &#34;&#34;,
+  &#34;apiVersion&#34;: 0,
+  &#34;uptime&#34;: 0,
+  &#34;user&#34;: {},
+  &#34;stripePublishableKey&#34;: &#34;&#34;,
+  &#34;paidPlans&#34;: {},
+  &#34;smsEnabled&#34;: false,
+  &#34;clusterNode&#34;: &#34;&#34;,
+  &#34;loginMethods&#34;: {},
+  &#34;recaptchaSiteKey&#34;: &#34;&#34;,
+  &#34;return_to&#34;: &#34;&#34;
+}</code>
+                      </pre>
+                    </div>
+                    <div class="ui bottom attached tab segment" data-tab="schema">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;$schema&#34;: &#34;http://json-schema.org/draft-04/schema#&#34;,
+  &#34;type&#34;: &#34;object&#34;,
+  &#34;properties&#34;: {
+    &#34;online&#34;: {
+      &#34;type&#34;: &#34;boolean&#34;,
+      &#34;description&#34;: &#34;Always true&#34;
+    },
+    &#34;clock&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Current server-side system clock (ms since epoch)&#34;
+    },
+    &#34;version&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;ZeroTier Central version&#34;
+    },
+    &#34;apiVersion&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;ZeroTier Central API version&#34;
+    },
+    &#34;uptime&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;This host&#39;s uptime in milliseconds&#34;
+    },
+    &#34;user&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Current user if authenticated, otherwise null&#34;
+    },
+    &#34;stripePublishableKey&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Publishable key for Stripe payment processor or null if not configured&#34;
+    },
+    &#34;paidPlans&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Available paid plans (if configured)&#34;
+    },
+    &#34;smsEnabled&#34;: {
+      &#34;type&#34;: &#34;boolean&#34;,
+      &#34;description&#34;: &#34;True if SMS messaging is available&#34;
+    },
+    &#34;clusterNode&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Name of current cluster node servicing this request&#34;
+    },
+    &#34;loginMethods&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Object containing login methods and whether they are available&#34;
+    },
+    &#34;recaptchaSiteKey&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Recaptcha site key or null if not configured&#34;
+    },
+    &#34;return_to&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Bounce destination if using Central as third party auth source (used for ZeroTier support login)&#34;
+    }
+  }
+}</code>
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+          </div>
+        
+        </div>
+      <div class="ui hidden divider"></div>
+    
+  
+    
+      <div class="ui stacked segments">
+        <div class="ui basic segment resource">
+          <div class="ui purple huge ribbon label">
+            self
+          </div>
+          <div class="ui header">
+            <div class="ui sub header">
+              
+            </div>
+          </div>
+        </div>
+
+        
+          
+<div class="ui grey horizontal small divider header">
+  <i class="ui grey micro circular label"></i>
+  <i class="ui pink micro circular label"></i>
+  <i class="ui grey micro circular label"></i>
+</div>
+
+          <div class="ui basic segment">
+            <h3 class="ui block center aligned header" id="general-queries-self-get-currently-authenticated-user">
+              Get Currently Authenticated User
+            </h3>
+            <div class="description"><p>Get the currently authenticated user&rsquo;s user record.</p>
+</div>
+
+            
+              <h4 class="ui horizontal divider">
+                REQUEST
+              </h4>
+              <div class="description"></div>
+              <div class="fluid ui large labeled button">
+                <div class="ui green large button">
+                  <h3>GET</h3>
+                </div>
+                <a class="ui basic fluid green label">
+                  <code>https://my.zerotier.com/api/self</code>
+                </a>
+              </div>
+              
+              
+              
+
+              <h4 class="ui horizontal divider">RESPONSE</h4>
+              <div class="description"></div>
+              
+<table class="ui celled definition table">
+  <thead>
+    <tr>
+      <th colspan="2">Headers</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr>
+      <td class="four wide">Content-Type</td>
+      <td><code>application/json</code></td>
+    </tr>
+  
+  </tbody>
+</table>
+
+              <div class="ui stacked blue segment">
+                <div class="ui fluid transaction accordion">
+                  <div class="title center aligned">
+                    <a class="ui blue circular label">
+                      200
+                    </a>
+                    <code>application/json</code>
+                  </div>
+                  <div class="content tabbed">
+                    <div class="ui top attached tabular menu">
+                      <a data-tab="body" class="active item">BODY</a>
+                      <a data-tab="schema" class="item">SCHEMA</a>
+                    </div>
+                    <div class="ui bottom attached active tab segment" data-tab="body">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;id&#34;: &#34;&#34;,
+  &#34;type&#34;: &#34;&#34;,
+  &#34;clock&#34;: 0,
+  &#34;globalPermissions&#34;: {
+    &#34;r&#34;: false,
+    &#34;m&#34;: false,
+    &#34;d boolean)&#34;: &#34;&#34;,
+    &#34;a&#34;: false
+  },
+  &#34;ui&#34;: {},
+  &#34;displayName&#34;: &#34;&#34;,
+  &#34;email&#34;: &#34;&#34;,
+  &#34;auth&#34;: {},
+  &#34;smsNumber&#34;: &#34;&#34;,
+  &#34;tokens&#34;: [],
+  &#34;permissions&#34;: {
+    &#34;{id}&#34;: {
+      &#34;t&#34;: &#34;&#34;,
+      &#34;r&#34;: false,
+      &#34;m&#34;: false,
+      &#34;d&#34;: false,
+      &#34;a&#34;: false
+    }
+  },
+  &#34;subscriptions&#34;: {}
+}</code>
+                      </pre>
+                    </div>
+                    <div class="ui bottom attached tab segment" data-tab="schema">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;$schema&#34;: &#34;http://json-schema.org/draft-04/schema#&#34;,
+  &#34;type&#34;: &#34;object&#34;,
+  &#34;properties&#34;: {
+    &#34;id&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;User ID (GUID) [ro]&#34;
+    },
+    &#34;type&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Object type [ro]&#34;
+    },
+    &#34;clock&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Current system clock on server [ro]&#34;
+    },
+    &#34;globalPermissions&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;r&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;,
+          &#34;description&#34;: &#34;Read&#34;
+        },
+        &#34;m&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;,
+          &#34;description&#34;: &#34;Modify&#34;
+        },
+        &#34;d boolean)&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;Delete&#34;
+        },
+        &#34;a&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;,
+          &#34;description&#34;: &#34;Authorize&#34;
+        }
+      },
+      &#34;description&#34;: &#34;Global permissions for this user against all objects on system (for admins) [ro]&#34;
+    },
+    &#34;ui&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Arbitrary data that is stored and used by the UI [rw]&#34;
+    },
+    &#34;displayName&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;User display name [rw]&#34;
+    },
+    &#34;email&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;User e-mail [ro]&#34;
+    },
+    &#34;auth&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Object containing one or more authentication types and login names or IDs [ro]&#34;
+    },
+    &#34;smsNumber&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;SMS telephone number for sending SMS notifications [rw]&#34;
+    },
+    &#34;tokens&#34;: {
+      &#34;type&#34;: &#34;array&#34;,
+      &#34;description&#34;: &#34;Array of API authentication tokens [rw]&#34;
+    },
+    &#34;permissions&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;{id}&#34;: {
+          &#34;type&#34;: &#34;object&#34;,
+          &#34;properties&#34;: {
+            &#34;t&#34;: {
+              &#34;type&#34;: &#34;string&#34;,
+              &#34;description&#34;: &#34;Type of actor object (currently User or Group)&#34;
+            },
+            &#34;r&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Read&#34;
+            },
+            &#34;m&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Modify&#34;
+            },
+            &#34;d&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Delete&#34;
+            },
+            &#34;a&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Authorize&#34;
+            }
+          },
+          &#34;description&#34;: &#34;Permissions possessed by actor object, by object ID [ro]&#34;
+        }
+      },
+      &#34;description&#34;: &#34;Actors with permissions that apply to this object [ro]&#34;
+    },
+    &#34;subscriptions&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Subscriptions by plan ID [ro]&#34;
+    }
+  }
+}</code>
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+          </div>
+        
+        </div>
+      <div class="ui hidden divider"></div>
+    
+  
+    
+      <div class="ui stacked segments">
+        <div class="ui basic segment resource">
+          <div class="ui purple huge ribbon label">
+            randomToken
+          </div>
+          <div class="ui header">
+            <div class="ui sub header">
+              
+            </div>
+          </div>
+        </div>
+
+        
+          
+<div class="ui grey horizontal small divider header">
+  <i class="ui grey micro circular label"></i>
+  <i class="ui pink micro circular label"></i>
+  <i class="ui grey micro circular label"></i>
+</div>
+
+          <div class="ui basic segment">
+            <h3 class="ui block center aligned header" id="general-queries-randomtoken-generate-a-random-token">
+              Generate a Random Token
+            </h3>
+            <div class="description"><p>This generates a random token suitable for use as an API token server-side using a secure random source. It does not actually modify the user record, just returns the token for use by API callers or the UI.</p>
+</div>
+
+            
+              <h4 class="ui horizontal divider">
+                REQUEST
+              </h4>
+              <div class="description"></div>
+              <div class="fluid ui large labeled button">
+                <div class="ui green large button">
+                  <h3>GET</h3>
+                </div>
+                <a class="ui basic fluid green label">
+                  <code>https://my.zerotier.com/api/randomToken</code>
+                </a>
+              </div>
+              
+              
+              
+
+              <h4 class="ui horizontal divider">RESPONSE</h4>
+              <div class="description"></div>
+              
+<table class="ui celled definition table">
+  <thead>
+    <tr>
+      <th colspan="2">Headers</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr>
+      <td class="four wide">Content-Type</td>
+      <td><code>application/json</code></td>
+    </tr>
+  
+  </tbody>
+</table>
+
+              <div class="ui stacked blue segment">
+                <div class="ui fluid transaction accordion">
+                  <div class="title center aligned">
+                    <a class="ui blue circular label">
+                      200
+                    </a>
+                    <code>application/json</code>
+                  </div>
+                  <div class="content tabbed">
+                    <div class="ui top attached tabular menu">
+                      <a data-tab="body" class="active item">BODY</a>
+                      <a data-tab="schema" class="item">SCHEMA</a>
+                    </div>
+                    <div class="ui bottom attached active tab segment" data-tab="body">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;token&#34;: &#34;&#34;,
+  &#34;clock&#34;: 0,
+  &#34;raw&#34;: &#34;&#34;
+}</code>
+                      </pre>
+                    </div>
+                    <div class="ui bottom attached tab segment" data-tab="schema">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;$schema&#34;: &#34;http://json-schema.org/draft-04/schema#&#34;,
+  &#34;type&#34;: &#34;object&#34;,
+  &#34;properties&#34;: {
+    &#34;token&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Random string suitable for use as an API authentication token&#34;
+    },
+    &#34;clock&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Current server-side system clock (ms since epoch)&#34;
+    },
+    &#34;raw&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Raw random bytes in hex format&#34;
+    }
+  }
+}</code>
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+          </div>
+        
+        </div>
+      <div class="ui hidden divider"></div>
+    
+  
+    
+      <div class="ui stacked segments">
+        <div class="ui basic segment resource">
+          <div class="ui purple huge ribbon label">
+            logout
+          </div>
+          <div class="ui header">
+            <div class="ui sub header">
+              
+            </div>
+          </div>
+        </div>
+
+        
+          
+<div class="ui grey horizontal small divider header">
+  <i class="ui grey micro circular label"></i>
+  <i class="ui pink micro circular label"></i>
+  <i class="ui grey micro circular label"></i>
+</div>
+
+          <div class="ui basic segment">
+            <h3 class="ui block center aligned header" id="general-queries-logout-terminate-current-session">
+              Terminate Current Session
+            </h3>
+            <div class="description"><p>Hitting this endpoint causes the user to be logged out. It has no effect when using token authentication, so it&rsquo;s mostly used by the UI.</p>
+</div>
+
+            
+              <h4 class="ui horizontal divider">
+                REQUEST
+              </h4>
+              <div class="description"></div>
+              <div class="fluid ui large labeled button">
+                <div class="ui blue large button">
+                  <h3>POST</h3>
+                </div>
+                <a class="ui basic fluid blue label">
+                  <code>https://my.zerotier.com/api/auth/_logout</code>
+                </a>
+              </div>
+              
+              
+              
+
+              <h4 class="ui horizontal divider">RESPONSE</h4>
+              <div class="description"></div>
+              
+<table class="ui celled definition table">
+  <thead>
+    <tr>
+      <th colspan="2">Headers</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr>
+      <td class="four wide">Content-Type</td>
+      <td><code>application/json</code></td>
+    </tr>
+  
+  </tbody>
+</table>
+
+              <div class="ui stacked blue segment">
+                <div class="ui fluid transaction accordion">
+                  <div class="title center aligned">
+                    <a class="ui blue circular label">
+                      200
+                    </a>
+                    <code></code>
+                  </div>
+                  <div class="content tabbed">
+                    <div class="ui top attached tabular menu">
+                      <a data-tab="body" class="active item">BODY</a>
+                      <a data-tab="schema" class="item">SCHEMA</a>
+                    </div>
+                    <div class="ui bottom attached active tab segment" data-tab="body">
+                      <pre style="white-space: inherit">
+                        <code class="language-"></code>
+                      </pre>
+                    </div>
+                    <div class="ui bottom attached tab segment" data-tab="schema">
+                      <pre style="white-space: inherit">
+                        <code class="language-json"></code>
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+          </div>
+        
+        </div>
+      <div class="ui hidden divider"></div>
+    
+  
+
+  <div class="ui horizontal divider" id="user">
+    User
+  </div>
+  <div class="ui header center aligned">
+    <div class="ui sub header">
+      
+    </div>
+  </div>
+  
+    
+      <div class="ui stacked segments">
+        <div class="ui basic segment resource">
+          <div class="ui purple huge ribbon label">
+            User
+          </div>
+          <div class="ui header">
+            <div class="ui sub header">
+              
+            </div>
+          </div>
+        </div>
+
+        
+          
+<div class="ui grey horizontal small divider header">
+  <i class="ui grey micro circular label"></i>
+  <i class="ui pink micro circular label"></i>
+  <i class="ui grey micro circular label"></i>
+</div>
+
+          <div class="ui basic segment">
+            <h3 class="ui block center aligned header" id="user-user-retrieve-a-user">
+              Retrieve a User
+            </h3>
+            <div class="description"></div>
+
+            
+              <h4 class="ui horizontal divider">
+                REQUEST
+              </h4>
+              <div class="description"></div>
+              <div class="fluid ui large labeled button">
+                <div class="ui green large button">
+                  <h3>GET</h3>
+                </div>
+                <a class="ui basic fluid green label">
+                  <code>https://my.zerotier.com/api/user/{userId}</code>
+                </a>
+              </div>
+              
+                <table class="ui celled definition table">
+                  <thead>
+                    <tr>
+                      <th colspan="4">Parameters</th>
+                    </tr>
+                  <thead>
+                  <tbody>
+                    
+                    
+                      
+  
+    <tr>
+      <td class="center aligned one wide">
+        <i class="ui empty circular label black" data-content="required" data-position="top center"></i>
+      </td>
+      <td><code>userId</code></td>
+      <td class="center aligned">
+        <code></code>
+        <code class="ui label">00000000</code>
+        
+      </td>
+      <td class="eight wide">
+        <p>0000-0000-0000-000000000000 (required,string) - Internal user ID (GUID)</p>
+
+        
+      </td>
+    </tr>
+  
+
+                    
+                  </tbody>
+                </table>
+              
+              
+              
+
+              <h4 class="ui horizontal divider">RESPONSE</h4>
+              <div class="description"></div>
+              
+<table class="ui celled definition table">
+  <thead>
+    <tr>
+      <th colspan="2">Headers</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr>
+      <td class="four wide">Content-Type</td>
+      <td><code>application/json</code></td>
+    </tr>
+  
+  </tbody>
+</table>
+
+              <div class="ui stacked blue segment">
+                <div class="ui fluid transaction accordion">
+                  <div class="title center aligned">
+                    <a class="ui blue circular label">
+                      200
+                    </a>
+                    <code>application/json</code>
+                  </div>
+                  <div class="content tabbed">
+                    <div class="ui top attached tabular menu">
+                      <a data-tab="body" class="active item">BODY</a>
+                      <a data-tab="schema" class="item">SCHEMA</a>
+                    </div>
+                    <div class="ui bottom attached active tab segment" data-tab="body">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;id&#34;: &#34;&#34;,
+  &#34;type&#34;: &#34;&#34;,
+  &#34;clock&#34;: 0,
+  &#34;globalPermissions&#34;: {
+    &#34;r&#34;: false,
+    &#34;m&#34;: false,
+    &#34;d boolean)&#34;: &#34;&#34;,
+    &#34;a&#34;: false
+  },
+  &#34;ui&#34;: {},
+  &#34;displayName&#34;: &#34;&#34;,
+  &#34;email&#34;: &#34;&#34;,
+  &#34;auth&#34;: {},
+  &#34;smsNumber&#34;: &#34;&#34;,
+  &#34;tokens&#34;: [],
+  &#34;permissions&#34;: {
+    &#34;{id}&#34;: {
+      &#34;t&#34;: &#34;&#34;,
+      &#34;r&#34;: false,
+      &#34;m&#34;: false,
+      &#34;d&#34;: false,
+      &#34;a&#34;: false
+    }
+  },
+  &#34;subscriptions&#34;: {}
+}</code>
+                      </pre>
+                    </div>
+                    <div class="ui bottom attached tab segment" data-tab="schema">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;$schema&#34;: &#34;http://json-schema.org/draft-04/schema#&#34;,
+  &#34;type&#34;: &#34;object&#34;,
+  &#34;properties&#34;: {
+    &#34;id&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;User ID (GUID) [ro]&#34;
+    },
+    &#34;type&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Object type [ro]&#34;
+    },
+    &#34;clock&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Current system clock on server [ro]&#34;
+    },
+    &#34;globalPermissions&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;r&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;,
+          &#34;description&#34;: &#34;Read&#34;
+        },
+        &#34;m&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;,
+          &#34;description&#34;: &#34;Modify&#34;
+        },
+        &#34;d boolean)&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;Delete&#34;
+        },
+        &#34;a&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;,
+          &#34;description&#34;: &#34;Authorize&#34;
+        }
+      },
+      &#34;description&#34;: &#34;Global permissions for this user against all objects on system (for admins) [ro]&#34;
+    },
+    &#34;ui&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Arbitrary data that is stored and used by the UI [rw]&#34;
+    },
+    &#34;displayName&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;User display name [rw]&#34;
+    },
+    &#34;email&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;User e-mail [ro]&#34;
+    },
+    &#34;auth&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Object containing one or more authentication types and login names or IDs [ro]&#34;
+    },
+    &#34;smsNumber&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;SMS telephone number for sending SMS notifications [rw]&#34;
+    },
+    &#34;tokens&#34;: {
+      &#34;type&#34;: &#34;array&#34;,
+      &#34;description&#34;: &#34;Array of API authentication tokens [rw]&#34;
+    },
+    &#34;permissions&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;{id}&#34;: {
+          &#34;type&#34;: &#34;object&#34;,
+          &#34;properties&#34;: {
+            &#34;t&#34;: {
+              &#34;type&#34;: &#34;string&#34;,
+              &#34;description&#34;: &#34;Type of actor object (currently User or Group)&#34;
+            },
+            &#34;r&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Read&#34;
+            },
+            &#34;m&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Modify&#34;
+            },
+            &#34;d&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Delete&#34;
+            },
+            &#34;a&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Authorize&#34;
+            }
+          },
+          &#34;description&#34;: &#34;Permissions possessed by actor object, by object ID [ro]&#34;
+        }
+      },
+      &#34;description&#34;: &#34;Actors with permissions that apply to this object [ro]&#34;
+    },
+    &#34;subscriptions&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Subscriptions by plan ID [ro]&#34;
+    }
+  }
+}</code>
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+          </div>
+        
+          
+<div class="ui grey horizontal small divider header">
+  <i class="ui grey micro circular label"></i>
+  <i class="ui pink micro circular label"></i>
+  <i class="ui grey micro circular label"></i>
+</div>
+
+          <div class="ui basic segment">
+            <h3 class="ui block center aligned header" id="user-user-update-a-user">
+              Update a User
+            </h3>
+            <div class="description"><p>Only fields marked as [rw] can be directly modified. If other fields are present in the posted request they are ignored.</p>
+</div>
+
+            
+              <h4 class="ui horizontal divider">
+                REQUEST
+              </h4>
+              <div class="description"></div>
+              <div class="fluid ui large labeled button">
+                <div class="ui blue large button">
+                  <h3>POST</h3>
+                </div>
+                <a class="ui basic fluid blue label">
+                  <code>https://my.zerotier.com/api/user/{userId}</code>
+                </a>
+              </div>
+              
+                <table class="ui celled definition table">
+                  <thead>
+                    <tr>
+                      <th colspan="4">Parameters</th>
+                    </tr>
+                  <thead>
+                  <tbody>
+                    
+                    
+                      
+  
+    <tr>
+      <td class="center aligned one wide">
+        <i class="ui empty circular label black" data-content="required" data-position="top center"></i>
+      </td>
+      <td><code>userId</code></td>
+      <td class="center aligned">
+        <code></code>
+        <code class="ui label">00000000</code>
+        
+      </td>
+      <td class="eight wide">
+        <p>0000-0000-0000-000000000000 (required,string) - Internal user ID (GUID)</p>
+
+        
+      </td>
+    </tr>
+  
+
+                    
+                  </tbody>
+                </table>
+              
+              
+                
+<table class="ui celled definition table">
+  <thead>
+    <tr>
+      <th colspan="2">Headers</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr>
+      <td class="four wide">Content-Type</td>
+      <td><code>application/json</code></td>
+    </tr>
+  
+  </tbody>
+</table>
+
+              
+              
+
+              <h4 class="ui horizontal divider">RESPONSE</h4>
+              <div class="description"></div>
+              
+<table class="ui celled definition table">
+  <thead>
+    <tr>
+      <th colspan="2">Headers</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr>
+      <td class="four wide">Content-Type</td>
+      <td><code>application/json</code></td>
+    </tr>
+  
+  </tbody>
+</table>
+
+              <div class="ui stacked blue segment">
+                <div class="ui fluid transaction accordion">
+                  <div class="title center aligned">
+                    <a class="ui blue circular label">
+                      200
+                    </a>
+                    <code>application/json</code>
+                  </div>
+                  <div class="content tabbed">
+                    <div class="ui top attached tabular menu">
+                      <a data-tab="body" class="active item">BODY</a>
+                      <a data-tab="schema" class="item">SCHEMA</a>
+                    </div>
+                    <div class="ui bottom attached active tab segment" data-tab="body">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;id&#34;: &#34;&#34;,
+  &#34;type&#34;: &#34;&#34;,
+  &#34;clock&#34;: 0,
+  &#34;globalPermissions&#34;: {
+    &#34;r&#34;: false,
+    &#34;m&#34;: false,
+    &#34;d boolean)&#34;: &#34;&#34;,
+    &#34;a&#34;: false
+  },
+  &#34;ui&#34;: {},
+  &#34;displayName&#34;: &#34;&#34;,
+  &#34;email&#34;: &#34;&#34;,
+  &#34;auth&#34;: {},
+  &#34;smsNumber&#34;: &#34;&#34;,
+  &#34;tokens&#34;: [],
+  &#34;permissions&#34;: {
+    &#34;{id}&#34;: {
+      &#34;t&#34;: &#34;&#34;,
+      &#34;r&#34;: false,
+      &#34;m&#34;: false,
+      &#34;d&#34;: false,
+      &#34;a&#34;: false
+    }
+  },
+  &#34;subscriptions&#34;: {}
+}</code>
+                      </pre>
+                    </div>
+                    <div class="ui bottom attached tab segment" data-tab="schema">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;$schema&#34;: &#34;http://json-schema.org/draft-04/schema#&#34;,
+  &#34;type&#34;: &#34;object&#34;,
+  &#34;properties&#34;: {
+    &#34;id&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;User ID (GUID) [ro]&#34;
+    },
+    &#34;type&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Object type [ro]&#34;
+    },
+    &#34;clock&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Current system clock on server [ro]&#34;
+    },
+    &#34;globalPermissions&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;r&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;,
+          &#34;description&#34;: &#34;Read&#34;
+        },
+        &#34;m&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;,
+          &#34;description&#34;: &#34;Modify&#34;
+        },
+        &#34;d boolean)&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;Delete&#34;
+        },
+        &#34;a&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;,
+          &#34;description&#34;: &#34;Authorize&#34;
+        }
+      },
+      &#34;description&#34;: &#34;Global permissions for this user against all objects on system (for admins) [ro]&#34;
+    },
+    &#34;ui&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Arbitrary data that is stored and used by the UI [rw]&#34;
+    },
+    &#34;displayName&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;User display name [rw]&#34;
+    },
+    &#34;email&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;User e-mail [ro]&#34;
+    },
+    &#34;auth&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Object containing one or more authentication types and login names or IDs [ro]&#34;
+    },
+    &#34;smsNumber&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;SMS telephone number for sending SMS notifications [rw]&#34;
+    },
+    &#34;tokens&#34;: {
+      &#34;type&#34;: &#34;array&#34;,
+      &#34;description&#34;: &#34;Array of API authentication tokens [rw]&#34;
+    },
+    &#34;permissions&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;{id}&#34;: {
+          &#34;type&#34;: &#34;object&#34;,
+          &#34;properties&#34;: {
+            &#34;t&#34;: {
+              &#34;type&#34;: &#34;string&#34;,
+              &#34;description&#34;: &#34;Type of actor object (currently User or Group)&#34;
+            },
+            &#34;r&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Read&#34;
+            },
+            &#34;m&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Modify&#34;
+            },
+            &#34;d&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Delete&#34;
+            },
+            &#34;a&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Authorize&#34;
+            }
+          },
+          &#34;description&#34;: &#34;Permissions possessed by actor object, by object ID [ro]&#34;
+        }
+      },
+      &#34;description&#34;: &#34;Actors with permissions that apply to this object [ro]&#34;
+    },
+    &#34;subscriptions&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Subscriptions by plan ID [ro]&#34;
+    }
+  }
+}</code>
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+          </div>
+        
+        </div>
+      <div class="ui hidden divider"></div>
+    
+  
+    
+      <div class="ui stacked segments">
+        <div class="ui basic segment resource">
+          <div class="ui purple huge ribbon label">
+            Users
+          </div>
+          <div class="ui header">
+            <div class="ui sub header">
+              
+            </div>
+          </div>
+        </div>
+
+        
+          
+<div class="ui grey horizontal small divider header">
+  <i class="ui grey micro circular label"></i>
+  <i class="ui pink micro circular label"></i>
+  <i class="ui grey micro circular label"></i>
+</div>
+
+          <div class="ui basic segment">
+            <h3 class="ui block center aligned header" id="user-users-get-all-viewable-users">
+              Get All Viewable Users
+            </h3>
+            <div class="description"><p>Get all users for which you have at least read access.</p>
+</div>
+
+            
+              <h4 class="ui horizontal divider">
+                REQUEST
+              </h4>
+              <div class="description"></div>
+              <div class="fluid ui large labeled button">
+                <div class="ui green large button">
+                  <h3>GET</h3>
+                </div>
+                <a class="ui basic fluid green label">
+                  <code>https://my.zerotier.com/api/user</code>
+                </a>
+              </div>
+              
+              
+              
+
+              <h4 class="ui horizontal divider">RESPONSE</h4>
+              <div class="description"></div>
+              
+<table class="ui celled definition table">
+  <thead>
+    <tr>
+      <th colspan="2">Headers</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr>
+      <td class="four wide">Content-Type</td>
+      <td><code>application/json</code></td>
+    </tr>
+  
+  </tbody>
+</table>
+
+              <div class="ui stacked blue segment">
+                <div class="ui fluid transaction accordion">
+                  <div class="title center aligned">
+                    <a class="ui blue circular label">
+                      200
+                    </a>
+                    <code>application/json</code>
+                  </div>
+                  <div class="content tabbed">
+                    <div class="ui top attached tabular menu">
+                      <a data-tab="body" class="active item">BODY</a>
+                      <a data-tab="schema" class="item">SCHEMA</a>
+                    </div>
+                    <div class="ui bottom attached active tab segment" data-tab="body">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">[
+  {
+    &#34;id&#34;: &#34;&#34;,
+    &#34;type&#34;: &#34;&#34;,
+    &#34;clock&#34;: 0,
+    &#34;globalPermissions&#34;: {
+      &#34;r&#34;: false,
+      &#34;m&#34;: false,
+      &#34;d boolean)&#34;: &#34;&#34;,
+      &#34;a&#34;: false
+    },
+    &#34;ui&#34;: {},
+    &#34;displayName&#34;: &#34;&#34;,
+    &#34;email&#34;: &#34;&#34;,
+    &#34;auth&#34;: {},
+    &#34;smsNumber&#34;: &#34;&#34;,
+    &#34;tokens&#34;: [],
+    &#34;permissions&#34;: {
+      &#34;{id}&#34;: {
+        &#34;t&#34;: &#34;&#34;,
+        &#34;r&#34;: false,
+        &#34;m&#34;: false,
+        &#34;d&#34;: false,
+        &#34;a&#34;: false
+      }
+    },
+    &#34;subscriptions&#34;: {}
+  }
+]</code>
+                      </pre>
+                    </div>
+                    <div class="ui bottom attached tab segment" data-tab="schema">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;$schema&#34;: &#34;http://json-schema.org/draft-04/schema#&#34;,
+  &#34;type&#34;: &#34;array&#34;
+}</code>
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+          </div>
+        
+        </div>
+      <div class="ui hidden divider"></div>
+    
+  
+
+  <div class="ui horizontal divider" id="network">
+    Network
+  </div>
+  <div class="ui header center aligned">
+    <div class="ui sub header">
+      
+    </div>
+  </div>
+  
+    
+      <div class="ui stacked segments">
+        <div class="ui basic segment resource">
+          <div class="ui purple huge ribbon label">
+            Network
+          </div>
+          <div class="ui header">
+            <div class="ui sub header">
+              
+            </div>
+          </div>
+        </div>
+
+        
+          
+<div class="ui grey horizontal small divider header">
+  <i class="ui grey micro circular label"></i>
+  <i class="ui pink micro circular label"></i>
+  <i class="ui grey micro circular label"></i>
+</div>
+
+          <div class="ui basic segment">
+            <h3 class="ui block center aligned header" id="network-network-retrieve-a-network">
+              Retrieve a Network
+            </h3>
+            <div class="description"></div>
+
+            
+              <h4 class="ui horizontal divider">
+                REQUEST
+              </h4>
+              <div class="description"></div>
+              <div class="fluid ui large labeled button">
+                <div class="ui green large button">
+                  <h3>GET</h3>
+                </div>
+                <a class="ui basic fluid green label">
+                  <code>https://my.zerotier.com/api/network/{networkId}</code>
+                </a>
+              </div>
+              
+                <table class="ui celled definition table">
+                  <thead>
+                    <tr>
+                      <th colspan="4">Parameters</th>
+                    </tr>
+                  <thead>
+                  <tbody>
+                    
+                    
+                      
+  
+    <tr>
+      <td class="center aligned one wide">
+        <i class="ui empty circular label black" data-content="required" data-position="top center"></i>
+      </td>
+      <td><code>networkId</code></td>
+      <td class="center aligned">
+        <code>string</code>
+        <code class="ui label">0000000000000000</code>
+        
+      </td>
+      <td class="eight wide">
+        <p>16-digit ZeroTier network ID</p>
+
+        
+      </td>
+    </tr>
+  
+
+                    
+                  </tbody>
+                </table>
+              
+              
+              
+
+              <h4 class="ui horizontal divider">RESPONSE</h4>
+              <div class="description"></div>
+              
+<table class="ui celled definition table">
+  <thead>
+    <tr>
+      <th colspan="2">Headers</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr>
+      <td class="four wide">Content-Type</td>
+      <td><code>application/json</code></td>
+    </tr>
+  
+  </tbody>
+</table>
+
+              <div class="ui stacked blue segment">
+                <div class="ui fluid transaction accordion">
+                  <div class="title center aligned">
+                    <a class="ui blue circular label">
+                      200
+                    </a>
+                    <code>application/json</code>
+                  </div>
+                  <div class="content tabbed">
+                    <div class="ui top attached tabular menu">
+                      <a data-tab="body" class="active item">BODY</a>
+                      <a data-tab="schema" class="item">SCHEMA</a>
+                    </div>
+                    <div class="ui bottom attached active tab segment" data-tab="body">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;id&#34;: &#34;&#34;,
+  &#34;type&#34;: &#34;&#34;,
+  &#34;clock&#34;: 0,
+  &#34;ui&#34;: {},
+  &#34;rulesSource&#34;: &#34;&#34;,
+  &#34;description&#34;: &#34;&#34;,
+  &#34;permissions&#34;: {
+    &#34;{id}&#34;: {
+      &#34;t&#34;: &#34;&#34;,
+      &#34;r&#34;: false,
+      &#34;m&#34;: false,
+      &#34;d&#34;: false,
+      &#34;a&#34;: false
+    }
+  },
+  &#34;onlineMemberCount&#34;: 0,
+  &#34;capabilitiesByName&#34;: {},
+  &#34;tagsByName&#34;: {},
+  &#34;circuitTestEvery&#34;: 0,
+  &#34;config&#34;: {
+    &#34;id&#34;: &#34;&#34;,
+    &#34;nwid&#34;: &#34;&#34;,
+    &#34;name&#34;: &#34;&#34;,
+    &#34;objtype&#34;: &#34;&#34;,
+    &#34;private&#34;: false,
+    &#34;creationTime&#34;: 0,
+    &#34;revision&#34;: 0,
+    &#34;lastModified&#34;: 0,
+    &#34;multicastLimit&#34;: 0,
+    &#34;routes&#34;: [],
+    &#34;rules&#34;: [],
+    &#34;tags&#34;: [],
+    &#34;capabilities&#34;: [],
+    &#34;totalMemberCount&#34;: 0,
+    &#34;activeMemberCount&#34;: 0,
+    &#34;authTokens&#34;: [],
+    &#34;authorizedMemberCount&#34;: 0,
+    &#34;v4AssignMode&#34;: {},
+    &#34;v6AssignMode&#34;: {}
+  }
+}</code>
+                      </pre>
+                    </div>
+                    <div class="ui bottom attached tab segment" data-tab="schema">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;$schema&#34;: &#34;http://json-schema.org/draft-04/schema#&#34;,
+  &#34;type&#34;: &#34;object&#34;,
+  &#34;properties&#34;: {
+    &#34;id&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;16-digit ZeroTier network ID [ro]&#34;
+    },
+    &#34;type&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Object type (\&#34;Network\&#34;) [ro]&#34;
+    },
+    &#34;clock&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Current system clock on server [ro]&#34;
+    },
+    &#34;ui&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Arbitrary data that is stored and used by the UI [rw]&#34;
+    },
+    &#34;rulesSource&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Source code of network rule set [rw]&#34;
+    },
+    &#34;description&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Long description of this network [rw]&#34;
+    },
+    &#34;permissions&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;{id}&#34;: {
+          &#34;type&#34;: &#34;object&#34;,
+          &#34;properties&#34;: {
+            &#34;t&#34;: {
+              &#34;type&#34;: &#34;string&#34;,
+              &#34;description&#34;: &#34;Type of actor object (currently User or Group)&#34;
+            },
+            &#34;r&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Read&#34;
+            },
+            &#34;m&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Modify&#34;
+            },
+            &#34;d&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Delete&#34;
+            },
+            &#34;a&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Authorize&#34;
+            }
+          },
+          &#34;description&#34;: &#34;Permissions possessed by actor object, by object ID [ro]&#34;
+        }
+      },
+      &#34;description&#34;: &#34;Actors with permissions that apply to this object [ro]&#34;
+    },
+    &#34;onlineMemberCount&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Number of members online [ro]&#34;
+    },
+    &#34;capabilitiesByName&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Capabilities defined in rule set by name [rw]&#34;
+    },
+    &#34;tagsByName&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Tags defined in rule set by name [rw]&#34;
+    },
+    &#34;circuitTestEvery&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Circuit test this network every N milliseconds [ro]&#34;
+    },
+    &#34;config&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;id&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;16-digit ZeroTier network ID [ro]&#34;
+        },
+        &#34;nwid&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;16-digit ZeroTier network ID (for backward compatibility) [ro]&#34;
+        },
+        &#34;name&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;Short name of network [rw]&#34;
+        },
+        &#34;objtype&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;Object type on controller (\&#34;network\&#34;) [ro]&#34;
+        },
+        &#34;private&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;,
+          &#34;description&#34;: &#34;If true, certificate access control is enabled [rw]&#34;
+        },
+        &#34;creationTime&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Time network was created on controller [ro]&#34;
+        },
+        &#34;revision&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Network revision number [ro]&#34;
+        },
+        &#34;lastModified&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Time config was last modified [ro]&#34;
+        },
+        &#34;multicastLimit&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Max recipients per multicast or broadcast [rw]&#34;
+        },
+        &#34;routes&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of IP routes published to members [rw]&#34;
+        },
+        &#34;rules&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Network base rules table [rw]&#34;
+        },
+        &#34;tags&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of tags available on this network [rw]&#34;
+        },
+        &#34;capabilities&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of capabilities available on this network [rw]&#34;
+        },
+        &#34;totalMemberCount&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Total number of members [ro]&#34;
+        },
+        &#34;activeMemberCount&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Number of active/online members [ro]&#34;
+        },
+        &#34;authTokens&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of authentication tokens for auto-authorizing new members [rw]&#34;
+        },
+        &#34;authorizedMemberCount&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Number of authorized members [ro]&#34;
+        },
+        &#34;v4AssignMode&#34;: {
+          &#34;type&#34;: &#34;object&#34;,
+          &#34;properties&#34;: {},
+          &#34;description&#34;: &#34;Boolean toggles for IPv4 assignment modes [rw]&#34;
+        },
+        &#34;v6AssignMode&#34;: {
+          &#34;type&#34;: &#34;object&#34;,
+          &#34;properties&#34;: {},
+          &#34;description&#34;: &#34;Boolean toggles for IPv6 assignment modes [rw]&#34;
+        }
+      },
+      &#34;description&#34;: &#34;Network configuration (for actual controller) [rw]&#34;
+    }
+  }
+}</code>
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+          </div>
+        
+          
+<div class="ui grey horizontal small divider header">
+  <i class="ui grey micro circular label"></i>
+  <i class="ui pink micro circular label"></i>
+  <i class="ui grey micro circular label"></i>
+</div>
+
+          <div class="ui basic segment">
+            <h3 class="ui block center aligned header" id="network-network-update-or-create-a-network">
+              Update or create a Network
+            </h3>
+            <div class="description"><p>Only fields marked as [rw] can be directly modified. If other fields are present in the posted request they are ignored.</p>
+
+<p>New networks can be created by POSTing to <code>/api/network</code> with no networkId parameter. The server will create a random unused network ID and return the new network record.</p>
+</div>
+
+            
+              <h4 class="ui horizontal divider">
+                REQUEST
+              </h4>
+              <div class="description"></div>
+              <div class="fluid ui large labeled button">
+                <div class="ui blue large button">
+                  <h3>POST</h3>
+                </div>
+                <a class="ui basic fluid blue label">
+                  <code>https://my.zerotier.com/api/network/{networkId}</code>
+                </a>
+              </div>
+              
+                <table class="ui celled definition table">
+                  <thead>
+                    <tr>
+                      <th colspan="4">Parameters</th>
+                    </tr>
+                  <thead>
+                  <tbody>
+                    
+                    
+                      
+  
+    <tr>
+      <td class="center aligned one wide">
+        <i class="ui empty circular label black" data-content="required" data-position="top center"></i>
+      </td>
+      <td><code>networkId</code></td>
+      <td class="center aligned">
+        <code>string</code>
+        <code class="ui label">0000000000000000</code>
+        
+      </td>
+      <td class="eight wide">
+        <p>16-digit ZeroTier network ID</p>
+
+        
+      </td>
+    </tr>
+  
+
+                    
+                  </tbody>
+                </table>
+              
+              
+                
+<table class="ui celled definition table">
+  <thead>
+    <tr>
+      <th colspan="2">Headers</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr>
+      <td class="four wide">Content-Type</td>
+      <td><code>application/json</code></td>
+    </tr>
+  
+  </tbody>
+</table>
+
+              
+              
+                <div class="ui stacked segment">
+                  <div class="ui fluid transaction accordion">
+                    <div class="title">
+                      <code>application/json</code>
+                    </div>
+                    <div class="content tabbed">
+                      <div class="ui top attached tabular menu">
+                        <a data-tab="body" class="active item">BODY</a>
+                        <a data-tab="schema" class="item">SCHEMA</a>
+                      </div>
+                      <div class="ui bottom attached active tab segment" data-tab="body">
+                        <pre style="white-space: inherit">
+                          <code class="language-json">{
+  &#34;id&#34;: &#34;&#34;,
+  &#34;type&#34;: &#34;&#34;,
+  &#34;clock&#34;: 0,
+  &#34;ui&#34;: {},
+  &#34;rulesSource&#34;: &#34;&#34;,
+  &#34;description&#34;: &#34;&#34;,
+  &#34;permissions&#34;: {
+    &#34;{id}&#34;: {
+      &#34;t&#34;: &#34;&#34;,
+      &#34;r&#34;: false,
+      &#34;m&#34;: false,
+      &#34;d&#34;: false,
+      &#34;a&#34;: false
+    }
+  },
+  &#34;onlineMemberCount&#34;: 0,
+  &#34;capabilitiesByName&#34;: {},
+  &#34;tagsByName&#34;: {},
+  &#34;circuitTestEvery&#34;: 0,
+  &#34;config&#34;: {
+    &#34;id&#34;: &#34;&#34;,
+    &#34;nwid&#34;: &#34;&#34;,
+    &#34;name&#34;: &#34;&#34;,
+    &#34;objtype&#34;: &#34;&#34;,
+    &#34;private&#34;: false,
+    &#34;creationTime&#34;: 0,
+    &#34;revision&#34;: 0,
+    &#34;lastModified&#34;: 0,
+    &#34;multicastLimit&#34;: 0,
+    &#34;routes&#34;: [],
+    &#34;rules&#34;: [],
+    &#34;tags&#34;: [],
+    &#34;capabilities&#34;: [],
+    &#34;totalMemberCount&#34;: 0,
+    &#34;activeMemberCount&#34;: 0,
+    &#34;authTokens&#34;: [],
+    &#34;authorizedMemberCount&#34;: 0,
+    &#34;v4AssignMode&#34;: {},
+    &#34;v6AssignMode&#34;: {}
+  }
+}</code>
+                        </pre>
+                      </div>
+                      <div class="ui bottom attached tab segment" data-tab="schema">
+                        <pre style="white-space: inherit">
+                          <code class="language-json">{
+  &#34;$schema&#34;: &#34;http://json-schema.org/draft-04/schema#&#34;,
+  &#34;type&#34;: &#34;object&#34;,
+  &#34;properties&#34;: {
+    &#34;id&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;16-digit ZeroTier network ID [ro]&#34;
+    },
+    &#34;type&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Object type (\&#34;Network\&#34;) [ro]&#34;
+    },
+    &#34;clock&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Current system clock on server [ro]&#34;
+    },
+    &#34;ui&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Arbitrary data that is stored and used by the UI [rw]&#34;
+    },
+    &#34;rulesSource&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Source code of network rule set [rw]&#34;
+    },
+    &#34;description&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Long description of this network [rw]&#34;
+    },
+    &#34;permissions&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;{id}&#34;: {
+          &#34;type&#34;: &#34;object&#34;,
+          &#34;properties&#34;: {
+            &#34;t&#34;: {
+              &#34;type&#34;: &#34;string&#34;,
+              &#34;description&#34;: &#34;Type of actor object (currently User or Group)&#34;
+            },
+            &#34;r&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Read&#34;
+            },
+            &#34;m&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Modify&#34;
+            },
+            &#34;d&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Delete&#34;
+            },
+            &#34;a&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Authorize&#34;
+            }
+          },
+          &#34;description&#34;: &#34;Permissions possessed by actor object, by object ID [ro]&#34;
+        }
+      },
+      &#34;description&#34;: &#34;Actors with permissions that apply to this object [ro]&#34;
+    },
+    &#34;onlineMemberCount&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Number of members online [ro]&#34;
+    },
+    &#34;capabilitiesByName&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Capabilities defined in rule set by name [rw]&#34;
+    },
+    &#34;tagsByName&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Tags defined in rule set by name [rw]&#34;
+    },
+    &#34;circuitTestEvery&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Circuit test this network every N milliseconds [ro]&#34;
+    },
+    &#34;config&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;id&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;16-digit ZeroTier network ID [ro]&#34;
+        },
+        &#34;nwid&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;16-digit ZeroTier network ID (for backward compatibility) [ro]&#34;
+        },
+        &#34;name&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;Short name of network [rw]&#34;
+        },
+        &#34;objtype&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;Object type on controller (\&#34;network\&#34;) [ro]&#34;
+        },
+        &#34;private&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;,
+          &#34;description&#34;: &#34;If true, certificate access control is enabled [rw]&#34;
+        },
+        &#34;creationTime&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Time network was created on controller [ro]&#34;
+        },
+        &#34;revision&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Network revision number [ro]&#34;
+        },
+        &#34;lastModified&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Time config was last modified [ro]&#34;
+        },
+        &#34;multicastLimit&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Max recipients per multicast or broadcast [rw]&#34;
+        },
+        &#34;routes&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of IP routes published to members [rw]&#34;
+        },
+        &#34;rules&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Network base rules table [rw]&#34;
+        },
+        &#34;tags&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of tags available on this network [rw]&#34;
+        },
+        &#34;capabilities&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of capabilities available on this network [rw]&#34;
+        },
+        &#34;totalMemberCount&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Total number of members [ro]&#34;
+        },
+        &#34;activeMemberCount&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Number of active/online members [ro]&#34;
+        },
+        &#34;authTokens&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of authentication tokens for auto-authorizing new members [rw]&#34;
+        },
+        &#34;authorizedMemberCount&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Number of authorized members [ro]&#34;
+        },
+        &#34;v4AssignMode&#34;: {
+          &#34;type&#34;: &#34;object&#34;,
+          &#34;properties&#34;: {},
+          &#34;description&#34;: &#34;Boolean toggles for IPv4 assignment modes [rw]&#34;
+        },
+        &#34;v6AssignMode&#34;: {
+          &#34;type&#34;: &#34;object&#34;,
+          &#34;properties&#34;: {},
+          &#34;description&#34;: &#34;Boolean toggles for IPv6 assignment modes [rw]&#34;
+        }
+      },
+      &#34;description&#34;: &#34;Network configuration (for actual controller) [rw]&#34;
+    }
+  }
+}</code>
+                        </pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              
+
+              <h4 class="ui horizontal divider">RESPONSE</h4>
+              <div class="description"></div>
+              
+<table class="ui celled definition table">
+  <thead>
+    <tr>
+      <th colspan="2">Headers</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr>
+      <td class="four wide">Content-Type</td>
+      <td><code>application/json</code></td>
+    </tr>
+  
+  </tbody>
+</table>
+
+              <div class="ui stacked blue segment">
+                <div class="ui fluid transaction accordion">
+                  <div class="title center aligned">
+                    <a class="ui blue circular label">
+                      200
+                    </a>
+                    <code>application/json</code>
+                  </div>
+                  <div class="content tabbed">
+                    <div class="ui top attached tabular menu">
+                      <a data-tab="body" class="active item">BODY</a>
+                      <a data-tab="schema" class="item">SCHEMA</a>
+                    </div>
+                    <div class="ui bottom attached active tab segment" data-tab="body">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;id&#34;: &#34;&#34;,
+  &#34;type&#34;: &#34;&#34;,
+  &#34;clock&#34;: 0,
+  &#34;ui&#34;: {},
+  &#34;rulesSource&#34;: &#34;&#34;,
+  &#34;description&#34;: &#34;&#34;,
+  &#34;permissions&#34;: {
+    &#34;{id}&#34;: {
+      &#34;t&#34;: &#34;&#34;,
+      &#34;r&#34;: false,
+      &#34;m&#34;: false,
+      &#34;d&#34;: false,
+      &#34;a&#34;: false
+    }
+  },
+  &#34;onlineMemberCount&#34;: 0,
+  &#34;capabilitiesByName&#34;: {},
+  &#34;tagsByName&#34;: {},
+  &#34;circuitTestEvery&#34;: 0,
+  &#34;config&#34;: {
+    &#34;id&#34;: &#34;&#34;,
+    &#34;nwid&#34;: &#34;&#34;,
+    &#34;name&#34;: &#34;&#34;,
+    &#34;objtype&#34;: &#34;&#34;,
+    &#34;private&#34;: false,
+    &#34;creationTime&#34;: 0,
+    &#34;revision&#34;: 0,
+    &#34;lastModified&#34;: 0,
+    &#34;multicastLimit&#34;: 0,
+    &#34;routes&#34;: [],
+    &#34;rules&#34;: [],
+    &#34;tags&#34;: [],
+    &#34;capabilities&#34;: [],
+    &#34;totalMemberCount&#34;: 0,
+    &#34;activeMemberCount&#34;: 0,
+    &#34;authTokens&#34;: [],
+    &#34;authorizedMemberCount&#34;: 0,
+    &#34;v4AssignMode&#34;: {},
+    &#34;v6AssignMode&#34;: {}
+  }
+}</code>
+                      </pre>
+                    </div>
+                    <div class="ui bottom attached tab segment" data-tab="schema">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;$schema&#34;: &#34;http://json-schema.org/draft-04/schema#&#34;,
+  &#34;type&#34;: &#34;object&#34;,
+  &#34;properties&#34;: {
+    &#34;id&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;16-digit ZeroTier network ID [ro]&#34;
+    },
+    &#34;type&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Object type (\&#34;Network\&#34;) [ro]&#34;
+    },
+    &#34;clock&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Current system clock on server [ro]&#34;
+    },
+    &#34;ui&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Arbitrary data that is stored and used by the UI [rw]&#34;
+    },
+    &#34;rulesSource&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Source code of network rule set [rw]&#34;
+    },
+    &#34;description&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Long description of this network [rw]&#34;
+    },
+    &#34;permissions&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;{id}&#34;: {
+          &#34;type&#34;: &#34;object&#34;,
+          &#34;properties&#34;: {
+            &#34;t&#34;: {
+              &#34;type&#34;: &#34;string&#34;,
+              &#34;description&#34;: &#34;Type of actor object (currently User or Group)&#34;
+            },
+            &#34;r&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Read&#34;
+            },
+            &#34;m&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Modify&#34;
+            },
+            &#34;d&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Delete&#34;
+            },
+            &#34;a&#34;: {
+              &#34;type&#34;: &#34;boolean&#34;,
+              &#34;description&#34;: &#34;Authorize&#34;
+            }
+          },
+          &#34;description&#34;: &#34;Permissions possessed by actor object, by object ID [ro]&#34;
+        }
+      },
+      &#34;description&#34;: &#34;Actors with permissions that apply to this object [ro]&#34;
+    },
+    &#34;onlineMemberCount&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Number of members online [ro]&#34;
+    },
+    &#34;capabilitiesByName&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Capabilities defined in rule set by name [rw]&#34;
+    },
+    &#34;tagsByName&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {},
+      &#34;description&#34;: &#34;Tags defined in rule set by name [rw]&#34;
+    },
+    &#34;circuitTestEvery&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Circuit test this network every N milliseconds [ro]&#34;
+    },
+    &#34;config&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;id&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;16-digit ZeroTier network ID [ro]&#34;
+        },
+        &#34;nwid&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;16-digit ZeroTier network ID (for backward compatibility) [ro]&#34;
+        },
+        &#34;name&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;Short name of network [rw]&#34;
+        },
+        &#34;objtype&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;Object type on controller (\&#34;network\&#34;) [ro]&#34;
+        },
+        &#34;private&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;,
+          &#34;description&#34;: &#34;If true, certificate access control is enabled [rw]&#34;
+        },
+        &#34;creationTime&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Time network was created on controller [ro]&#34;
+        },
+        &#34;revision&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Network revision number [ro]&#34;
+        },
+        &#34;lastModified&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Time config was last modified [ro]&#34;
+        },
+        &#34;multicastLimit&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Max recipients per multicast or broadcast [rw]&#34;
+        },
+        &#34;routes&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of IP routes published to members [rw]&#34;
+        },
+        &#34;rules&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Network base rules table [rw]&#34;
+        },
+        &#34;tags&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of tags available on this network [rw]&#34;
+        },
+        &#34;capabilities&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of capabilities available on this network [rw]&#34;
+        },
+        &#34;totalMemberCount&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Total number of members [ro]&#34;
+        },
+        &#34;activeMemberCount&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Number of active/online members [ro]&#34;
+        },
+        &#34;authTokens&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of authentication tokens for auto-authorizing new members [rw]&#34;
+        },
+        &#34;authorizedMemberCount&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Number of authorized members [ro]&#34;
+        },
+        &#34;v4AssignMode&#34;: {
+          &#34;type&#34;: &#34;object&#34;,
+          &#34;properties&#34;: {},
+          &#34;description&#34;: &#34;Boolean toggles for IPv4 assignment modes [rw]&#34;
+        },
+        &#34;v6AssignMode&#34;: {
+          &#34;type&#34;: &#34;object&#34;,
+          &#34;properties&#34;: {},
+          &#34;description&#34;: &#34;Boolean toggles for IPv6 assignment modes [rw]&#34;
+        }
+      },
+      &#34;description&#34;: &#34;Network configuration (for actual controller) [rw]&#34;
+    }
+  }
+}</code>
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+          </div>
+        
+          
+<div class="ui grey horizontal small divider header">
+  <i class="ui grey micro circular label"></i>
+  <i class="ui pink micro circular label"></i>
+  <i class="ui grey micro circular label"></i>
+</div>
+
+          <div class="ui basic segment">
+            <h3 class="ui block center aligned header" id="network-network-delete-a-network">
+              Delete a Network
+            </h3>
+            <div class="description"><p>Delete a network and all its related information permanently. Use extreme caution as this cannot be undone!</p>
+</div>
+
+            
+              <h4 class="ui horizontal divider">
+                REQUEST
+              </h4>
+              <div class="description"></div>
+              <div class="fluid ui large labeled button">
+                <div class="ui red large button">
+                  <h3>DELETE</h3>
+                </div>
+                <a class="ui basic fluid red label">
+                  <code>https://my.zerotier.com/api/network/{networkId}</code>
+                </a>
+              </div>
+              
+                <table class="ui celled definition table">
+                  <thead>
+                    <tr>
+                      <th colspan="4">Parameters</th>
+                    </tr>
+                  <thead>
+                  <tbody>
+                    
+                    
+                      
+  
+    <tr>
+      <td class="center aligned one wide">
+        <i class="ui empty circular label black" data-content="required" data-position="top center"></i>
+      </td>
+      <td><code>networkId</code></td>
+      <td class="center aligned">
+        <code>string</code>
+        <code class="ui label">0000000000000000</code>
+        
+      </td>
+      <td class="eight wide">
+        <p>16-digit ZeroTier network ID</p>
+
+        
+      </td>
+    </tr>
+  
+
+                    
+                  </tbody>
+                </table>
+              
+              
+              
+
+              <h4 class="ui horizontal divider">RESPONSE</h4>
+              <div class="description"></div>
+              
+<table class="ui celled definition table">
+  <thead>
+    <tr>
+      <th colspan="2">Headers</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+  </tbody>
+</table>
+
+              <div class="ui stacked blue segment">
+                <div class="ui fluid transaction accordion">
+                  <div class="title center aligned">
+                    <a class="ui blue circular label">
+                      200
+                    </a>
+                    <code></code>
+                  </div>
+                  <div class="content tabbed">
+                    <div class="ui top attached tabular menu">
+                      <a data-tab="body" class="active item">BODY</a>
+                      <a data-tab="schema" class="item">SCHEMA</a>
+                    </div>
+                    <div class="ui bottom attached active tab segment" data-tab="body">
+                      <pre style="white-space: inherit">
+                        <code class="language-"></code>
+                      </pre>
+                    </div>
+                    <div class="ui bottom attached tab segment" data-tab="schema">
+                      <pre style="white-space: inherit">
+                        <code class="language-json"></code>
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+          </div>
+        
+        </div>
+      <div class="ui hidden divider"></div>
+    
+  
+    
+      <div class="ui stacked segments">
+        <div class="ui basic segment resource">
+          <div class="ui purple huge ribbon label">
+            Networks
+          </div>
+          <div class="ui header">
+            <div class="ui sub header">
+              
+            </div>
+          </div>
+        </div>
+
+        
+          
+<div class="ui grey horizontal small divider header">
+  <i class="ui grey micro circular label"></i>
+  <i class="ui pink micro circular label"></i>
+  <i class="ui grey micro circular label"></i>
+</div>
+
+          <div class="ui basic segment">
+            <h3 class="ui block center aligned header" id="network-networks-get-all-viewable-networks">
+              Get All Viewable Networks
+            </h3>
+            <div class="description"><p>Get all networks for which you have at least read access.</p>
+</div>
+
+            
+              <h4 class="ui horizontal divider">
+                REQUEST
+              </h4>
+              <div class="description"></div>
+              <div class="fluid ui large labeled button">
+                <div class="ui green large button">
+                  <h3>GET</h3>
+                </div>
+                <a class="ui basic fluid green label">
+                  <code>https://my.zerotier.com/api/network</code>
+                </a>
+              </div>
+              
+              
+              
+
+              <h4 class="ui horizontal divider">RESPONSE</h4>
+              <div class="description"></div>
+              
+<table class="ui celled definition table">
+  <thead>
+    <tr>
+      <th colspan="2">Headers</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr>
+      <td class="four wide">Content-Type</td>
+      <td><code>application/json</code></td>
+    </tr>
+  
+  </tbody>
+</table>
+
+              <div class="ui stacked blue segment">
+                <div class="ui fluid transaction accordion">
+                  <div class="title center aligned">
+                    <a class="ui blue circular label">
+                      200
+                    </a>
+                    <code>application/json</code>
+                  </div>
+                  <div class="content tabbed">
+                    <div class="ui top attached tabular menu">
+                      <a data-tab="body" class="active item">BODY</a>
+                      <a data-tab="schema" class="item">SCHEMA</a>
+                    </div>
+                    <div class="ui bottom attached active tab segment" data-tab="body">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">[
+  {
+    &#34;id&#34;: &#34;&#34;,
+    &#34;type&#34;: &#34;&#34;,
+    &#34;clock&#34;: 0,
+    &#34;ui&#34;: {},
+    &#34;rulesSource&#34;: &#34;&#34;,
+    &#34;description&#34;: &#34;&#34;,
+    &#34;permissions&#34;: {
+      &#34;{id}&#34;: {
+        &#34;t&#34;: &#34;&#34;,
+        &#34;r&#34;: false,
+        &#34;m&#34;: false,
+        &#34;d&#34;: false,
+        &#34;a&#34;: false
+      }
+    },
+    &#34;onlineMemberCount&#34;: 0,
+    &#34;capabilitiesByName&#34;: {},
+    &#34;tagsByName&#34;: {},
+    &#34;circuitTestEvery&#34;: 0,
+    &#34;config&#34;: {
+      &#34;id&#34;: &#34;&#34;,
+      &#34;nwid&#34;: &#34;&#34;,
+      &#34;name&#34;: &#34;&#34;,
+      &#34;objtype&#34;: &#34;&#34;,
+      &#34;private&#34;: false,
+      &#34;creationTime&#34;: 0,
+      &#34;revision&#34;: 0,
+      &#34;lastModified&#34;: 0,
+      &#34;multicastLimit&#34;: 0,
+      &#34;routes&#34;: [],
+      &#34;rules&#34;: [],
+      &#34;tags&#34;: [],
+      &#34;capabilities&#34;: [],
+      &#34;totalMemberCount&#34;: 0,
+      &#34;activeMemberCount&#34;: 0,
+      &#34;authTokens&#34;: [],
+      &#34;authorizedMemberCount&#34;: 0,
+      &#34;v4AssignMode&#34;: {},
+      &#34;v6AssignMode&#34;: {}
+    }
+  }
+]</code>
+                      </pre>
+                    </div>
+                    <div class="ui bottom attached tab segment" data-tab="schema">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;$schema&#34;: &#34;http://json-schema.org/draft-04/schema#&#34;,
+  &#34;type&#34;: &#34;array&#34;
+}</code>
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+          </div>
+        
+        </div>
+      <div class="ui hidden divider"></div>
+    
+  
+
+  <div class="ui horizontal divider" id="member">
+    Member
+  </div>
+  <div class="ui header center aligned">
+    <div class="ui sub header">
+      
+    </div>
+  </div>
+  
+    
+      <div class="ui stacked segments">
+        <div class="ui basic segment resource">
+          <div class="ui purple huge ribbon label">
+            Member
+          </div>
+          <div class="ui header">
+            <div class="ui sub header">
+              
+            </div>
+          </div>
+        </div>
+
+        
+          
+<div class="ui grey horizontal small divider header">
+  <i class="ui grey micro circular label"></i>
+  <i class="ui pink micro circular label"></i>
+  <i class="ui grey micro circular label"></i>
+</div>
+
+          <div class="ui basic segment">
+            <h3 class="ui block center aligned header" id="member-member-retrieve-a-member">
+              Retrieve a Member
+            </h3>
+            <div class="description"></div>
+
+            
+              <h4 class="ui horizontal divider">
+                REQUEST
+              </h4>
+              <div class="description"></div>
+              <div class="fluid ui large labeled button">
+                <div class="ui green large button">
+                  <h3>GET</h3>
+                </div>
+                <a class="ui basic fluid green label">
+                  <code>https://my.zerotier.com/api/network/{networkId}/member/{nodeId}</code>
+                </a>
+              </div>
+              
+                <table class="ui celled definition table">
+                  <thead>
+                    <tr>
+                      <th colspan="4">Parameters</th>
+                    </tr>
+                  <thead>
+                  <tbody>
+                    
+                    
+                      
+  
+    <tr>
+      <td class="center aligned one wide">
+        <i class="ui empty circular label black" data-content="required" data-position="top center"></i>
+      </td>
+      <td><code>networkId</code></td>
+      <td class="center aligned">
+        <code>string</code>
+        <code class="ui label">0000000000000000</code>
+        
+      </td>
+      <td class="eight wide">
+        <p>16-digit ZeroTier network ID</p>
+
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <td class="center aligned one wide">
+        <i class="ui empty circular label black" data-content="required" data-position="top center"></i>
+      </td>
+      <td><code>nodeId</code></td>
+      <td class="center aligned">
+        <code>string</code>
+        <code class="ui label">0000000000</code>
+        
+      </td>
+      <td class="eight wide">
+        <p>10-digit ZeroTier node ID (a.k.a. ZeroTier address)</p>
+
+        
+      </td>
+    </tr>
+  
+
+                    
+                  </tbody>
+                </table>
+              
+              
+              
+
+              <h4 class="ui horizontal divider">RESPONSE</h4>
+              <div class="description"></div>
+              
+<table class="ui celled definition table">
+  <thead>
+    <tr>
+      <th colspan="2">Headers</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr>
+      <td class="four wide">Content-Type</td>
+      <td><code>application/json</code></td>
+    </tr>
+  
+  </tbody>
+</table>
+
+              <div class="ui stacked blue segment">
+                <div class="ui fluid transaction accordion">
+                  <div class="title center aligned">
+                    <a class="ui blue circular label">
+                      200
+                    </a>
+                    <code>application/json</code>
+                  </div>
+                  <div class="content tabbed">
+                    <div class="ui top attached tabular menu">
+                      <a data-tab="body" class="active item">BODY</a>
+                      <a data-tab="schema" class="item">SCHEMA</a>
+                    </div>
+                    <div class="ui bottom attached active tab segment" data-tab="body">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;id&#34;: &#34;&#34;,
+  &#34;type&#34;: &#34;&#34;,
+  &#34;clock&#34;: 0,
+  &#34;networkId&#34;: &#34;&#34;,
+  &#34;nodeId&#34;: &#34;&#34;,
+  &#34;controllerId&#34;: &#34;&#34;,
+  &#34;hidden&#34;: false,
+  &#34;name&#34;: &#34;&#34;,
+  &#34;description&#34;: &#34;&#34;,
+  &#34;online&#34;: false,
+  &#34;lastOnline&#34;: 0,
+  &#34;lastOffline&#34;: 0,
+  &#34;physicalAddress&#34;: &#34;&#34;,
+  &#34;physicalLocation&#34;: [],
+  &#34;clientVersion&#34;: &#34;&#34;,
+  &#34;protocolVersion&#34;: 0,
+  &#34;supportsCircuitTesting&#34;: false,
+  &#34;supportsRulesEngine&#34;: false,
+  &#34;offlineNotifyDelay&#34;: 0,
+  &#34;config&#34;: {
+    &#34;id&#34;: &#34;&#34;,
+    &#34;address&#34;: &#34;&#34;,
+    &#34;nwid&#34;: &#34;&#34;,
+    &#34;objtype&#34;: &#34;&#34;,
+    &#34;authorized&#34;: false,
+    &#34;authHistory&#34;: [],
+    &#34;capabilities&#34;: [],
+    &#34;tags&#34;: [],
+    &#34;creationTime&#34;: 0,
+    &#34;identity&#34;: &#34;&#34;,
+    &#34;ipAssignments&#34;: [],
+    &#34;lastAuthorizedTime&#34;: 0,
+    &#34;lastDeauthorizedTime&#34;: 0,
+    &#34;noAutoAssignIps&#34;: false,
+    &#34;physicalAddr&#34;: &#34;&#34;,
+    &#34;revision&#34;: 0
+  }
+}</code>
+                      </pre>
+                    </div>
+                    <div class="ui bottom attached tab segment" data-tab="schema">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;$schema&#34;: &#34;http://json-schema.org/draft-04/schema#&#34;,
+  &#34;type&#34;: &#34;object&#34;,
+  &#34;properties&#34;: {
+    &#34;id&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Member record ID, which is formed from the network and node IDs [ro]&#34;
+    },
+    &#34;type&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Object type (\&#34;Member\&#34;) [ro]&#34;
+    },
+    &#34;clock&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;System clock on server [ro]&#34;
+    },
+    &#34;networkId&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;16-digit ZeroTier network ID [ro]&#34;
+    },
+    &#34;nodeId&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;10-digit ZeroTier node ID / device address [ro]&#34;
+    },
+    &#34;controllerId&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;10-digit ZeroTier node ID of controller (same as first 10 digits of network ID) [ro]&#34;
+    },
+    &#34;hidden&#34;: {
+      &#34;type&#34;: &#34;boolean&#34;,
+      &#34;description&#34;: &#34;Hidden in UI? [rw]&#34;
+    },
+    &#34;name&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Short name describing member [rw]&#34;
+    },
+    &#34;description&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Long form description [rw]&#34;
+    },
+    &#34;online&#34;: {
+      &#34;type&#34;: &#34;boolean&#34;,
+      &#34;description&#34;: &#34;Member is online? (has requested an update recently) [ro]&#34;
+    },
+    &#34;lastOnline&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Time member was last determined to be online [ro]&#34;
+    },
+    &#34;lastOffline&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Time member was last determined to be offline [ro]&#34;
+    },
+    &#34;physicalAddress&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Latest physical address of member [ro]&#34;
+    },
+    &#34;physicalLocation&#34;: {
+      &#34;description&#34;: &#34;Lat/lon of estimated (GeoIP-determined) location of physicalAddress (if available) [ro]&#34;
+    },
+    &#34;clientVersion&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Most recent client software version [ro]&#34;
+    },
+    &#34;protocolVersion&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Most recent client-reported ZeroTier protocol version [ro]&#34;
+    },
+    &#34;supportsCircuitTesting&#34;: {
+      &#34;type&#34;: &#34;boolean&#34;,
+      &#34;description&#34;: &#34;True if member supports circuit testing [ro]&#34;
+    },
+    &#34;supportsRulesEngine&#34;: {
+      &#34;type&#34;: &#34;boolean&#34;,
+      &#34;description&#34;: &#34;True if member supports the new (post-1.2) rules engine [ro]&#34;
+    },
+    &#34;offlineNotifyDelay&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Notify of offline after this many milliseconds [rw]&#34;
+    },
+    &#34;config&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;id&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;10-digit ZeroTier node ID [ro]&#34;
+        },
+        &#34;address&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;10-digit ZeroTier node ID [ro]&#34;
+        },
+        &#34;nwid&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;16-digit network ID [ro]&#34;
+        },
+        &#34;objtype&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;Object type on controller (\&#34;member\&#34;) [ro]&#34;
+        },
+        &#34;authorized&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;,
+          &#34;description&#34;: &#34;True if authorized (only matters on private networks) [rw]&#34;
+        },
+        &#34;authHistory&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;History of most recent authentications [ro]&#34;
+        },
+        &#34;capabilities&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of IDs of capabilities assigned to this member [rw]&#34;
+        },
+        &#34;tags&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of tuples of tag ID, tag value [rw]&#34;
+        },
+        &#34;creationTime&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Time member record was first created [ro]&#34;
+        },
+        &#34;identity&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;ZeroTier public identity of member (address and public key) [ro]&#34;
+        },
+        &#34;ipAssignments&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of IP assignments published to member [rw]&#34;
+        },
+        &#34;lastAuthorizedTime&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Time member was last authorized on network [ro]&#34;
+        },
+        &#34;lastDeauthorizedTime&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Time member was last de-authorized on network [ro]&#34;
+        },
+        &#34;noAutoAssignIps&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;,
+          &#34;description&#34;: &#34;If true do not auto-assign IPv4 or IPv6 addresses, overriding network settings [rw]&#34;
+        },
+        &#34;physicalAddr&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;Last known physical address of member [ro]&#34;
+        },
+        &#34;revision&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Member record revision counter [ro]&#34;
+        }
+      },
+      &#34;description&#34;: &#34;Member configuration (for actual controller) [rw]&#34;
+    }
+  }
+}</code>
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+          </div>
+        
+          
+<div class="ui grey horizontal small divider header">
+  <i class="ui grey micro circular label"></i>
+  <i class="ui pink micro circular label"></i>
+  <i class="ui grey micro circular label"></i>
+</div>
+
+          <div class="ui basic segment">
+            <h3 class="ui block center aligned header" id="member-member-update-or-add-a-member">
+              Update or add a Member
+            </h3>
+            <div class="description"><p>New members can be added to a network by POSTing them.</p>
+</div>
+
+            
+              <h4 class="ui horizontal divider">
+                REQUEST
+              </h4>
+              <div class="description"></div>
+              <div class="fluid ui large labeled button">
+                <div class="ui blue large button">
+                  <h3>POST</h3>
+                </div>
+                <a class="ui basic fluid blue label">
+                  <code>https://my.zerotier.com/api/network/{networkId}/member/{nodeId}</code>
+                </a>
+              </div>
+              
+                <table class="ui celled definition table">
+                  <thead>
+                    <tr>
+                      <th colspan="4">Parameters</th>
+                    </tr>
+                  <thead>
+                  <tbody>
+                    
+                    
+                      
+  
+    <tr>
+      <td class="center aligned one wide">
+        <i class="ui empty circular label black" data-content="required" data-position="top center"></i>
+      </td>
+      <td><code>networkId</code></td>
+      <td class="center aligned">
+        <code>string</code>
+        <code class="ui label">0000000000000000</code>
+        
+      </td>
+      <td class="eight wide">
+        <p>16-digit ZeroTier network ID</p>
+
+        
+      </td>
+    </tr>
+  
+    <tr>
+      <td class="center aligned one wide">
+        <i class="ui empty circular label black" data-content="required" data-position="top center"></i>
+      </td>
+      <td><code>nodeId</code></td>
+      <td class="center aligned">
+        <code>string</code>
+        <code class="ui label">0000000000</code>
+        
+      </td>
+      <td class="eight wide">
+        <p>10-digit ZeroTier node ID (a.k.a. ZeroTier address)</p>
+
+        
+      </td>
+    </tr>
+  
+
+                    
+                  </tbody>
+                </table>
+              
+              
+                
+<table class="ui celled definition table">
+  <thead>
+    <tr>
+      <th colspan="2">Headers</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr>
+      <td class="four wide">Content-Type</td>
+      <td><code>application/json</code></td>
+    </tr>
+  
+  </tbody>
+</table>
+
+              
+              
+                <div class="ui stacked segment">
+                  <div class="ui fluid transaction accordion">
+                    <div class="title">
+                      <code>application/json</code>
+                    </div>
+                    <div class="content tabbed">
+                      <div class="ui top attached tabular menu">
+                        <a data-tab="body" class="active item">BODY</a>
+                        <a data-tab="schema" class="item">SCHEMA</a>
+                      </div>
+                      <div class="ui bottom attached active tab segment" data-tab="body">
+                        <pre style="white-space: inherit">
+                          <code class="language-json">{
+  &#34;id&#34;: &#34;&#34;,
+  &#34;type&#34;: &#34;&#34;,
+  &#34;clock&#34;: 0,
+  &#34;networkId&#34;: &#34;&#34;,
+  &#34;nodeId&#34;: &#34;&#34;,
+  &#34;controllerId&#34;: &#34;&#34;,
+  &#34;hidden&#34;: false,
+  &#34;name&#34;: &#34;&#34;,
+  &#34;description&#34;: &#34;&#34;,
+  &#34;online&#34;: false,
+  &#34;lastOnline&#34;: 0,
+  &#34;lastOffline&#34;: 0,
+  &#34;physicalAddress&#34;: &#34;&#34;,
+  &#34;physicalLocation&#34;: [],
+  &#34;clientVersion&#34;: &#34;&#34;,
+  &#34;protocolVersion&#34;: 0,
+  &#34;supportsCircuitTesting&#34;: false,
+  &#34;supportsRulesEngine&#34;: false,
+  &#34;offlineNotifyDelay&#34;: 0,
+  &#34;config&#34;: {
+    &#34;id&#34;: &#34;&#34;,
+    &#34;address&#34;: &#34;&#34;,
+    &#34;nwid&#34;: &#34;&#34;,
+    &#34;objtype&#34;: &#34;&#34;,
+    &#34;authorized&#34;: false,
+    &#34;authHistory&#34;: [],
+    &#34;capabilities&#34;: [],
+    &#34;tags&#34;: [],
+    &#34;creationTime&#34;: 0,
+    &#34;identity&#34;: &#34;&#34;,
+    &#34;ipAssignments&#34;: [],
+    &#34;lastAuthorizedTime&#34;: 0,
+    &#34;lastDeauthorizedTime&#34;: 0,
+    &#34;noAutoAssignIps&#34;: false,
+    &#34;physicalAddr&#34;: &#34;&#34;,
+    &#34;revision&#34;: 0
+  }
+}</code>
+                        </pre>
+                      </div>
+                      <div class="ui bottom attached tab segment" data-tab="schema">
+                        <pre style="white-space: inherit">
+                          <code class="language-json">{
+  &#34;$schema&#34;: &#34;http://json-schema.org/draft-04/schema#&#34;,
+  &#34;type&#34;: &#34;object&#34;,
+  &#34;properties&#34;: {
+    &#34;id&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Member record ID, which is formed from the network and node IDs [ro]&#34;
+    },
+    &#34;type&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Object type (\&#34;Member\&#34;) [ro]&#34;
+    },
+    &#34;clock&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;System clock on server [ro]&#34;
+    },
+    &#34;networkId&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;16-digit ZeroTier network ID [ro]&#34;
+    },
+    &#34;nodeId&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;10-digit ZeroTier node ID / device address [ro]&#34;
+    },
+    &#34;controllerId&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;10-digit ZeroTier node ID of controller (same as first 10 digits of network ID) [ro]&#34;
+    },
+    &#34;hidden&#34;: {
+      &#34;type&#34;: &#34;boolean&#34;,
+      &#34;description&#34;: &#34;Hidden in UI? [rw]&#34;
+    },
+    &#34;name&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Short name describing member [rw]&#34;
+    },
+    &#34;description&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Long form description [rw]&#34;
+    },
+    &#34;online&#34;: {
+      &#34;type&#34;: &#34;boolean&#34;,
+      &#34;description&#34;: &#34;Member is online? (has requested an update recently) [ro]&#34;
+    },
+    &#34;lastOnline&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Time member was last determined to be online [ro]&#34;
+    },
+    &#34;lastOffline&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Time member was last determined to be offline [ro]&#34;
+    },
+    &#34;physicalAddress&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Latest physical address of member [ro]&#34;
+    },
+    &#34;physicalLocation&#34;: {
+      &#34;description&#34;: &#34;Lat/lon of estimated (GeoIP-determined) location of physicalAddress (if available) [ro]&#34;
+    },
+    &#34;clientVersion&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Most recent client software version [ro]&#34;
+    },
+    &#34;protocolVersion&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Most recent client-reported ZeroTier protocol version [ro]&#34;
+    },
+    &#34;supportsCircuitTesting&#34;: {
+      &#34;type&#34;: &#34;boolean&#34;,
+      &#34;description&#34;: &#34;True if member supports circuit testing [ro]&#34;
+    },
+    &#34;supportsRulesEngine&#34;: {
+      &#34;type&#34;: &#34;boolean&#34;,
+      &#34;description&#34;: &#34;True if member supports the new (post-1.2) rules engine [ro]&#34;
+    },
+    &#34;offlineNotifyDelay&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Notify of offline after this many milliseconds [rw]&#34;
+    },
+    &#34;config&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;id&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;10-digit ZeroTier node ID [ro]&#34;
+        },
+        &#34;address&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;10-digit ZeroTier node ID [ro]&#34;
+        },
+        &#34;nwid&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;16-digit network ID [ro]&#34;
+        },
+        &#34;objtype&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;Object type on controller (\&#34;member\&#34;) [ro]&#34;
+        },
+        &#34;authorized&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;,
+          &#34;description&#34;: &#34;True if authorized (only matters on private networks) [rw]&#34;
+        },
+        &#34;authHistory&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;History of most recent authentications [ro]&#34;
+        },
+        &#34;capabilities&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of IDs of capabilities assigned to this member [rw]&#34;
+        },
+        &#34;tags&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of tuples of tag ID, tag value [rw]&#34;
+        },
+        &#34;creationTime&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Time member record was first created [ro]&#34;
+        },
+        &#34;identity&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;ZeroTier public identity of member (address and public key) [ro]&#34;
+        },
+        &#34;ipAssignments&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of IP assignments published to member [rw]&#34;
+        },
+        &#34;lastAuthorizedTime&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Time member was last authorized on network [ro]&#34;
+        },
+        &#34;lastDeauthorizedTime&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Time member was last de-authorized on network [ro]&#34;
+        },
+        &#34;noAutoAssignIps&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;,
+          &#34;description&#34;: &#34;If true do not auto-assign IPv4 or IPv6 addresses, overriding network settings [rw]&#34;
+        },
+        &#34;physicalAddr&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;Last known physical address of member [ro]&#34;
+        },
+        &#34;revision&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Member record revision counter [ro]&#34;
+        }
+      },
+      &#34;description&#34;: &#34;Member configuration (for actual controller) [rw]&#34;
+    }
+  }
+}</code>
+                        </pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              
+
+              <h4 class="ui horizontal divider">RESPONSE</h4>
+              <div class="description"></div>
+              
+<table class="ui celled definition table">
+  <thead>
+    <tr>
+      <th colspan="2">Headers</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr>
+      <td class="four wide">Content-Type</td>
+      <td><code>application/json</code></td>
+    </tr>
+  
+  </tbody>
+</table>
+
+              <div class="ui stacked blue segment">
+                <div class="ui fluid transaction accordion">
+                  <div class="title center aligned">
+                    <a class="ui blue circular label">
+                      200
+                    </a>
+                    <code>application/json</code>
+                  </div>
+                  <div class="content tabbed">
+                    <div class="ui top attached tabular menu">
+                      <a data-tab="body" class="active item">BODY</a>
+                      <a data-tab="schema" class="item">SCHEMA</a>
+                    </div>
+                    <div class="ui bottom attached active tab segment" data-tab="body">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;id&#34;: &#34;&#34;,
+  &#34;type&#34;: &#34;&#34;,
+  &#34;clock&#34;: 0,
+  &#34;networkId&#34;: &#34;&#34;,
+  &#34;nodeId&#34;: &#34;&#34;,
+  &#34;controllerId&#34;: &#34;&#34;,
+  &#34;hidden&#34;: false,
+  &#34;name&#34;: &#34;&#34;,
+  &#34;description&#34;: &#34;&#34;,
+  &#34;online&#34;: false,
+  &#34;lastOnline&#34;: 0,
+  &#34;lastOffline&#34;: 0,
+  &#34;physicalAddress&#34;: &#34;&#34;,
+  &#34;physicalLocation&#34;: [],
+  &#34;clientVersion&#34;: &#34;&#34;,
+  &#34;protocolVersion&#34;: 0,
+  &#34;supportsCircuitTesting&#34;: false,
+  &#34;supportsRulesEngine&#34;: false,
+  &#34;offlineNotifyDelay&#34;: 0,
+  &#34;config&#34;: {
+    &#34;id&#34;: &#34;&#34;,
+    &#34;address&#34;: &#34;&#34;,
+    &#34;nwid&#34;: &#34;&#34;,
+    &#34;objtype&#34;: &#34;&#34;,
+    &#34;authorized&#34;: false,
+    &#34;authHistory&#34;: [],
+    &#34;capabilities&#34;: [],
+    &#34;tags&#34;: [],
+    &#34;creationTime&#34;: 0,
+    &#34;identity&#34;: &#34;&#34;,
+    &#34;ipAssignments&#34;: [],
+    &#34;lastAuthorizedTime&#34;: 0,
+    &#34;lastDeauthorizedTime&#34;: 0,
+    &#34;noAutoAssignIps&#34;: false,
+    &#34;physicalAddr&#34;: &#34;&#34;,
+    &#34;revision&#34;: 0
+  }
+}</code>
+                      </pre>
+                    </div>
+                    <div class="ui bottom attached tab segment" data-tab="schema">
+                      <pre style="white-space: inherit">
+                        <code class="language-json">{
+  &#34;$schema&#34;: &#34;http://json-schema.org/draft-04/schema#&#34;,
+  &#34;type&#34;: &#34;object&#34;,
+  &#34;properties&#34;: {
+    &#34;id&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Member record ID, which is formed from the network and node IDs [ro]&#34;
+    },
+    &#34;type&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Object type (\&#34;Member\&#34;) [ro]&#34;
+    },
+    &#34;clock&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;System clock on server [ro]&#34;
+    },
+    &#34;networkId&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;16-digit ZeroTier network ID [ro]&#34;
+    },
+    &#34;nodeId&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;10-digit ZeroTier node ID / device address [ro]&#34;
+    },
+    &#34;controllerId&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;10-digit ZeroTier node ID of controller (same as first 10 digits of network ID) [ro]&#34;
+    },
+    &#34;hidden&#34;: {
+      &#34;type&#34;: &#34;boolean&#34;,
+      &#34;description&#34;: &#34;Hidden in UI? [rw]&#34;
+    },
+    &#34;name&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Short name describing member [rw]&#34;
+    },
+    &#34;description&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Long form description [rw]&#34;
+    },
+    &#34;online&#34;: {
+      &#34;type&#34;: &#34;boolean&#34;,
+      &#34;description&#34;: &#34;Member is online? (has requested an update recently) [ro]&#34;
+    },
+    &#34;lastOnline&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Time member was last determined to be online [ro]&#34;
+    },
+    &#34;lastOffline&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Time member was last determined to be offline [ro]&#34;
+    },
+    &#34;physicalAddress&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Latest physical address of member [ro]&#34;
+    },
+    &#34;physicalLocation&#34;: {
+      &#34;description&#34;: &#34;Lat/lon of estimated (GeoIP-determined) location of physicalAddress (if available) [ro]&#34;
+    },
+    &#34;clientVersion&#34;: {
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;description&#34;: &#34;Most recent client software version [ro]&#34;
+    },
+    &#34;protocolVersion&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Most recent client-reported ZeroTier protocol version [ro]&#34;
+    },
+    &#34;supportsCircuitTesting&#34;: {
+      &#34;type&#34;: &#34;boolean&#34;,
+      &#34;description&#34;: &#34;True if member supports circuit testing [ro]&#34;
+    },
+    &#34;supportsRulesEngine&#34;: {
+      &#34;type&#34;: &#34;boolean&#34;,
+      &#34;description&#34;: &#34;True if member supports the new (post-1.2) rules engine [ro]&#34;
+    },
+    &#34;offlineNotifyDelay&#34;: {
+      &#34;type&#34;: &#34;number&#34;,
+      &#34;description&#34;: &#34;Notify of offline after this many milliseconds [rw]&#34;
+    },
+    &#34;config&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;id&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;10-digit ZeroTier node ID [ro]&#34;
+        },
+        &#34;address&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;10-digit ZeroTier node ID [ro]&#34;
+        },
+        &#34;nwid&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;16-digit network ID [ro]&#34;
+        },
+        &#34;objtype&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;Object type on controller (\&#34;member\&#34;) [ro]&#34;
+        },
+        &#34;authorized&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;,
+          &#34;description&#34;: &#34;True if authorized (only matters on private networks) [rw]&#34;
+        },
+        &#34;authHistory&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;History of most recent authentications [ro]&#34;
+        },
+        &#34;capabilities&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of IDs of capabilities assigned to this member [rw]&#34;
+        },
+        &#34;tags&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of tuples of tag ID, tag value [rw]&#34;
+        },
+        &#34;creationTime&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Time member record was first created [ro]&#34;
+        },
+        &#34;identity&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;ZeroTier public identity of member (address and public key) [ro]&#34;
+        },
+        &#34;ipAssignments&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;description&#34;: &#34;Array of IP assignments published to member [rw]&#34;
+        },
+        &#34;lastAuthorizedTime&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Time member was last authorized on network [ro]&#34;
+        },
+        &#34;lastDeauthorizedTime&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Time member was last de-authorized on network [ro]&#34;
+        },
+        &#34;noAutoAssignIps&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;,
+          &#34;description&#34;: &#34;If true do not auto-assign IPv4 or IPv6 addresses, overriding network settings [rw]&#34;
+        },
+        &#34;physicalAddr&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;Last known physical address of member [ro]&#34;
+        },
+        &#34;revision&#34;: {
+          &#34;type&#34;: &#34;number&#34;,
+          &#34;description&#34;: &#34;Member record revision counter [ro]&#34;
+        }
+      },
+      &#34;description&#34;: &#34;Member configuration (for actual controller) [rw]&#34;
+    }
+  }
+}</code>
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+          </div>
+        
+        </div>
+      <div class="ui hidden divider"></div>
+    
+  
+
+
+      </div>
+    </div>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/components/accordion.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/components/tab.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/components/transition.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/components/popup.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/components/prism-json.min.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        $('.ui.accordion').accordion({ animateChildren: false, duration: 0 });
+        $('.content.tabbed').each(function(index) {
+          $('.ui.tabular .item', $(this)).tab({ context: $(this) });
+        });
+        $('.ui.vertical.menu').on('click', '.item', function() {
+          $('.ui.vertical.menu .item').removeClass('active');
+          $(this).addClass('active');
+        });
+        $('.ui.empty.circular.label').popup();
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
