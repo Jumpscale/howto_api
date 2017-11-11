@@ -1,0 +1,15 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"type": "object",
+	"properties": {
+		"clock": {
+			"type": "number"
+		},
+		"raw": {
+			"type": "string"
+		},
+		"token": {
+			"type": "string"
+		}
+	}
+}

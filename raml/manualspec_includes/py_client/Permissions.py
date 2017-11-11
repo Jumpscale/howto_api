@@ -12,15 +12,13 @@ class Permissions(object):
     """
 
     @staticmethod
-    def create(id=None):
+    def create(**kwargs):
         """
         :type id: id
         :rtype: Permissions
         """
 
-        return Permissions(
-            id=id,
-        )
+        return Permissions(**kwargs)
 
     def __init__(self, json=None, **kwargs):
         if json is None and not kwargs:
@@ -37,7 +35,7 @@ class Permissions(object):
         if val is not None:
             datatypes = [id]
             try:
-                self.id = client_support.val_factory(val, datatypes)
+                setattr(self, 'id', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 

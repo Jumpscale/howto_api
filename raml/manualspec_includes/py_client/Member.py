@@ -12,7 +12,7 @@ class Member(object):
     """
 
     @staticmethod
-    def create(clientVersion=None, clock=None, config=None, controllerId=None, description=None, hidden=None, id=None, lastOffline=None, lastOnline=None, name=None, networkId=None, nodeId=None, offlineNotifyDelay=None, online=None, physicalAddress=None, physicalLocation=None, protocolVersion=None, supportsCircuitTesting=None, supportsRulesEngine=None, type=None):
+    def create(**kwargs):
         """
         :type clientVersion: str
         :type clock: float
@@ -37,28 +37,7 @@ class Member(object):
         :rtype: Member
         """
 
-        return Member(
-            clientVersion=clientVersion,
-            clock=clock,
-            config=config,
-            controllerId=controllerId,
-            description=description,
-            hidden=hidden,
-            id=id,
-            lastOffline=lastOffline,
-            lastOnline=lastOnline,
-            name=name,
-            networkId=networkId,
-            nodeId=nodeId,
-            offlineNotifyDelay=offlineNotifyDelay,
-            online=online,
-            physicalAddress=physicalAddress,
-            physicalLocation=physicalLocation,
-            protocolVersion=protocolVersion,
-            supportsCircuitTesting=supportsCircuitTesting,
-            supportsRulesEngine=supportsRulesEngine,
-            type=type,
-        )
+        return Member(**kwargs)
 
     def __init__(self, json=None, **kwargs):
         if json is None and not kwargs:
@@ -75,7 +54,7 @@ class Member(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.clientVersion = client_support.val_factory(val, datatypes)
+                setattr(self, 'clientVersion', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -84,7 +63,7 @@ class Member(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.clock = client_support.val_factory(val, datatypes)
+                setattr(self, 'clock', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -93,7 +72,7 @@ class Member(object):
         if val is not None:
             datatypes = [ControllerMemberConfig]
             try:
-                self.config = client_support.val_factory(val, datatypes)
+                setattr(self, 'config', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -102,7 +81,7 @@ class Member(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.controllerId = client_support.val_factory(val, datatypes)
+                setattr(self, 'controllerId', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -111,7 +90,7 @@ class Member(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.description = client_support.val_factory(val, datatypes)
+                setattr(self, 'description', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -120,7 +99,7 @@ class Member(object):
         if val is not None:
             datatypes = [bool]
             try:
-                self.hidden = client_support.val_factory(val, datatypes)
+                setattr(self, 'hidden', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -129,7 +108,7 @@ class Member(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.id = client_support.val_factory(val, datatypes)
+                setattr(self, 'id', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -138,7 +117,7 @@ class Member(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.lastOffline = client_support.val_factory(val, datatypes)
+                setattr(self, 'lastOffline', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -147,7 +126,7 @@ class Member(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.lastOnline = client_support.val_factory(val, datatypes)
+                setattr(self, 'lastOnline', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -156,7 +135,7 @@ class Member(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.name = client_support.val_factory(val, datatypes)
+                setattr(self, 'name', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -165,7 +144,7 @@ class Member(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.networkId = client_support.val_factory(val, datatypes)
+                setattr(self, 'networkId', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -174,7 +153,7 @@ class Member(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.nodeId = client_support.val_factory(val, datatypes)
+                setattr(self, 'nodeId', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -183,7 +162,7 @@ class Member(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.offlineNotifyDelay = client_support.val_factory(val, datatypes)
+                setattr(self, 'offlineNotifyDelay', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -192,7 +171,7 @@ class Member(object):
         if val is not None:
             datatypes = [bool]
             try:
-                self.online = client_support.val_factory(val, datatypes)
+                setattr(self, 'online', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -201,7 +180,7 @@ class Member(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.physicalAddress = client_support.val_factory(val, datatypes)
+                setattr(self, 'physicalAddress', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -210,7 +189,7 @@ class Member(object):
         if val is not None:
             datatypes = [dict]
             try:
-                self.physicalLocation = client_support.val_factory(val, datatypes)
+                setattr(self, 'physicalLocation', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -219,7 +198,7 @@ class Member(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.protocolVersion = client_support.val_factory(val, datatypes)
+                setattr(self, 'protocolVersion', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -228,7 +207,7 @@ class Member(object):
         if val is not None:
             datatypes = [bool]
             try:
-                self.supportsCircuitTesting = client_support.val_factory(val, datatypes)
+                setattr(self, 'supportsCircuitTesting', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -237,7 +216,7 @@ class Member(object):
         if val is not None:
             datatypes = [bool]
             try:
-                self.supportsRulesEngine = client_support.val_factory(val, datatypes)
+                setattr(self, 'supportsRulesEngine', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -246,7 +225,7 @@ class Member(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.type = client_support.val_factory(val, datatypes)
+                setattr(self, 'type', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 

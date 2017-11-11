@@ -1,0 +1,66 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"type": "object",
+	"properties": {
+		"clientVersion": {
+			"type": "string"
+		},
+		"clock": {
+			"type": "number"
+		},
+		"config": {
+			"$ref": "ControllerMemberConfig_schema.json"
+		},
+		"controllerId": {
+			"type": "string"
+		},
+		"description": {
+			"type": "string"
+		},
+		"hidden": {
+			"type": "boolean"
+		},
+		"id": {
+			"type": "string"
+		},
+		"lastOffline": {
+			"type": "number"
+		},
+		"lastOnline": {
+			"type": "number"
+		},
+		"name": {
+			"type": "string"
+		},
+		"networkId": {
+			"type": "string"
+		},
+		"nodeId": {
+			"type": "string"
+		},
+		"offlineNotifyDelay": {
+			"type": "number"
+		},
+		"online": {
+			"type": "boolean"
+		},
+		"physicalAddress": {
+			"type": "string"
+		},
+		"physicalLocation": {
+			"$ref": "object_schema.json"
+		},
+		"protocolVersion": {
+			"type": "number"
+		},
+		"supportsCircuitTesting": {
+			"type": "boolean"
+		},
+		"supportsRulesEngine": {
+			"type": "boolean"
+		},
+		"type": {
+			"type": "string"
+		}
+	}
+}

@@ -11,7 +11,7 @@ class RandomToken(object):
     """
 
     @staticmethod
-    def create(clock=None, raw=None, token=None):
+    def create(**kwargs):
         """
         :type clock: float
         :type raw: str
@@ -19,11 +19,7 @@ class RandomToken(object):
         :rtype: RandomToken
         """
 
-        return RandomToken(
-            clock=clock,
-            raw=raw,
-            token=token,
-        )
+        return RandomToken(**kwargs)
 
     def __init__(self, json=None, **kwargs):
         if json is None and not kwargs:
@@ -40,7 +36,7 @@ class RandomToken(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.clock = client_support.val_factory(val, datatypes)
+                setattr(self, 'clock', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -49,7 +45,7 @@ class RandomToken(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.raw = client_support.val_factory(val, datatypes)
+                setattr(self, 'raw', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -58,7 +54,7 @@ class RandomToken(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.token = client_support.val_factory(val, datatypes)
+                setattr(self, 'token', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 

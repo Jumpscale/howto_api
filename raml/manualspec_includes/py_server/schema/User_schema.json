@@ -1,0 +1,45 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"type": "object",
+	"properties": {
+		"auth": {
+			"$ref": "object_schema.json"
+		},
+		"clock": {
+			"type": "number"
+		},
+		"displayName": {
+			"type": "string"
+		},
+		"email": {
+			"type": "string"
+		},
+		"globalPermissions": {
+			"$ref": "GlobalPermissions_schema.json"
+		},
+		"id": {
+			"type": "string"
+		},
+		"permissions": {
+			"$ref": "Permissions_schema.json"
+		},
+		"smsNumber": {
+			"type": "string"
+		},
+		"subscriptions": {
+			"$ref": "object_schema.json"
+		},
+		"tokens": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
+		},
+		"type": {
+			"type": "string"
+		},
+		"ui": {
+			"$ref": "object_schema.json"
+		}
+	}
+}

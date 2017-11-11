@@ -13,7 +13,7 @@ class Network(object):
     """
 
     @staticmethod
-    def create(capabilitiesByName=None, circuitTestEvery=None, clock=None, config=None, description=None, id=None, onlineMemberCount=None, permissions=None, rulesSource=None, tagsByName=None, type=None, ui=None):
+    def create(**kwargs):
         """
         :type capabilitiesByName: dict
         :type circuitTestEvery: float
@@ -30,20 +30,7 @@ class Network(object):
         :rtype: Network
         """
 
-        return Network(
-            capabilitiesByName=capabilitiesByName,
-            circuitTestEvery=circuitTestEvery,
-            clock=clock,
-            config=config,
-            description=description,
-            id=id,
-            onlineMemberCount=onlineMemberCount,
-            permissions=permissions,
-            rulesSource=rulesSource,
-            tagsByName=tagsByName,
-            type=type,
-            ui=ui,
-        )
+        return Network(**kwargs)
 
     def __init__(self, json=None, **kwargs):
         if json is None and not kwargs:
@@ -60,7 +47,7 @@ class Network(object):
         if val is not None:
             datatypes = [dict]
             try:
-                self.capabilitiesByName = client_support.val_factory(val, datatypes)
+                setattr(self, 'capabilitiesByName', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -69,7 +56,7 @@ class Network(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.circuitTestEvery = client_support.val_factory(val, datatypes)
+                setattr(self, 'circuitTestEvery', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -78,7 +65,7 @@ class Network(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.clock = client_support.val_factory(val, datatypes)
+                setattr(self, 'clock', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -87,7 +74,7 @@ class Network(object):
         if val is not None:
             datatypes = [ControllerNetworkConfig]
             try:
-                self.config = client_support.val_factory(val, datatypes)
+                setattr(self, 'config', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -96,7 +83,7 @@ class Network(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.description = client_support.val_factory(val, datatypes)
+                setattr(self, 'description', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -105,7 +92,7 @@ class Network(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.id = client_support.val_factory(val, datatypes)
+                setattr(self, 'id', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -114,7 +101,7 @@ class Network(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.onlineMemberCount = client_support.val_factory(val, datatypes)
+                setattr(self, 'onlineMemberCount', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -123,7 +110,7 @@ class Network(object):
         if val is not None:
             datatypes = [Permissions]
             try:
-                self.permissions = client_support.val_factory(val, datatypes)
+                setattr(self, 'permissions', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -132,7 +119,7 @@ class Network(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.rulesSource = client_support.val_factory(val, datatypes)
+                setattr(self, 'rulesSource', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -141,7 +128,7 @@ class Network(object):
         if val is not None:
             datatypes = [dict]
             try:
-                self.tagsByName = client_support.val_factory(val, datatypes)
+                setattr(self, 'tagsByName', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -150,7 +137,7 @@ class Network(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.type = client_support.val_factory(val, datatypes)
+                setattr(self, 'type', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -159,7 +146,7 @@ class Network(object):
         if val is not None:
             datatypes = [dict]
             try:
-                self.ui = client_support.val_factory(val, datatypes)
+                setattr(self, 'ui', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 

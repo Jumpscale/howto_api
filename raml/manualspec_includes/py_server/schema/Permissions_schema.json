@@ -1,0 +1,9 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"type": "object",
+	"properties": {
+		"id": {
+			"$ref": "id_schema.json"
+		}
+	}
+}

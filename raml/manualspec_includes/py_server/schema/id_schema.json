@@ -1,0 +1,21 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"type": "object",
+	"properties": {
+		"a": {
+			"type": "boolean"
+		},
+		"d": {
+			"type": "boolean"
+		},
+		"m": {
+			"type": "boolean"
+		},
+		"r": {
+			"type": "boolean"
+		},
+		"t": {
+			"type": "string"
+		}
+	}
+}

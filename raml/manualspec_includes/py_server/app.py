@@ -1,14 +1,10 @@
 from flask import Flask, send_from_directory, send_file
-import wtforms_json
-from network import network_api
-from self import self_api
-from status import status_api
+from network_api import network_api
+from self_api import self_api
+from status_api import status_api
 
 
 app = Flask(__name__)
-
-app.config["WTF_CSRF_ENABLED"] = False
-wtforms_json.init()
 
 app.register_blueprint(network_api)
 app.register_blueprint(self_api)

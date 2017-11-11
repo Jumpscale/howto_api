@@ -1,0 +1,78 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"type": "object",
+	"properties": {
+		"activeMemberCount": {
+			"type": "number"
+		},
+		"authTokens": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
+		},
+		"authorizedMemberCount": {
+			"type": "number"
+		},
+		"capabilities": {
+			"type": "array",
+			"items": {
+				"$ref": "object_schema.json"
+			}
+		},
+		"creationTime": {
+			"type": "number"
+		},
+		"id": {
+			"type": "string"
+		},
+		"lastModified": {
+			"type": "number"
+		},
+		"multicastLimit": {
+			"type": "number"
+		},
+		"name": {
+			"type": "string"
+		},
+		"nwid": {
+			"type": "string"
+		},
+		"objtype": {
+			"type": "string"
+		},
+		"private": {
+			"type": "boolean"
+		},
+		"revision": {
+			"type": "number"
+		},
+		"routes": {
+			"type": "array",
+			"items": {
+				"$ref": "object_schema.json"
+			}
+		},
+		"rules": {
+			"type": "array",
+			"items": {
+				"$ref": "object_schema.json"
+			}
+		},
+		"tags": {
+			"type": "array",
+			"items": {
+				"$ref": "object_schema.json"
+			}
+		},
+		"totalMemberCount": {
+			"type": "number"
+		},
+		"v4AssignMode": {
+			"$ref": "object_schema.json"
+		},
+		"v6AssignMode": {
+			"$ref": "object_schema.json"
+		}
+	}
+}

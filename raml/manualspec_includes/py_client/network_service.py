@@ -31,18 +31,18 @@ class NetworkService:
         return self.client.post(uri, data, headers, query_params, content_type)
 
 
-    def getNetwork(self, id, networkid, headers=None, query_params=None, content_type="application/json"):
+    def getMember(self, id, networkid, headers=None, query_params=None, content_type="application/json"):
         """
-        Get network, id=10-digit ZeroTier node ID (a.k.a. ZeroTier address)
+        Get member, id=10-digit ZeroTier node ID (a.k.a. ZeroTier address)
         It is method for GET /network/{networkid}/member/{id}
         """
         uri = self.client.base_url + "/network/"+networkid+"/member/"+id
         return self.client.get(uri, None, headers, query_params, content_type)
 
 
-    def updateNetwork(self, data, id, networkid, headers=None, query_params=None, content_type="application/json"):
+    def updateMember(self, data, id, networkid, headers=None, query_params=None, content_type="application/json"):
         """
-        Update network
+        Update member
         It is method for POST /network/{networkid}/member/{id}
         """
         uri = self.client.base_url + "/network/"+networkid+"/member/"+id
@@ -51,7 +51,7 @@ class NetworkService:
 
     def network_byNetworkidmember_get(self, networkid, headers=None, query_params=None, content_type="application/json"):
         """
-        Get a list of networks
+        Get a list of members
         It is method for GET /network/{networkid}/member
         """
         uri = self.client.base_url + "/network/"+networkid+"/member"

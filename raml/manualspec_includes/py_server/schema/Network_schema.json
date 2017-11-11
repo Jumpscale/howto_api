@@ -1,0 +1,42 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"type": "object",
+	"properties": {
+		"capabilitiesByName": {
+			"$ref": "object_schema.json"
+		},
+		"circuitTestEvery": {
+			"type": "number"
+		},
+		"clock": {
+			"type": "number"
+		},
+		"config": {
+			"$ref": "ControllerNetworkConfig_schema.json"
+		},
+		"description": {
+			"type": "string"
+		},
+		"id": {
+			"type": "string"
+		},
+		"onlineMemberCount": {
+			"type": "number"
+		},
+		"permissions": {
+			"$ref": "Permissions_schema.json"
+		},
+		"rulesSource": {
+			"type": "string"
+		},
+		"tagsByName": {
+			"$ref": "object_schema.json"
+		},
+		"type": {
+			"type": "string"
+		},
+		"ui": {
+			"$ref": "object_schema.json"
+		}
+	}
+}

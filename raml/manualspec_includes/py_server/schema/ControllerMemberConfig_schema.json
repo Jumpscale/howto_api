@@ -1,0 +1,66 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"type": "object",
+	"properties": {
+		"address": {
+			"type": "string"
+		},
+		"authHistory": {
+			"type": "array",
+			"items": {
+				"$ref": "object_schema.json"
+			}
+		},
+		"authorized": {
+			"type": "boolean"
+		},
+		"capabilities": {
+			"type": "array",
+			"items": {
+				"type": "number"
+			}
+		},
+		"creationTime": {
+			"type": "number"
+		},
+		"id": {
+			"type": "string"
+		},
+		"identity": {
+			"type": "string"
+		},
+		"ipAssignments": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
+		},
+		"lastAuthorizedTime": {
+			"type": "number"
+		},
+		"lastDeauthorizedTime": {
+			"type": "number"
+		},
+		"noAutoAssignIps": {
+			"type": "boolean"
+		},
+		"nwid": {
+			"type": "string"
+		},
+		"objtype": {
+			"type": "string"
+		},
+		"physicalAddr": {
+			"type": "string"
+		},
+		"revision": {
+			"type": "number"
+		},
+		"tags": {
+			"type": "array",
+			"items": {
+				"type": "number"
+			}
+		}
+	}
+}

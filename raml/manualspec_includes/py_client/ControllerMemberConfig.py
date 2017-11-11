@@ -11,7 +11,7 @@ class ControllerMemberConfig(object):
     """
 
     @staticmethod
-    def create(address=None, authHistory=None, authorized=None, capabilities=None, creationTime=None, id=None, identity=None, ipAssignments=None, lastAuthorizedTime=None, lastDeauthorizedTime=None, noAutoAssignIps=None, nwid=None, objtype=None, physicalAddr=None, revision=None, tags=None):
+    def create(**kwargs):
         """
         :type address: str
         :type authHistory: list[dict]
@@ -32,24 +32,7 @@ class ControllerMemberConfig(object):
         :rtype: ControllerMemberConfig
         """
 
-        return ControllerMemberConfig(
-            address=address,
-            authHistory=authHistory,
-            authorized=authorized,
-            capabilities=capabilities,
-            creationTime=creationTime,
-            id=id,
-            identity=identity,
-            ipAssignments=ipAssignments,
-            lastAuthorizedTime=lastAuthorizedTime,
-            lastDeauthorizedTime=lastDeauthorizedTime,
-            noAutoAssignIps=noAutoAssignIps,
-            nwid=nwid,
-            objtype=objtype,
-            physicalAddr=physicalAddr,
-            revision=revision,
-            tags=tags,
-        )
+        return ControllerMemberConfig(**kwargs)
 
     def __init__(self, json=None, **kwargs):
         if json is None and not kwargs:
@@ -66,7 +49,7 @@ class ControllerMemberConfig(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.address = client_support.val_factory(val, datatypes)
+                setattr(self, 'address', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -75,7 +58,7 @@ class ControllerMemberConfig(object):
         if val is not None:
             datatypes = [dict]
             try:
-                self.authHistory = client_support.list_factory(val, datatypes)
+                setattr(self, 'authHistory', client_support.list_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -84,7 +67,7 @@ class ControllerMemberConfig(object):
         if val is not None:
             datatypes = [bool]
             try:
-                self.authorized = client_support.val_factory(val, datatypes)
+                setattr(self, 'authorized', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -93,7 +76,7 @@ class ControllerMemberConfig(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.capabilities = client_support.list_factory(val, datatypes)
+                setattr(self, 'capabilities', client_support.list_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -102,7 +85,7 @@ class ControllerMemberConfig(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.creationTime = client_support.val_factory(val, datatypes)
+                setattr(self, 'creationTime', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -111,7 +94,7 @@ class ControllerMemberConfig(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.id = client_support.val_factory(val, datatypes)
+                setattr(self, 'id', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -120,7 +103,7 @@ class ControllerMemberConfig(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.identity = client_support.val_factory(val, datatypes)
+                setattr(self, 'identity', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -129,7 +112,7 @@ class ControllerMemberConfig(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.ipAssignments = client_support.list_factory(val, datatypes)
+                setattr(self, 'ipAssignments', client_support.list_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -138,7 +121,7 @@ class ControllerMemberConfig(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.lastAuthorizedTime = client_support.val_factory(val, datatypes)
+                setattr(self, 'lastAuthorizedTime', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -147,7 +130,7 @@ class ControllerMemberConfig(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.lastDeauthorizedTime = client_support.val_factory(val, datatypes)
+                setattr(self, 'lastDeauthorizedTime', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -156,7 +139,7 @@ class ControllerMemberConfig(object):
         if val is not None:
             datatypes = [bool]
             try:
-                self.noAutoAssignIps = client_support.val_factory(val, datatypes)
+                setattr(self, 'noAutoAssignIps', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -165,7 +148,7 @@ class ControllerMemberConfig(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.nwid = client_support.val_factory(val, datatypes)
+                setattr(self, 'nwid', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -174,7 +157,7 @@ class ControllerMemberConfig(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.objtype = client_support.val_factory(val, datatypes)
+                setattr(self, 'objtype', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -183,7 +166,7 @@ class ControllerMemberConfig(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.physicalAddr = client_support.val_factory(val, datatypes)
+                setattr(self, 'physicalAddr', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -192,7 +175,7 @@ class ControllerMemberConfig(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.revision = client_support.val_factory(val, datatypes)
+                setattr(self, 'revision', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -201,7 +184,7 @@ class ControllerMemberConfig(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.tags = client_support.list_factory(val, datatypes)
+                setattr(self, 'tags', client_support.list_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 

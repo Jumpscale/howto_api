@@ -1,0 +1,45 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"type": "object",
+	"properties": {
+		"apiVersion": {
+			"type": "number"
+		},
+		"clock": {
+			"type": "number"
+		},
+		"clusterNode": {
+			"type": "string"
+		},
+		"loginMethods": {
+			"$ref": "object_schema.json"
+		},
+		"online": {
+			"type": "boolean"
+		},
+		"paidPlans": {
+			"$ref": "object_schema.json"
+		},
+		"recaptchaSiteKey": {
+			"type": "string"
+		},
+		"return_to": {
+			"type": "string"
+		},
+		"smsEnabled": {
+			"type": "boolean"
+		},
+		"stripePublishableKey": {
+			"type": "string"
+		},
+		"uptime": {
+			"type": "number"
+		},
+		"user": {
+			"$ref": "object_schema.json"
+		},
+		"version": {
+			"type": "string"
+		}
+	}
+}

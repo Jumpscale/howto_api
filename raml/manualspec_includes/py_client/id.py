@@ -11,7 +11,7 @@ class id(object):
     """
 
     @staticmethod
-    def create(a=None, d=None, m=None, r=None, t=None):
+    def create(**kwargs):
         """
         :type a: bool
         :type d: bool
@@ -21,13 +21,7 @@ class id(object):
         :rtype: id
         """
 
-        return id(
-            a=a,
-            d=d,
-            m=m,
-            r=r,
-            t=t,
-        )
+        return id(**kwargs)
 
     def __init__(self, json=None, **kwargs):
         if json is None and not kwargs:
@@ -44,7 +38,7 @@ class id(object):
         if val is not None:
             datatypes = [bool]
             try:
-                self.a = client_support.val_factory(val, datatypes)
+                setattr(self, 'a', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -53,7 +47,7 @@ class id(object):
         if val is not None:
             datatypes = [bool]
             try:
-                self.d = client_support.val_factory(val, datatypes)
+                setattr(self, 'd', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -62,7 +56,7 @@ class id(object):
         if val is not None:
             datatypes = [bool]
             try:
-                self.m = client_support.val_factory(val, datatypes)
+                setattr(self, 'm', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -71,7 +65,7 @@ class id(object):
         if val is not None:
             datatypes = [bool]
             try:
-                self.r = client_support.val_factory(val, datatypes)
+                setattr(self, 'r', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -80,7 +74,7 @@ class id(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.t = client_support.val_factory(val, datatypes)
+                setattr(self, 't', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 

@@ -11,7 +11,7 @@ class ControllerNetworkConfig(object):
     """
 
     @staticmethod
-    def create(activeMemberCount=None, authTokens=None, authorizedMemberCount=None, capabilities=None, creationTime=None, id=None, lastModified=None, multicastLimit=None, name=None, nwid=None, objtype=None, private=None, revision=None, routes=None, rules=None, tags=None, totalMemberCount=None, v4AssignMode=None, v6AssignMode=None):
+    def create(**kwargs):
         """
         :type activeMemberCount: float
         :type authTokens: list[str]
@@ -35,27 +35,7 @@ class ControllerNetworkConfig(object):
         :rtype: ControllerNetworkConfig
         """
 
-        return ControllerNetworkConfig(
-            activeMemberCount=activeMemberCount,
-            authTokens=authTokens,
-            authorizedMemberCount=authorizedMemberCount,
-            capabilities=capabilities,
-            creationTime=creationTime,
-            id=id,
-            lastModified=lastModified,
-            multicastLimit=multicastLimit,
-            name=name,
-            nwid=nwid,
-            objtype=objtype,
-            private=private,
-            revision=revision,
-            routes=routes,
-            rules=rules,
-            tags=tags,
-            totalMemberCount=totalMemberCount,
-            v4AssignMode=v4AssignMode,
-            v6AssignMode=v6AssignMode,
-        )
+        return ControllerNetworkConfig(**kwargs)
 
     def __init__(self, json=None, **kwargs):
         if json is None and not kwargs:
@@ -72,7 +52,7 @@ class ControllerNetworkConfig(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.activeMemberCount = client_support.val_factory(val, datatypes)
+                setattr(self, 'activeMemberCount', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -81,7 +61,7 @@ class ControllerNetworkConfig(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.authTokens = client_support.list_factory(val, datatypes)
+                setattr(self, 'authTokens', client_support.list_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -90,7 +70,7 @@ class ControllerNetworkConfig(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.authorizedMemberCount = client_support.val_factory(val, datatypes)
+                setattr(self, 'authorizedMemberCount', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -99,7 +79,7 @@ class ControllerNetworkConfig(object):
         if val is not None:
             datatypes = [dict]
             try:
-                self.capabilities = client_support.list_factory(val, datatypes)
+                setattr(self, 'capabilities', client_support.list_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -108,7 +88,7 @@ class ControllerNetworkConfig(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.creationTime = client_support.val_factory(val, datatypes)
+                setattr(self, 'creationTime', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -117,7 +97,7 @@ class ControllerNetworkConfig(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.id = client_support.val_factory(val, datatypes)
+                setattr(self, 'id', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -126,7 +106,7 @@ class ControllerNetworkConfig(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.lastModified = client_support.val_factory(val, datatypes)
+                setattr(self, 'lastModified', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -135,7 +115,7 @@ class ControllerNetworkConfig(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.multicastLimit = client_support.val_factory(val, datatypes)
+                setattr(self, 'multicastLimit', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -144,7 +124,7 @@ class ControllerNetworkConfig(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.name = client_support.val_factory(val, datatypes)
+                setattr(self, 'name', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -153,7 +133,7 @@ class ControllerNetworkConfig(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.nwid = client_support.val_factory(val, datatypes)
+                setattr(self, 'nwid', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -162,7 +142,7 @@ class ControllerNetworkConfig(object):
         if val is not None:
             datatypes = [str]
             try:
-                self.objtype = client_support.val_factory(val, datatypes)
+                setattr(self, 'objtype', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -171,7 +151,7 @@ class ControllerNetworkConfig(object):
         if val is not None:
             datatypes = [bool]
             try:
-                self.private = client_support.val_factory(val, datatypes)
+                setattr(self, 'private', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -180,7 +160,7 @@ class ControllerNetworkConfig(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.revision = client_support.val_factory(val, datatypes)
+                setattr(self, 'revision', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -189,7 +169,7 @@ class ControllerNetworkConfig(object):
         if val is not None:
             datatypes = [dict]
             try:
-                self.routes = client_support.list_factory(val, datatypes)
+                setattr(self, 'routes', client_support.list_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -198,7 +178,7 @@ class ControllerNetworkConfig(object):
         if val is not None:
             datatypes = [dict]
             try:
-                self.rules = client_support.list_factory(val, datatypes)
+                setattr(self, 'rules', client_support.list_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -207,7 +187,7 @@ class ControllerNetworkConfig(object):
         if val is not None:
             datatypes = [dict]
             try:
-                self.tags = client_support.list_factory(val, datatypes)
+                setattr(self, 'tags', client_support.list_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -216,7 +196,7 @@ class ControllerNetworkConfig(object):
         if val is not None:
             datatypes = [float]
             try:
-                self.totalMemberCount = client_support.val_factory(val, datatypes)
+                setattr(self, 'totalMemberCount', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -225,7 +205,7 @@ class ControllerNetworkConfig(object):
         if val is not None:
             datatypes = [dict]
             try:
-                self.v4AssignMode = client_support.val_factory(val, datatypes)
+                setattr(self, 'v4AssignMode', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
@@ -234,7 +214,7 @@ class ControllerNetworkConfig(object):
         if val is not None:
             datatypes = [dict]
             try:
-                self.v6AssignMode = client_support.val_factory(val, datatypes)
+                setattr(self, 'v6AssignMode', client_support.val_factory(val, datatypes))
             except ValueError as err:
                 raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
 
