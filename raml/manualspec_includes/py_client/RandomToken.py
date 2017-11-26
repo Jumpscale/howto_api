@@ -1,6 +1,7 @@
 """
 Auto-generated class for RandomToken
 """
+from six import string_types
 
 from . import client_support
 
@@ -26,37 +27,15 @@ class RandomToken(object):
             raise ValueError('No data or kwargs present')
 
         class_name = 'RandomToken'
-        create_error = '{cls}: unable to create {prop} from value: {val}: {err}'
-        required_error = '{cls}: missing required property {prop}'
-
         data = json or kwargs
 
-        property_name = 'clock'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'clock', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'raw'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'raw', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'token'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'token', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
+        # set attributes
+        data_types = [float]
+        self.clock = client_support.set_property('clock', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.raw = client_support.set_property('raw', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.token = client_support.set_property('token', data, data_types, False, [], False, False, class_name)
 
     def __str__(self):
         return self.as_json(indent=4)

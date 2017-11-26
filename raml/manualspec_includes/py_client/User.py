@@ -3,6 +3,7 @@ Auto-generated class for User
 """
 from .GlobalPermissions import GlobalPermissions
 from .Permissions import Permissions
+from six import string_types
 
 from . import client_support
 
@@ -37,118 +38,33 @@ class User(object):
             raise ValueError('No data or kwargs present')
 
         class_name = 'User'
-        create_error = '{cls}: unable to create {prop} from value: {val}: {err}'
-        required_error = '{cls}: missing required property {prop}'
-
         data = json or kwargs
 
-        property_name = 'auth'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [dict]
-            try:
-                setattr(self, 'auth', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'clock'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'clock', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'displayName'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'displayName', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'email'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'email', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'globalPermissions'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [GlobalPermissions]
-            try:
-                setattr(self, 'globalPermissions', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'id'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'id', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'permissions'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [Permissions]
-            try:
-                setattr(self, 'permissions', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'smsNumber'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'smsNumber', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'subscriptions'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [dict]
-            try:
-                setattr(self, 'subscriptions', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'tokens'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'tokens', client_support.list_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'type'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'type', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'ui'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [dict]
-            try:
-                setattr(self, 'ui', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
+        # set attributes
+        data_types = [dict]
+        self.auth = client_support.set_property('auth', data, data_types, False, [], False, False, class_name)
+        data_types = [float]
+        self.clock = client_support.set_property('clock', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.displayName = client_support.set_property('displayName', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.email = client_support.set_property('email', data, data_types, False, [], False, False, class_name)
+        data_types = [GlobalPermissions]
+        self.globalPermissions = client_support.set_property('globalPermissions', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.id = client_support.set_property('id', data, data_types, False, [], False, False, class_name)
+        data_types = [Permissions]
+        self.permissions = client_support.set_property('permissions', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.smsNumber = client_support.set_property('smsNumber', data, data_types, False, [], False, False, class_name)
+        data_types = [dict]
+        self.subscriptions = client_support.set_property('subscriptions', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.tokens = client_support.set_property('tokens', data, data_types, False, [], True, False, class_name)
+        data_types = [string_types]
+        self.type = client_support.set_property('type', data, data_types, False, [], False, False, class_name)
+        data_types = [dict]
+        self.ui = client_support.set_property('ui', data, data_types, False, [], False, False, class_name)
 
     def __str__(self):
         return self.as_json(indent=4)

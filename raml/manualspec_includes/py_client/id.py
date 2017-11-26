@@ -1,6 +1,7 @@
 """
 Auto-generated class for id
 """
+from six import string_types
 
 from . import client_support
 
@@ -28,55 +29,19 @@ class id(object):
             raise ValueError('No data or kwargs present')
 
         class_name = 'id'
-        create_error = '{cls}: unable to create {prop} from value: {val}: {err}'
-        required_error = '{cls}: missing required property {prop}'
-
         data = json or kwargs
 
-        property_name = 'a'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [bool]
-            try:
-                setattr(self, 'a', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'd'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [bool]
-            try:
-                setattr(self, 'd', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'm'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [bool]
-            try:
-                setattr(self, 'm', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'r'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [bool]
-            try:
-                setattr(self, 'r', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 't'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 't', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
+        # set attributes
+        data_types = [bool]
+        self.a = client_support.set_property('a', data, data_types, False, [], False, False, class_name)
+        data_types = [bool]
+        self.d = client_support.set_property('d', data, data_types, False, [], False, False, class_name)
+        data_types = [bool]
+        self.m = client_support.set_property('m', data, data_types, False, [], False, False, class_name)
+        data_types = [bool]
+        self.r = client_support.set_property('r', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.t = client_support.set_property('t', data, data_types, False, [], False, False, class_name)
 
     def __str__(self):
         return self.as_json(indent=4)
