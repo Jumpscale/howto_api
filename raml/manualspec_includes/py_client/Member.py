@@ -2,6 +2,7 @@
 Auto-generated class for Member
 """
 from .ControllerMemberConfig import ControllerMemberConfig
+from six import string_types
 
 from . import client_support
 
@@ -44,190 +45,49 @@ class Member(object):
             raise ValueError('No data or kwargs present')
 
         class_name = 'Member'
-        create_error = '{cls}: unable to create {prop} from value: {val}: {err}'
-        required_error = '{cls}: missing required property {prop}'
-
         data = json or kwargs
 
-        property_name = 'clientVersion'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'clientVersion', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'clock'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'clock', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'config'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [ControllerMemberConfig]
-            try:
-                setattr(self, 'config', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'controllerId'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'controllerId', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'description'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'description', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'hidden'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [bool]
-            try:
-                setattr(self, 'hidden', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'id'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'id', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'lastOffline'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'lastOffline', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'lastOnline'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'lastOnline', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'name'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'name', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'networkId'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'networkId', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'nodeId'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'nodeId', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'offlineNotifyDelay'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'offlineNotifyDelay', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'online'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [bool]
-            try:
-                setattr(self, 'online', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'physicalAddress'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'physicalAddress', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'physicalLocation'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [dict]
-            try:
-                setattr(self, 'physicalLocation', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'protocolVersion'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'protocolVersion', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'supportsCircuitTesting'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [bool]
-            try:
-                setattr(self, 'supportsCircuitTesting', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'supportsRulesEngine'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [bool]
-            try:
-                setattr(self, 'supportsRulesEngine', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'type'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'type', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
+        # set attributes
+        data_types = [string_types]
+        self.clientVersion = client_support.set_property('clientVersion', data, data_types, False, [], False, False, class_name)
+        data_types = [float]
+        self.clock = client_support.set_property('clock', data, data_types, False, [], False, False, class_name)
+        data_types = [ControllerMemberConfig]
+        self.config = client_support.set_property('config', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.controllerId = client_support.set_property('controllerId', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.description = client_support.set_property('description', data, data_types, False, [], False, False, class_name)
+        data_types = [bool]
+        self.hidden = client_support.set_property('hidden', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.id = client_support.set_property('id', data, data_types, False, [], False, False, class_name)
+        data_types = [float]
+        self.lastOffline = client_support.set_property('lastOffline', data, data_types, False, [], False, False, class_name)
+        data_types = [float]
+        self.lastOnline = client_support.set_property('lastOnline', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.name = client_support.set_property('name', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.networkId = client_support.set_property('networkId', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.nodeId = client_support.set_property('nodeId', data, data_types, False, [], False, False, class_name)
+        data_types = [float]
+        self.offlineNotifyDelay = client_support.set_property('offlineNotifyDelay', data, data_types, False, [], False, False, class_name)
+        data_types = [bool]
+        self.online = client_support.set_property('online', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.physicalAddress = client_support.set_property('physicalAddress', data, data_types, False, [], False, False, class_name)
+        data_types = [dict]
+        self.physicalLocation = client_support.set_property('physicalLocation', data, data_types, False, [], False, False, class_name)
+        data_types = [float]
+        self.protocolVersion = client_support.set_property('protocolVersion', data, data_types, False, [], False, False, class_name)
+        data_types = [bool]
+        self.supportsCircuitTesting = client_support.set_property('supportsCircuitTesting', data, data_types, False, [], False, False, class_name)
+        data_types = [bool]
+        self.supportsRulesEngine = client_support.set_property('supportsRulesEngine', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.type = client_support.set_property('type', data, data_types, False, [], False, False, class_name)
 
     def __str__(self):
         return self.as_json(indent=4)

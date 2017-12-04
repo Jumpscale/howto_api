@@ -1,8 +1,7 @@
 import requests
 
-from .network_service import NetworkService 
-from .self_service import SelfService 
-from .status_service import StatusService 
+from .group_service import GroupService 
+from .user_service import UserService 
 
 
 class Client:
@@ -10,9 +9,8 @@ class Client:
         self.base_url = base_uri
         self.session = requests.Session()
         
-        self.network = NetworkService(self)
-        self.self = SelfService(self)
-        self.status = StatusService(self)
+        self.group = GroupService(self)
+        self.user = UserService(self)
 
     def is_goraml_class(self, data):
         # check if a data is go-raml generated class

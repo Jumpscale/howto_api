@@ -1,6 +1,7 @@
 """
 Auto-generated class for ControllerMemberConfig
 """
+from six import string_types
 
 from . import client_support
 
@@ -39,154 +40,41 @@ class ControllerMemberConfig(object):
             raise ValueError('No data or kwargs present')
 
         class_name = 'ControllerMemberConfig'
-        create_error = '{cls}: unable to create {prop} from value: {val}: {err}'
-        required_error = '{cls}: missing required property {prop}'
-
         data = json or kwargs
 
-        property_name = 'address'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'address', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'authHistory'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [dict]
-            try:
-                setattr(self, 'authHistory', client_support.list_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'authorized'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [bool]
-            try:
-                setattr(self, 'authorized', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'capabilities'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'capabilities', client_support.list_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'creationTime'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'creationTime', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'id'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'id', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'identity'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'identity', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'ipAssignments'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'ipAssignments', client_support.list_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'lastAuthorizedTime'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'lastAuthorizedTime', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'lastDeauthorizedTime'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'lastDeauthorizedTime', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'noAutoAssignIps'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [bool]
-            try:
-                setattr(self, 'noAutoAssignIps', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'nwid'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'nwid', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'objtype'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'objtype', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'physicalAddr'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'physicalAddr', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'revision'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'revision', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'tags'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'tags', client_support.list_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
+        # set attributes
+        data_types = [string_types]
+        self.address = client_support.set_property('address', data, data_types, False, [], False, False, class_name)
+        data_types = [dict]
+        self.authHistory = client_support.set_property('authHistory', data, data_types, False, [], True, False, class_name)
+        data_types = [bool]
+        self.authorized = client_support.set_property('authorized', data, data_types, False, [], False, False, class_name)
+        data_types = [float]
+        self.capabilities = client_support.set_property('capabilities', data, data_types, False, [], True, False, class_name)
+        data_types = [float]
+        self.creationTime = client_support.set_property('creationTime', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.id = client_support.set_property('id', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.identity = client_support.set_property('identity', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.ipAssignments = client_support.set_property('ipAssignments', data, data_types, False, [], True, False, class_name)
+        data_types = [float]
+        self.lastAuthorizedTime = client_support.set_property('lastAuthorizedTime', data, data_types, False, [], False, False, class_name)
+        data_types = [float]
+        self.lastDeauthorizedTime = client_support.set_property('lastDeauthorizedTime', data, data_types, False, [], False, False, class_name)
+        data_types = [bool]
+        self.noAutoAssignIps = client_support.set_property('noAutoAssignIps', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.nwid = client_support.set_property('nwid', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.objtype = client_support.set_property('objtype', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.physicalAddr = client_support.set_property('physicalAddr', data, data_types, False, [], False, False, class_name)
+        data_types = [float]
+        self.revision = client_support.set_property('revision', data, data_types, False, [], False, False, class_name)
+        data_types = [float]
+        self.tags = client_support.set_property('tags', data, data_types, False, [], True, False, class_name)
 
     def __str__(self):
         return self.as_json(indent=4)

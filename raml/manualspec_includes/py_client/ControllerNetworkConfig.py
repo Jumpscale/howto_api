@@ -1,6 +1,7 @@
 """
 Auto-generated class for ControllerNetworkConfig
 """
+from six import string_types
 
 from . import client_support
 
@@ -42,181 +43,47 @@ class ControllerNetworkConfig(object):
             raise ValueError('No data or kwargs present')
 
         class_name = 'ControllerNetworkConfig'
-        create_error = '{cls}: unable to create {prop} from value: {val}: {err}'
-        required_error = '{cls}: missing required property {prop}'
-
         data = json or kwargs
 
-        property_name = 'activeMemberCount'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'activeMemberCount', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'authTokens'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'authTokens', client_support.list_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'authorizedMemberCount'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'authorizedMemberCount', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'capabilities'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [dict]
-            try:
-                setattr(self, 'capabilities', client_support.list_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'creationTime'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'creationTime', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'id'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'id', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'lastModified'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'lastModified', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'multicastLimit'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'multicastLimit', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'name'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'name', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'nwid'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'nwid', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'objtype'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [str]
-            try:
-                setattr(self, 'objtype', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'private'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [bool]
-            try:
-                setattr(self, 'private', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'revision'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'revision', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'routes'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [dict]
-            try:
-                setattr(self, 'routes', client_support.list_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'rules'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [dict]
-            try:
-                setattr(self, 'rules', client_support.list_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'tags'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [dict]
-            try:
-                setattr(self, 'tags', client_support.list_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'totalMemberCount'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [float]
-            try:
-                setattr(self, 'totalMemberCount', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'v4AssignMode'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [dict]
-            try:
-                setattr(self, 'v4AssignMode', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
-
-        property_name = 'v6AssignMode'
-        val = data.get(property_name)
-        if val is not None:
-            datatypes = [dict]
-            try:
-                setattr(self, 'v6AssignMode', client_support.val_factory(val, datatypes))
-            except ValueError as err:
-                raise ValueError(create_error.format(cls=class_name, prop=property_name, val=val, err=err))
+        # set attributes
+        data_types = [float]
+        self.activeMemberCount = client_support.set_property('activeMemberCount', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.authTokens = client_support.set_property('authTokens', data, data_types, False, [], True, False, class_name)
+        data_types = [float]
+        self.authorizedMemberCount = client_support.set_property('authorizedMemberCount', data, data_types, False, [], False, False, class_name)
+        data_types = [dict]
+        self.capabilities = client_support.set_property('capabilities', data, data_types, False, [], True, False, class_name)
+        data_types = [float]
+        self.creationTime = client_support.set_property('creationTime', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.id = client_support.set_property('id', data, data_types, False, [], False, False, class_name)
+        data_types = [float]
+        self.lastModified = client_support.set_property('lastModified', data, data_types, False, [], False, False, class_name)
+        data_types = [float]
+        self.multicastLimit = client_support.set_property('multicastLimit', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.name = client_support.set_property('name', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.nwid = client_support.set_property('nwid', data, data_types, False, [], False, False, class_name)
+        data_types = [string_types]
+        self.objtype = client_support.set_property('objtype', data, data_types, False, [], False, False, class_name)
+        data_types = [bool]
+        self.private = client_support.set_property('private', data, data_types, False, [], False, False, class_name)
+        data_types = [float]
+        self.revision = client_support.set_property('revision', data, data_types, False, [], False, False, class_name)
+        data_types = [dict]
+        self.routes = client_support.set_property('routes', data, data_types, False, [], True, False, class_name)
+        data_types = [dict]
+        self.rules = client_support.set_property('rules', data, data_types, False, [], True, False, class_name)
+        data_types = [dict]
+        self.tags = client_support.set_property('tags', data, data_types, False, [], True, False, class_name)
+        data_types = [float]
+        self.totalMemberCount = client_support.set_property('totalMemberCount', data, data_types, False, [], False, False, class_name)
+        data_types = [dict]
+        self.v4AssignMode = client_support.set_property('v4AssignMode', data, data_types, False, [], False, False, class_name)
+        data_types = [dict]
+        self.v6AssignMode = client_support.set_property('v6AssignMode', data, data_types, False, [], False, False, class_name)
 
     def __str__(self):
         return self.as_json(indent=4)

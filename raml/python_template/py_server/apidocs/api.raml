@@ -1,0 +1,183 @@
+#%RAML 1.0
+title: User/Group example api
+version: 0.8.0
+baseUri: 'http://127.0.0.1:5000/'
+mediaType: application/json
+protocols:
+  - HTTPS
+
+types: 
+       
+       User:
+         displayName: User
+         type: object
+         properties:
+           id:
+             required: false
+             displayName: id
+             description: int
+             type: number
+             format: double
+           name:
+             required: true
+             displayName: name
+             description: name
+             type: string
+       
+       Group:
+         displayName: Group
+         type: object
+         properties:
+           id:
+             required: false
+             displayName: id
+             description: int
+             type: number
+             format: double
+           name:
+             required: true
+             displayName: name
+             description: name
+             type: string
+resourceTypes:  
+                
+                std_id:
+                  displayName: '{id}'
+                  uriParameters:
+                    id:
+                      description: Object identifier
+                      type: string
+                      displayName: Object identifier
+                
+                std_id_post:
+                  displayName: '{id}'
+                  uriParameters:
+                    id:
+                      description: Object identifier
+                      type: string
+                      displayName: Object identifier
+                  post:
+                    is: [stdresponse]
+                    displayName: update<<resourcePathName | !singularize | !uppercamelcase>>
+                    description: Update <<resourcePathName | !singularize>> configuration
+                    body:
+                      application/json:
+                        type: <<resourcePathName | !singularize | !uppercamelcase>>
+                
+                std_id_get_post:
+                  displayName: '{id}'
+                  uriParameters:
+                    id:
+                      description: Object identifier <<descr>>
+                      type: string
+                      displayName: Object identifier
+                
+                  get:
+                    is: [stdresponse,authfailure]
+                    displayName: get<<resourcePathName | !singularize | !uppercamelcase>>
+                    description: Get <<resourcePathName | !singularize>>, <<descr>>
+                
+                  post:
+                    is: [stdresponse,authfailure]
+                    displayName: update<<resourcePathName | !singularize | !uppercamelcase>>
+                    description: Update <<resourcePathName | !singularize>>
+                    body:
+                      application/json:
+                        type: <<resourcePathName | !singularize | !uppercamelcase>>
+                
+                std_id_get_post_del:
+                  displayName: '{id}'
+                  uriParameters:
+                    id:
+                      description: <<descr>>
+                      type: string
+                
+                  get:
+                    is: [stdresponse,authfailure]
+                    displayName: get<<resourcePathName | !singularize | !uppercamelcase>>
+                    description: Get <<resourcePathName | !singularize>>, <<descr>>
+                
+                  post:
+                    is: [stdresponse,authfailure]
+                    displayName: update<<resourcePathName | !singularize | !uppercamelcase>>
+                    description: Update <<resourcePathName | !singularize>>
+                    body:
+                      application/json:
+                        type: <<resourcePathName | !singularize | !uppercamelcase>>
+                
+                  delete:
+                    is: [stdresponse,authfailure]
+                    displayName: delete<<resourcePathName | !singularize | !uppercamelcase>>
+                    description: Delete <<resourcePathName | !singularize>>
+                    body: {}
+                    responses:
+                      '200':
+                        # body:
+                          # application/json:
+                          #    type: <<resourcePathName | !singularize | !uppercamelcase>>DeleteStatus
+                        description: <<resourcePathName | !singularize | !uppercamelcase>> deleted
+                
+                std_root_list:
+                  displayName: list<<resourcePathName | !singularize | !uppercamelcase >>
+                  get:
+                    is: [listresponse,authfailure]
+                
+                std_root_get:
+                  displayName: get<<resourcePathName | !singularize | !uppercamelcase >>
+                  get:
+                    is: [stdresponse]
+                
+                std_root_get_id:
+                  displayName: '{id}'
+                  uriParameters:
+                    id:
+                      description: <<descr>>
+                      type: string
+                      displayName: Object identifier
+                
+                  get:
+                    is: [listresponse,authfailure]
+traits: 
+        #%RAML 1.0 traits
+        
+        stdresponse:
+          responses:
+            '200':
+              body:
+                application/json:
+                  type: <<resourcePathName | !singularize | !uppercamelcase>>
+        
+        stdresponsetype:
+          responses:
+            '200':
+              body:
+                application/json:
+                  type: <<ttype>>
+        
+        authfailure:
+          responses:
+            '403':
+              body:
+                application/json:
+                  type: string
+              description: Authentication failure or  <<resourcePathName | !singularize | !lowercase >> not viewable
+        
+        listresponse:
+            displayName:  list<<resourcePathName | !pluralize  | !uppercamelcase >>
+            description: Get a list of <<resourcePathName | !pluralize  | !lowercase >>
+            responses:
+              '200':
+                body:
+                  application/json:
+                    type: <<resourcePathName | !singularize | !uppercamelcase>>[]
+                description: Array of <<resourcePathName | !singularize | !uppercamelcase>> objects
+
+/user:
+  type: {std_root_list}
+  '/{id}':
+    type: {std_id_get_post_del: {descr: id=int} }
+
+/group:
+  type: {std_root_list}
+  '/{id}':
+    type: {std_id_get_post_del: {descr: id=int} }
